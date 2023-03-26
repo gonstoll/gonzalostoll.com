@@ -1,4 +1,8 @@
-# Use identity functions
+---
+title: Use identity functions
+date: '2023-03-26'
+spoiler: Leverage better type safe objects with Typescript
+---
 
 In Typescript (and also in JavaScript), when we create an object we automatically get suggestions based on the object’s keys when accessing them:
 
