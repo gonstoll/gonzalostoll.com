@@ -71,7 +71,7 @@ const emailField = formFields.email.id // `email` and `id` are not suggested her
 
 Why is this happening? Well, this is occurring because of how we annotated our `formFields` object. We basically told Typescript: “Hey, this object should have properties of type `string` and values of type `Field`”. By doing so, typescript completely looses track of your keys literals, and in doing so it also looses track of all subsequent nested properties.
 
-This may not look as a complete train reck at first sight. Arguably if you have this object colocated with the piece of code that’s accessing its properties it just might not be a problem. Nonetheless, if at some point we abstract this object away of its execution, we’d effectively be increasing the chances of making a mistake, i.e `formFields.mail.id` (been there done that).
+This may not look as a complete train wreck at first sight. Arguably if you have this object colocated with the piece of code that’s accessing its properties it just might not be a problem. Nonetheless, if at some point we abstract this object away of its execution, we’d effectively be increasing the chances of making a mistake, i.e `formFields.mail.id` (been there done that).
 
 ## Introducing identity functions
 
