@@ -1,6 +1,6 @@
 ---
 title: Use identity functions
-date: '2023-03-26'
+date: '2023-03-27'
 summary: Leverage better type safe objects with Typescript
 ---
 
