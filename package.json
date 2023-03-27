@@ -18,7 +18,8 @@
 		"react-dom": "^18.2.0",
 		"react-markdown": "^8.0.6",
 		"rehype-raw": "^6.1.1",
-		"remark-gfm": "^3.0.1"
+		"remark-gfm": "^3.0.1",
+		"zod": "^3.21.4"
 	},
 	"devDependencies": {
 		"@remix-run/dev": "^1.14.3",

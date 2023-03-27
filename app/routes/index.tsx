@@ -1,4 +1,4 @@
-import {getPostByFilename} from '~/models/blog.server'
+import {frontMatterSchema, getPostByFilename} from '~/models/blog.server'
 import parseFrontMatter from 'front-matter'
 import {useLoaderData} from '@remix-run/react'
 import ReactMarkdown from 'react-markdown'
@@ -11,8 +11,11 @@ export async function loader() {
   if (!markdown) {
     throw new Response('Post not found', {status: 404})
   }
-  const {attributes, body} = parseFrontMatter<{title: string}>(markdown)
-  return {attributes, body}
+  const {attributes, body} = parseFrontMatter(markdown)
+  return {
+    attributes: frontMatterSchema.parse(attributes),
+    body,
+  }
 }
 
 export default function Index() {

@@ -1,7 +1,7 @@
 ---
 title: Use identity functions
 date: '2023-03-26'
-spoiler: Leverage better type safe objects with Typescript
+summary: Leverage better type safe objects with Typescript
 ---
 
 In Typescript (and also in JavaScript), when we create an object we automatically get suggestions based on the object’s keys when accessing them:
@@ -11,9 +11,9 @@ const user = {
   firstName: 'Gonzalo',
   lastName: 'Stoll',
   age: 32,
-};
+}
 
-const userName = user.firstName; // `firstName` here is suggested for us
+const userName = user.firstName // `firstName` here is suggested for us
 //    ^? const userName: string
 ```
 
@@ -28,24 +28,24 @@ const formFields = {
     type: 'mail',
   },
   // ...
-};
+}
 ```
 
 Considering this is an object that holds the configuration to setup a contact form, we’d want to make sure we don’t have a typo or miss a crucial property. We might feel tempted to then do something like this:
 
 ```typescript
 interface Field {
-  id: string;
-  name: string;
-  placeholder: string;
-  type: 'text' | 'number' | 'mail';
+  id: string
+  name: string
+  placeholder: string
+  type: 'text' | 'number' | 'mail'
 }
 
 type Foo = {
-  id: string;
-  name: string;
-  placeholder: string;
-  type: 'text' | 'number' | 'mail';
+  id: string
+  name: string
+  placeholder: string
+  type: 'text' | 'number' | 'mail'
 }
 
 // Equivalent of {[key: string]: Field}
@@ -57,7 +57,7 @@ const formFields: Record<string, Field> = {
     type: 'mail',
   },
   // ...
-};
+}
 ```
 
 ## The type safe problem
@@ -65,7 +65,7 @@ const formFields: Record<string, Field> = {
 At this point, this solution will work jim-dandy and might look like exactly what we need, however there’s a problem waiting for future us:
 
 ```typescript
-const emailField = formFields.email.id; // `email` and `id` are not suggested here
+const emailField = formFields.email.id // `email` and `id` are not suggested here
 //    ^? const emailField: string
 ```
 
@@ -77,13 +77,13 @@ This may not look as a complete train reck at first sight. Arguably if you have 
 
 Taken out of the Typescript docs:
 
-> *The identity function is a function that will return back whatever is passed in.*
+> _The identity function is a function that will return back whatever is passed in._
 
 At its most basic, this is an identity function:
 
 ```typescript
 function identity(arg: number): number {
-  return arg;
+  return arg
 }
 ```
 
@@ -91,7 +91,7 @@ Combining identity functions with generics will introduce you to a world of poss
 
 ```typescript
 function identity<TArg>(arg: TArg) {
-  return arg;
+  return arg
 }
 ```
 
@@ -99,7 +99,7 @@ Notice the `TArg` right next to the function name? That is a generic! Generics a
 
 ```typescript
 function asTypedFields<TFields>(fields: TFields) {
-	return fields;
+  return fields
 }
 ```
 
@@ -107,19 +107,19 @@ Now we have `TFields` as our generic (you can name it as you prefer). Its only j
 
 ```typescript
 const formFields = asTypedFields({
-	email: {
-		// No type safety or autocomplete here :(
-	},
-});
+  email: {
+    // No type safety or autocomplete here :(
+  },
+})
 ```
 
-This is happening because Typescript can’t predict the future (sometimes) and doesn’t know what is the type you’re intending to create. To solve this, we need a type that ***constructs*** the desired `formFields` object signature, and make **that** our functions’ argument:
+This is happening because Typescript can’t predict the future (sometimes) and doesn’t know what is the type you’re intending to create. To solve this, we need a type that **_constructs_** the desired `formFields` object signature, and make **that** our functions’ argument:
 
 ```typescript
 function asTypedFields<TFields>(fields: {
-	[TKey in keyof TFields]: Field;
+  [TKey in keyof TFields]: Field
 }) {
-	return fields;
+  return fields
 }
 ```
 
@@ -127,11 +127,11 @@ If you prefer to split it and make the type more readable, be my guest:
 
 ```typescript
 type GetTypedFields<TFields> = {
-	[TKey in keyof TFields]: Field;
+  [TKey in keyof TFields]: Field
 }
 
 function asTypedFields<TFields>(fields: GetTypedFields<TFields>) {
-	return fields;
+  return fields
 }
 ```
 
@@ -139,16 +139,16 @@ Notice how this type is effectively imitating the expected object signature: key
 
 ```typescript
 const formFields = asTypedFields({
-	email: {
+  email: {
     id: 'email',
     name: 'user-email',
     placeholder: 'Inser your email',
     type: 'mail',
   },
-	// ... everything is type safe 🎉
-});
+  // ... everything is type safe 🎉
+})
 
-const emailField = formFields.email.id; // `email` and `id` are type safe 🎉
+const emailField = formFields.email.id // `email` and `id` are type safe 🎉
 ```
 
 ## Improvements
@@ -160,38 +160,38 @@ First, let’s take a look at our solution so far and look fro dynamic vs. stati
 - `[TKey in keyof TFields]`: this part is dynamic. We are working with the `TFields` generic, which captured our whole object and extracts the keys out of it
 - `Fields`: this part is static, as we need to explicitly tell the compiler what will we be expecting
 
-Great. So now we understand what’s the limitation of our function. We need to somehow also ***tell*** it what are the values we are going to be expecting. If we manage to achieve that, we can then create our reusable function 🎉
+Great. So now we understand what’s the limitation of our function. We need to somehow also **_tell_** it what are the values we are going to be expecting. If we manage to achieve that, we can then create our reusable function 🎉
 
-Generics are not only variables that capture type values, we can also manually ***tell*** it what is the type it should capture. Going back to our first identity example:
+Generics are not only variables that capture type values, we can also manually **_tell_** it what is the type it should capture. Going back to our first identity example:
 
 ```typescript
 function identity<TArg>(arg: TArg) {
-  return arg;
+  return arg
 }
 
-const foo = identity<string>('bar');
+const foo = identity<string>('bar')
 ```
 
 This looks like something we can pick up. What if we add a second generic to our function that expects the type value?
 
 ```typescript
 function asTypedFields<TFields, TValue>(fields: {
-	[TKey in keyof TFields]: TValue;
+  [TKey in keyof TFields]: TValue
 }) {
-	return fields;
+  return fields
 }
 ```
 
-This presents us with a problem. `asTypedFields` now expects two generics. If we intend to manually set them, seems like extra work. Not only that, but also `TFields` is meant to be dynamic since we need to *infer* its values. The same would happen if we flip the order or generics:
+This presents us with a problem. `asTypedFields` now expects two generics. If we intend to manually set them, seems like extra work. Not only that, but also `TFields` is meant to be dynamic since we need to _infer_ its values. The same would happen if we flip the order or generics:
 
 ```typescript
 function asTypedFields<TValue, TFields>(fields: {
-	[TKey in keyof TFields]: TValue;
+  [TKey in keyof TFields]: TValue
 }) {
-	return fields;
+  return fields
 }
 
-const formFields = asTypedFields<Field>({});
+const formFields = asTypedFields<Field>({})
 //                               ^? Expected 2 type arguments, but got 1
 ```
 
@@ -200,32 +200,32 @@ Hm. This is a bit frustrating, right? Fortunately, there’s a light at the end 
 ```typescript
 function asTypedFields<TValue>() {
   return function <TFields>(fields: {[TKey in keyof TFields]: TValue}) {
-    return fields;
-  };
+    return fields
+  }
 }
 
 const formFields = asTypedFields<Fields>()({
-	email: {
+  email: {
     id: 'email',
     name: 'user-email',
     placeholder: 'Inser your email',
     type: 'mail',
   },
-	// ... everything is type safe 🎉🎉🎉
-});
+  // ... everything is type safe 🎉🎉🎉
+})
 ```
 
 Nice! Arguably the syntax looks a bit odd, but with this we can have a fully reusable function that gets us cover. We can do a little cleanup so that this function is fully reusable naming-wise:
 
 ```typescript
 type GetTypedObject<TValue, TObject> = {
-  [TKey in keyof TObject]: TValue;
-};
+  [TKey in keyof TObject]: TValue
+}
 
 function asTypedObject<TValue>() {
   return function <TObject>(fields: GetTypedObject<TValue, TObject>) {
-    return fields;
-  };
+    return fields
+  }
 }
 ```
 
