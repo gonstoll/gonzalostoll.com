@@ -20,7 +20,7 @@ export default function Index() {
 
   return (
     <>
-      <h1>{attributes.title}</h1>
+      <h1 className="text-3xl underline">{attributes.title}</h1>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}

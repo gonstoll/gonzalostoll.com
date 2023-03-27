@@ -6,6 +6,9 @@ module.exports = {
   // so we default back to the standard build output.
   server: process.env.NODE_ENV === 'development' ? undefined : './server.js',
   ignoredRouteFiles: ['**/.*'],
+  future: {
+    unstable_tailwind: true,
+  },
   serverDependenciesToBundle: [
     /^rehype.*/,
     /^remark.*/,
