@@ -2,7 +2,12 @@
 title: Use identity functions
 date: '2023-03-27'
 summary: Leverage better type safe objects with Typescript
-tags: Typescript, something else
+categories:
+  - typescript
+meta:
+  keywords:
+    - typescript
+    - object suggestions
 ---
 
 In Typescript (and also in JavaScript), when we create an object we automatically get suggestions based on the object’s keys when accessing them:

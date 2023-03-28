@@ -8,7 +8,7 @@ const ACCOUNT_NAME = process.env.ACCOUNT_NAME
 const REPO_NAME = process.env.REPO_NAME
 const IS_DEV = process.env.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
-const REPO_DIR = '/contents/content/'
+const REPO_DIR = '/contents/content/articles/'
 
 const postSchema = z.object({
   name: z.string(),
@@ -19,28 +19,21 @@ const frontMatterSchema = z.object({
   title: z.string(),
   date: z.string(),
   summary: z.string(),
+  categories: z.array(z.string()),
+  meta: z.object({
+    keywords: z.array(z.string()),
+  }),
 })
 
-const inputFrontMatterSchema = frontMatterSchema.merge(
-  z.object({tags: z.string()})
-)
-
-const outputFrontMatterSchema = frontMatterSchema.merge(
-  z.object({tags: z.array(z.string())})
-)
-
-export type PostAttributes = z.infer<typeof outputFrontMatterSchema> & {
+export type PostAttributes = z.infer<typeof frontMatterSchema> & {
   slug: string
 }
 
 export function parseFrontMatter(markdown: string) {
   const {attributes, body} = frontMatter(markdown)
-  const parsedAttributes = inputFrontMatterSchema.parse(attributes)
+  const parsedAttributes = frontMatterSchema.parse(attributes)
   return {
-    attributes: outputFrontMatterSchema.parse({
-      ...parsedAttributes,
-      tags: parsedAttributes.tags.split(',').map(tag => tag.trim()),
-    }),
+    attributes: parsedAttributes,
     body,
   }
 }
