@@ -6,7 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from '@remix-run/react'
-import tailwindStyles from '~/tailwind.css'
+import tailwindStyles from '~/styles/tailwind.css'
+import globalStyles from '~/styles/global.css'
+import Sidebar from './components/Sidebar'
 
 export function meta() {
   return {
@@ -17,18 +19,27 @@ export function meta() {
 }
 
 export function links() {
-  return [{rel: 'stylesheet', href: tailwindStyles}]
+  return [
+    // {rel: 'stylesheet', href: tailwindStyles},
+    {rel: 'stylesheet', href: globalStyles},
+  ]
 }
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <head>
         <Meta />
         <Links />
       </head>
-      <body>
-        <Outlet />
+      <body className="h-full p-10">
+        <Sidebar />
+        <main className="lg:mx-64">
+          <div className="mx-auto max-w-2xl">
+            <Outlet />
+          </div>
+          <div className="w-8 h-8 rounded-full bg-black fixed top-10 right-10 left-auto" />
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

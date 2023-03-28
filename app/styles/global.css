@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Scto';
+  src: url('/fonts/scto/regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Scto';
+  src: url('/fonts/scto/bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dank Mono';
+  src: url('/fonts/dank-mono/regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dank Mono';
+  src: url('/fonts/dank-mono/italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Scto', sans-serif;
+    --font-mono: 'Dank Mono', monospace;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+pre,
+code {
+  font-family: var(--font-mono);
+  white-space: pre;
+
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
