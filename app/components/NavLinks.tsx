@@ -16,11 +16,11 @@ function NavLink({
   const location = useLocation()
   const isSelected =
     to === location.pathname || location.pathname.startsWith(`${to}/`)
-  const composedClassName = `font-normal ${isSelected ? 'font-bold' : ''}`
+  const computedClassName = `${isSelected ? 'font-bold' : 'font-normal'}`
 
   return (
     <li className="mb-4">
-      <Link prefetch="intent" className={composedClassName} to={to} {...rest}>
+      <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
         {children} →
       </Link>
     </li>
