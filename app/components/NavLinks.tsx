@@ -19,9 +19,9 @@ function NavLink({
   const composedClassName = `font-normal ${isSelected ? 'font-bold' : ''}`
 
   return (
-    <li className="px-5 py-2">
+    <li className="mb-4">
       <Link prefetch="intent" className={composedClassName} to={to} {...rest}>
-        {children}
+        {children} →
       </Link>
     </li>
   )
