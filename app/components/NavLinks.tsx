@@ -17,7 +17,7 @@ function NavLink({
   const isSelected =
     to === location.pathname || location.pathname.startsWith(`${to}/`)
   const computedClassName = `${
-    isSelected ? 'font-bold text-primary' : 'font-normal'
+    isSelected ? 'text-primary' : 'font-normal'
   }`
 
   return (
