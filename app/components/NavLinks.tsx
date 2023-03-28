@@ -16,7 +16,9 @@ function NavLink({
   const location = useLocation()
   const isSelected =
     to === location.pathname || location.pathname.startsWith(`${to}/`)
-  const computedClassName = `${isSelected ? 'font-bold' : 'font-normal'}`
+  const computedClassName = `${
+    isSelected ? 'font-bold text-primary' : 'font-normal'
+  }`
 
   return (
     <li className="mb-4">

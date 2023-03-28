@@ -34,7 +34,17 @@
   :root {
     --font-sans: 'Scto', sans-serif;
     --font-mono: 'Dank Mono', monospace;
+    --color-white: #fbf9f9;
+    --color-black: #201919;
   }
+}
+
+body.light {
+  --color-primary: #CE1919
+}
+
+body.dark {
+  --color-primary: #D42929
 }
 
 body {

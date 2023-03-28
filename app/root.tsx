@@ -30,7 +30,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="h-full p-10">
+      <body className="light h-full p-10">
         <Sidebar />
         <main className="lg:mx-64">
           <div className="mx-auto max-w-2xl">

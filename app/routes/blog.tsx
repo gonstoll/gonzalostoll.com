@@ -1,4 +1,5 @@
 import {Link, useLoaderData} from '@remix-run/react'
+import type {PostAttributes} from '~/models/blog.server'
 import {getAllPosts} from '~/models/blog.server'
 
 export async function loader() {
@@ -16,24 +17,28 @@ export default function Blog() {
     <>
       <h1>Blog!</h1>
       <ul>
-        {posts.map(post => {
-          const postDate = new Date(post.date).toLocaleString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })
-
-          return (
-            <li key={post.slug}>
-              <Link to={post.slug}>
-                <h3 className="text-2xl font-bold">{post.title}</h3>
-                <p>{postDate}</p>
-                <p>{post.summary}</p>
-              </Link>
-            </li>
-          )
-        })}
+        {posts.map(post => (
+          <BlogPostEntry key={post.slug} post={post} />
+        ))}
       </ul>
     </>
+  )
+}
+
+export function BlogPostEntry({post}: {post: PostAttributes}) {
+  const postDate = new Date(post.date).toLocaleString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
+  return (
+    <li>
+      <Link to={post.slug}>
+        <h3 className="text-2xl font-bold">{post.title}</h3>
+        <p>{postDate}</p>
+        <p>{post.summary}</p>
+      </Link>
+    </li>
   )
 }

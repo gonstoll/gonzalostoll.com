@@ -18,7 +18,7 @@ export const frontMatterSchema = z.object({
   summary: z.string(),
 })
 
-type PostAttributes = z.infer<typeof frontMatterSchema> & {slug: string}
+export type PostAttributes = z.infer<typeof frontMatterSchema> & {slug: string}
 
 async function githubFetch(url: string) {
   const headers = new Headers()
