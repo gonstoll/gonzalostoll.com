@@ -1,12 +1,11 @@
 import type {LoaderArgs} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
-import parseFrontMatter from 'front-matter'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
-import {frontMatterSchema, getPostByFilename} from '~/models/blog.server'
+import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 
 const paramsSchema = z.object({
   slug: z.string(),
@@ -19,10 +18,7 @@ export async function loader({params}: LoaderArgs) {
     throw new Response('Post not found', {status: 404})
   }
   const {attributes, body} = parseFrontMatter(markdown)
-  return {
-    attributes: frontMatterSchema.parse(attributes),
-    body,
-  }
+  return {attributes, body}
 }
 
 export default function Index() {

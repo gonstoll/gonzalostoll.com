@@ -1,9 +1,12 @@
-import parseFrontMatter from 'front-matter'
+import frontMatter from 'front-matter'
 import {z} from 'zod'
+import fs from 'fs/promises'
+import path from 'path'
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN
 const ACCOUNT_NAME = process.env.ACCOUNT_NAME
 const REPO_NAME = process.env.REPO_NAME
+const IS_DEV = process.env.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const REPO_DIR = '/contents/content/'
 
@@ -12,13 +15,35 @@ const postSchema = z.object({
   download_url: z.string().url(),
 })
 
-export const frontMatterSchema = z.object({
+const frontMatterSchema = z.object({
   title: z.string(),
   date: z.string(),
   summary: z.string(),
 })
 
-export type PostAttributes = z.infer<typeof frontMatterSchema> & {slug: string}
+const inputFrontMatterSchema = frontMatterSchema.merge(
+  z.object({tags: z.string()})
+)
+
+const outputFrontMatterSchema = frontMatterSchema.merge(
+  z.object({tags: z.array(z.string())})
+)
+
+export type PostAttributes = z.infer<typeof outputFrontMatterSchema> & {
+  slug: string
+}
+
+export function parseFrontMatter(markdown: string) {
+  const {attributes, body} = frontMatter(markdown)
+  const parsedAttributes = inputFrontMatterSchema.parse(attributes)
+  return {
+    attributes: outputFrontMatterSchema.parse({
+      ...parsedAttributes,
+      tags: parsedAttributes.tags.split(',').map(tag => tag.trim()),
+    }),
+    body,
+  }
+}
 
 async function githubFetch(url: string) {
   const headers = new Headers()
@@ -44,7 +69,20 @@ async function getPostByUrl(url: string) {
   return post
 }
 
+async function readPost(fileName: string) {
+  const post = await fs.readFile(
+    path.resolve(__dirname, `../content/articles/${fileName}`)
+  )
+  return post.toString()
+}
+
 export async function getPostByFilename(fileName: string) {
+  if (IS_DEV) {
+    console.log('📚 Fetching post from local environment')
+    const post = await readPost(fileName)
+    return post
+  }
+
   const url = new URL(REPO_URL + REPO_DIR + fileName)
   const response = await githubFetch(url.toString())
   const post = await response?.text()
@@ -52,18 +90,36 @@ export async function getPostByFilename(fileName: string) {
 }
 
 export async function getAllPosts() {
+  const postAttributes: Array<PostAttributes> = []
+
+  if (IS_DEV) {
+    console.log('📚 Fetching posts from local environment')
+    const posts = await fs.readdir(
+      path.resolve(__dirname, '../content/articles')
+    )
+    for (const post of posts) {
+      const markdown = await readPost(post)
+      if (!markdown) return
+      const {attributes} = parseFrontMatter(markdown)
+      postAttributes.push({
+        ...attributes,
+        slug: post.replace('.md', ''),
+      })
+    }
+    return postAttributes
+  }
+
   const url = new URL(REPO_URL + REPO_DIR)
   const response = await githubFetch(url.toString())
   const postsData = await response?.json()
   const posts = postSchema.array().parse(postsData)
 
-  const postAttributes: Array<PostAttributes> = []
   for (const post of posts) {
     const markdown = await getPostByUrl(post.download_url)
     if (!markdown) return
     const {attributes} = parseFrontMatter(markdown)
     postAttributes.push({
-      ...frontMatterSchema.parse(attributes),
+      ...attributes,
       slug: post.name.replace('.md', ''),
     })
   }

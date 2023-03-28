@@ -18,14 +18,14 @@ export default function Blog() {
       <h1>Blog!</h1>
       <ul>
         {posts.map(post => (
-          <BlogPostEntry key={post.slug} post={post} />
+          <BlogPost key={post.slug} post={post} />
         ))}
       </ul>
     </>
   )
 }
 
-export function BlogPostEntry({post}: {post: PostAttributes}) {
+export function BlogPost({post}: {post: PostAttributes}) {
   const postDate = new Date(post.date).toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',

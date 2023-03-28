@@ -1,6 +1,6 @@
 import {useLoaderData} from '@remix-run/react'
 import {getAllPosts} from '~/models/blog.server'
-import {BlogPostEntry} from './blog'
+import {BlogPost} from './blog'
 
 export async function loader() {
   const posts = await getAllPosts()
@@ -17,7 +17,10 @@ export default function Blog() {
     <>
       <ul>
         {posts.map(post => (
-          <BlogPostEntry key={post.slug} post={post} />
+          <BlogPost
+            key={post.slug}
+            post={{...post, slug: `blog/${post.slug}`}}
+          />
         ))}
       </ul>
     </>
