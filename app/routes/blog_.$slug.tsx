@@ -1,10 +1,11 @@
 import type {LoaderArgs} from '@remix-run/node'
-import {useLoaderData} from '@remix-run/react'
+import {useCatch, useLoaderData} from '@remix-run/react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
+import ErrorBlock from '~/components/ErrorBlock'
 import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 
 const paramsSchema = z.object({
@@ -47,4 +48,9 @@ export default function Index() {
       </ReactMarkdown>
     </>
   )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+  return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
 }

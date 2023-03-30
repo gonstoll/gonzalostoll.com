@@ -18,6 +18,7 @@ import {
   useTheme,
 } from './utils/theme-provider'
 import {getThemeSession} from './utils/theme.server'
+import ErrorBlock from '~/components/ErrorBlock'
 
 export function meta() {
   return {
@@ -69,6 +70,7 @@ function App() {
 
 export default function AppWithProviders() {
   const {theme} = useLoaderData<typeof loader>()
+
   return (
     <ThemeProvider ssrTheme={theme}>
       <App />
@@ -89,15 +91,7 @@ function ErrorWrapper({title, reason}: ErrorWrapperProps) {
         <title>Oh no... something went wrong!</title>
       </head>
       <body className="p-4">
-        <div className="bg-red-300 rounded-md p-4 text-red-600">
-          <h1 className="text-lg font-bold">{title}</h1>
-          {reason ? (
-            <p className="inline-block">
-              Here's a clue on what might've happened:
-              <pre className="inline-block ml-1">{reason}</pre>
-            </p>
-          ) : null}
-        </div>
+        <ErrorBlock title={title} reason={reason} />
       </body>
     </html>
   )

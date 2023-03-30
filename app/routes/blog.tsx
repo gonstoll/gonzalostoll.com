@@ -1,4 +1,5 @@
-import {Link, useLoaderData} from '@remix-run/react'
+import {Link, useCatch, useLoaderData} from '@remix-run/react'
+import ErrorBlock from '~/components/ErrorBlock'
 import type {PostAttributes} from '~/models/blog.server'
 import {getAllPosts} from '~/models/blog.server'
 
@@ -41,4 +42,9 @@ export function BlogPost({post}: {post: PostAttributes}) {
       </Link>
     </li>
   )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+  return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
 }

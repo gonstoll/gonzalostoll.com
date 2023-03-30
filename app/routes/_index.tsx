@@ -1,11 +1,12 @@
-import {useLoaderData} from '@remix-run/react'
+import {useCatch, useLoaderData} from '@remix-run/react'
+import ErrorBlock from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
 import {BlogPost} from './blog'
 
 export async function loader() {
   const posts = await getAllPosts()
   if (!posts) {
-    throw new Response('Posts not found', {status: 404})
+    throw new Response('No posts found', {status: 404})
   }
   return {posts}
 }
@@ -25,4 +26,9 @@ export default function Blog() {
       </ul>
     </>
   )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+  return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
 }
