@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        white: 'var(--color-white',
-        black: 'var(--color-black',
+        white: 'var(--color-white)',
+        black: 'var(--color-black)',
         primary: 'var(--color-primary)',
       },
     },

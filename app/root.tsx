@@ -1,3 +1,4 @@
+import type {LoaderArgs} from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -5,9 +6,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
+  useLoaderData,
 } from '@remix-run/react'
 import globalStyles from '~/styles/global.css'
 import Sidebar from './components/Sidebar'
+import {
+  NonFlashOfThemeScript,
+  ThemeProvider,
+  useTheme,
+} from './utils/theme-provider'
+import {getThemeSession} from './utils/theme.server'
 
 export function meta() {
   return {
@@ -18,25 +27,37 @@ export function meta() {
 }
 
 export function links() {
-  return [
-    {rel: 'stylesheet', href: globalStyles},
-  ]
+  return [{rel: 'stylesheet', href: globalStyles}]
 }
 
-export default function App() {
+export async function loader({request}: LoaderArgs) {
+  const themeSession = await getThemeSession(request)
+  const theme = themeSession.getTheme()
+  return {theme}
+}
+
+function App() {
+  const {theme: ssrTheme} = useLoaderData<typeof loader>()
+  const {theme, setTheme} = useTheme()
+  const computedClassName = `h-full ${theme || ''}`
+
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className={computedClassName}>
       <head>
         <Meta />
         <Links />
+        <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
-      <body className="light h-full p-10">
+      <body className="h-full p-10">
         <Sidebar />
         <main className="lg:mx-64">
           <div className="mx-auto max-w-2xl">
             <Outlet />
           </div>
-          <div className="w-8 h-8 rounded-full bg-black fixed top-10 right-10 left-auto" />
+          <div
+            className="w-8 h-8 rounded-full bg-black fixed top-10 right-10 left-auto"
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          />
         </main>
         <ScrollRestoration />
         <Scripts />
@@ -44,4 +65,34 @@ export default function App() {
       </body>
     </html>
   )
+}
+
+export default function AppWithProviders() {
+  const {theme} = useLoaderData<typeof loader>()
+  return (
+    <ThemeProvider sessionTheme={theme}>
+      <App />
+    </ThemeProvider>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  if (caught.status === 404) {
+    return (
+      <html lang="en" className="light">
+        <head>
+          <Links />
+          <title>Not found</title>
+        </head>
+        <body>
+          <h1>
+            {caught.status} - {caught.statusText}
+          </h1>
+          <p>{caught.data}</p>
+        </body>
+      </html>
+    )
+  }
 }
