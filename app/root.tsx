@@ -76,23 +76,68 @@ export default function AppWithProviders() {
   )
 }
 
+type ErrorWrapperProps = {
+  title: string
+  reason?: any
+}
+
+function ErrorWrapper({title, reason}: ErrorWrapperProps) {
+  return (
+    <html lang="en" className="light">
+      <head>
+        <Links />
+        <title>Oh no... something went wrong!</title>
+      </head>
+      <body className="p-4">
+        <div className="bg-red-300 rounded-md p-4 text-red-600">
+          <h1 className="text-lg font-bold">{title}</h1>
+          {reason ? (
+            <p className="inline-block">
+              Here's a clue on what might've happened:
+              <pre className="inline-block ml-1">{reason}</pre>
+            </p>
+          ) : null}
+        </div>
+      </body>
+    </html>
+  )
+}
+
 export function CatchBoundary() {
   const caught = useCatch()
 
   if (caught.status === 404) {
     return (
-      <html lang="en" className="light">
-        <head>
-          <Links />
-          <title>Not found</title>
-        </head>
-        <body>
-          <h1>
-            {caught.status} - {caught.statusText}
-          </h1>
-          <p>{caught.data}</p>
-        </body>
-      </html>
+      <ErrorWrapper
+        title="404 - Oh no! You found a broken link :("
+        reason={caught.data}
+      />
     )
   }
+
+  if (caught.status === 500) {
+    return (
+      <ErrorWrapper
+        title="505 - Oh no! Something did not go well"
+        reason={caught.data}
+      />
+    )
+  }
+
+  throw new Error(`Unhandled error: ${caught.status}`)
+}
+
+export function ErrorBoundary({error}: {error: unknown}) {
+  console.error(error)
+
+  if (error instanceof Error) {
+    return (
+      <ErrorWrapper
+        title="Oh no! Something went wrong :("
+        reason={error.message}
+      />
+    )
+  }
+
+  return <ErrorWrapper title="Oh no! Something went wrong :(" />
 }
