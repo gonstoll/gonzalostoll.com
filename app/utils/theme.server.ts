@@ -29,7 +29,9 @@ export async function getThemeSession(request: Request) {
       return session.set('theme', theme)
     },
     commit() {
-      return themeStorage.commitSession(session)
+      return themeStorage.commitSession(session, {
+        expires: new Date('2090-11-21'),
+      })
     },
   }
 }

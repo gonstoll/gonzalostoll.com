@@ -11,6 +11,7 @@ import {
 } from '@remix-run/react'
 import globalStyles from '~/styles/global.css'
 import Sidebar from './components/Sidebar'
+import ThemeSwitch from './components/ThemeSwitch'
 import {
   NonFlashOfThemeScript,
   ThemeProvider,
@@ -38,7 +39,7 @@ export async function loader({request}: LoaderArgs) {
 
 function App() {
   const {theme: ssrTheme} = useLoaderData<typeof loader>()
-  const {theme, setTheme} = useTheme()
+  const {theme} = useTheme()
   const computedClassName = `h-full ${theme || ''}`
 
   return (
@@ -54,10 +55,9 @@ function App() {
           <div className="mx-auto max-w-2xl">
             <Outlet />
           </div>
-          <div
-            className="w-8 h-8 rounded-full bg-black fixed top-10 right-10 left-auto"
-            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          />
+          <div className="fixed top-10 right-10 left-auto">
+            <ThemeSwitch />
+          </div>
         </main>
         <ScrollRestoration />
         <Scripts />
@@ -70,7 +70,7 @@ function App() {
 export default function AppWithProviders() {
   const {theme} = useLoaderData<typeof loader>()
   return (
-    <ThemeProvider sessionTheme={theme}>
+    <ThemeProvider ssrTheme={theme}>
       <App />
     </ThemeProvider>
   )

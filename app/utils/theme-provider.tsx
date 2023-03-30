@@ -29,12 +29,12 @@ export function useTheme() {
 
 export function ThemeProvider({
   children,
-  sessionTheme,
-}: React.PropsWithChildren<{sessionTheme: Theme | null}>) {
+  ssrTheme,
+}: React.PropsWithChildren<{ssrTheme: Theme | null}>) {
   const [theme, setThemeState] = React.useState<Theme | null>(() => {
-    if (sessionTheme) {
-      if (themes.includes(sessionTheme)) {
-        return sessionTheme
+    if (ssrTheme) {
+      if (themes.includes(ssrTheme)) {
+        return ssrTheme
       } else {
         return null
       }
