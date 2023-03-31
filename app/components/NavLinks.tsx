@@ -30,6 +30,7 @@ function NavLink({
 type MobileProps = {
   type: 'mobile'
   isMobileMenuOpen: boolean
+  onCloseMobileMenu: () => void
 }
 
 type DesktopProps = {
@@ -48,7 +49,13 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
     <nav className={computedClassName}>
       <ul className="duration">
         {LINKS.map(link => (
-          <NavLink key={link.to} to={link.to}>
+          <NavLink
+            key={link.to}
+            to={link.to}
+            onClick={() =>
+              props.type === 'mobile' ? props.onCloseMobileMenu() : null
+            }
+          >
             {link.name}
           </NavLink>
         ))}

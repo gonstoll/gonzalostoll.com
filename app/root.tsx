@@ -10,7 +10,7 @@ import {
   useLoaderData,
 } from '@remix-run/react'
 import ErrorBlock from './components/ErrorBlock'
-import MobileNav from './components/MobileNav'
+import MobileNav, {MobileStickyNav} from './components/MobileNav'
 import Sidebar from './components/Sidebar'
 import ThemeSwitch from './components/ThemeSwitch'
 import globalStyles from './styles/global.css'
@@ -52,8 +52,9 @@ function App() {
       </head>
       <body className="p-10">
         <MobileNav />
+        <MobileStickyNav />
         <Sidebar />
-        <main className="lg:mx-64">
+        <main className="lg:mx-64 mt-10 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
             <Outlet />
           </div>
