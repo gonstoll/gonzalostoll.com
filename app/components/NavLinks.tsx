@@ -16,12 +16,10 @@ function NavLink({
   const location = useLocation()
   const isSelected =
     to === location.pathname || location.pathname.startsWith(`${to}/`)
-  const computedClassName = `${
-    isSelected ? 'text-primary' : 'font-normal'
-  }`
+  const computedClassName = `${isSelected ? 'text-primary' : 'font-normal'}`
 
   return (
-    <li className="mb-4">
+    <li className="mb-4 last:mb-0">
       <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
         {children} →
       </Link>
@@ -29,10 +27,26 @@ function NavLink({
   )
 }
 
-export default function NavLinks() {
+type MobileProps = {
+  type: 'mobile'
+  isMobileMenuOpen: boolean
+}
+
+type DesktopProps = {
+  type: 'desktop'
+}
+
+export default function NavLinks(props: MobileProps | DesktopProps) {
+  const computedClassName =
+    props.type === 'mobile'
+      ? `transition-opacity duration-300 ease-in-out ${
+          props.isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
+        }`
+      : ''
+
   return (
-    <nav>
-      <ul>
+    <nav className={computedClassName}>
+      <ul className="duration">
         {LINKS.map(link => (
           <NavLink key={link.to} to={link.to}>
             {link.name}

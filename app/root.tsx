@@ -9,16 +9,17 @@ import {
   useCatch,
   useLoaderData,
 } from '@remix-run/react'
-import globalStyles from '~/styles/global.css'
+import ErrorBlock from './components/ErrorBlock'
+import MobileNav from './components/MobileNav'
 import Sidebar from './components/Sidebar'
 import ThemeSwitch from './components/ThemeSwitch'
+import globalStyles from './styles/global.css'
 import {
   NonFlashOfThemeScript,
   ThemeProvider,
   useTheme,
 } from './utils/theme-provider'
 import {getThemeSession} from './utils/theme.server'
-import ErrorBlock from '~/components/ErrorBlock'
 
 export function meta() {
   return {
@@ -41,22 +42,22 @@ export async function loader({request}: LoaderArgs) {
 function App() {
   const {theme: ssrTheme} = useLoaderData<typeof loader>()
   const {theme} = useTheme()
-  const computedClassName = `h-full ${theme || ''}`
 
   return (
-    <html lang="en" className={computedClassName}>
+    <html lang="en" className={theme || ''}>
       <head>
         <Meta />
         <Links />
         <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
-      <body className="h-full p-10">
+      <body className="p-10">
+        <MobileNav />
         <Sidebar />
         <main className="lg:mx-64">
-          <div className="mx-auto max-w-2xl">
+          <div className="mx-auto lg:max-w-2xl">
             <Outlet />
           </div>
-          <div className="fixed top-10 right-10 left-auto">
+          <div className="hidden lg:block fixed top-10 right-10 left-auto">
             <ThemeSwitch />
           </div>
         </main>
