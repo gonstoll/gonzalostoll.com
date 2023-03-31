@@ -7,6 +7,11 @@ import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
 import ErrorBlock from '~/components/ErrorBlock'
 import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
+import blogStyles from '~/styles/blog.css'
+
+export function links() {
+  return [{rel: 'stylesheet', href: blogStyles}]
+}
 
 const paramsSchema = z.object({
   slug: z.string(),
@@ -32,15 +37,11 @@ export default function Index() {
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
-          pre({node, children, ...props}) {
-            return <CodeBlock {...props}>{children}</CodeBlock>
+          pre({children}) {
+            return <CodeBlock>{children}</CodeBlock>
           },
-          code({node, inline, children, ...props}) {
-            return (
-              <code className="inline-code" {...props}>
-                {children}
-              </code>
-            )
+          code({children}) {
+            return <code className="inline-code">{children}</code>
           },
         }}
       >

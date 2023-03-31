@@ -33,7 +33,8 @@
 @layer base {
   :root {
     --font-sans: 'Scto', sans-serif;
-    --font-mono: 'Dank Mono', monospace;
+    --font-mono: 'Dank Mono', 'Roboto Mono', Menlo, Consolas, Monaco,
+    source-code-pro, Courier New, monospace;
     --color-white: #fbf9f9;
     --color-black: #201919;
   }
@@ -56,19 +57,4 @@ html {
   color: var(--text-color);
   background-color: var(--bg-color);
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-pre,
-code {
-  font-family: var(--font-mono);
-  white-space: pre;
-
-  -moz-tab-size: 2;
-  -o-tab-size: 2;
-  tab-size: 2;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
 }

@@ -11,6 +11,7 @@ module.exports = {
         white: 'var(--color-white)',
         black: 'var(--color-black)',
         primary: 'var(--color-primary)',
+        codeBg: 'var(--color-code-bg)',
       },
       transitionProperty: {
         top: `top, opacity, ${transitionProperty.colors}`,

@@ -1,0 +1,262 @@
+:root {
+  --color-purple: #c894eb;
+  --color-blue: #82aaff;
+  --color-yellow: #ffcb8b;
+  --color-orange: #f78c6c;
+  --color-green: #c5e478;
+  --color-grey: #637777;
+  --color-white: #ffffff;
+  --color-light-green: #baebe2;
+  --pre-color-bg: #011627;
+  --highlighted-line: #022a4b;
+}
+
+html.light {
+  --color-code-bg: #fbfbfb;
+}
+
+html.dark {
+  --color-code-bg: #011627;
+}
+
+pre,
+code {
+  font-variant-ligatures: none;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  border-radius: 10px;
+  -webkit-overflow-scrolling: touch;
+
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+code[class*='language-'] {
+  font-family: inherit;
+  display: inline-block;
+  min-width: 100%;
+}
+
+pre[class*='language-'] {
+  background: var(--pre-color-bg);
+}
+
+pre[class*='language-']::-moz-selection,
+pre[class*='language-'] ::-moz-selection,
+code[class*='language-']::-moz-selection,
+code[class*='language-'] ::-moz-selection {
+  text-shadow: none;
+  background: rgba(29, 59, 83, 0.99);
+}
+
+pre[class*='language-']::selection,
+pre[class*='language-'] ::selection,
+code[class*='language-']::selection,
+code[class*='language-'] ::selection {
+  text-shadow: none;
+  background: rgba(29, 59, 83, 0.99);
+}
+
+@media print {
+  code[class*='language-'],
+  pre[class*='language-'] {
+    text-shadow: none;
+  }
+}
+
+.namespace {
+  color: #b2ccd6;
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata {
+  color: var(--color-grey);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--color-purple);
+}
+
+.token.plain {
+  color: var(--color-blue);
+  font-style: italic;
+}
+
+.token.deleted {
+  color: rgba(239, 83, 80, 0.56);
+  font-style: italic;
+}
+
+.token.imports.operator {
+  color: var(--color-blue);
+}
+
+.token.symbol,
+.token.property {
+  color: rgb(128, 203, 196);
+}
+
+.token.property-access {
+  font-style: italic;
+  color: var(--color-light-green);
+}
+
+.token.property-access.maybe-class-name {
+  color: var(--color-yellow);
+}
+
+.token.maybe-class-name {
+  font-style: italic;
+  color: var(--color-white)
+}
+
+.token.tag.attr-value.punctuation,
+.token.console.class-name,
+.token.tag,
+.token.imports.punctuation,
+.token.class-name {
+  color: var(--color-white);
+}
+
+.token.tag.punctuation {
+  color: var(--color-light-green);
+}
+
+.token.tag.script.script-punctuation.punctuation {
+  color: rgb(200, 148, 235);
+}
+
+.token.tag.class-name {
+  color: var(--color-orange);
+}
+
+.token.known-class-name.class-name {
+  font-style: italic;
+  color: var(--color-blue);
+}
+
+.token.spread.operator {
+  color: rgb(127, 219, 202);
+}
+
+/* Generics */
+.token.generic-function.generic.class-name {
+  font-style: italic;
+  color: rgb(255, 255, 255);
+}
+
+.token.generic-function.generic.class-name.operator {
+  color: rgb(200, 148, 235);
+}
+
+.token.generic-function.generic.class-name.keyword {
+  color: rgb(127, 219, 202);
+}
+
+.token.operator,
+.token.keyword,
+.token.tag.attr-value.punctuation.attr-equals {
+  color: rgb(200, 148, 235);
+}
+
+.token.boolean {
+  color: rgb(255, 88, 116);
+}
+
+.token.number {
+  color: rgb(247, 140, 108);
+}
+
+.token.builtin {
+  color: var(--color-green);
+}
+
+.token.constant,
+.token.function,
+.token.char {
+  color: var(--color-blue);
+  font-style: italic;
+}
+
+.token.selector,
+.token.doctype {
+  color: #c792ea;
+  font-style: italic;
+}
+
+.token.attr-name,
+.token.inserted {
+  color: var(--color-green);
+  font-style: italic;
+}
+
+.token.string,
+.token.url,
+.token.entity,
+.language-css .token.string,
+.style .token.string {
+  color: var(--color-green);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.string {
+  color: var(--color-yellow);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--color-light-green);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.highlighted-line {
+  background-color: hsla(207, 95%, 15%, 1);
+  display: block;
+  margin-right: -1rem;
+  margin-left: -1rem;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid var(--color-purple);
+  z-index: 1;
+}
+
+.inline-code {
+  background-color: var(--color-code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  color: var(--color-purple);
+  font-family: 'Dank Mono', 'Roboto Mono', Menlo, Consolas, Monaco,
+    source-code-pro, Courier New, monospace;
+}
+
+[data-line-number]:before {
+  color: var(--color-grey);
+  content: attr(data-line-number);
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 1.5rem;
+  text-align: right;
+  width: 2.5rem;
+}

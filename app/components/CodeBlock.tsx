@@ -69,27 +69,28 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
   }
 
   return (
-    <Highlight {...defaultProps} code={code.trim()} language={lang || 'bash'}>
-      {({className, tokens, getLineProps, getTokenProps}) => {
+    <Highlight
+      {...defaultProps}
+      theme={undefined}
+      code={code}
+      language={lang || 'bash'}
+    >
+      {({className, tokens, getLineProps, getTokenProps, style}) => {
         return (
-          <pre className={`overflow-scroll ${className}`}>
-            <code className={className} style={{}}>
-              {tokens.map((line, i) => (
+          <pre
+            className={`${className} overflow-auto text-base font-mono p-4 my-4 rounded-lg`}
+          >
+            <code>
+              {tokens.map((line, key) => (
                 <div
-                  key={i}
-                  {...getLineProps({line, key: i})}
-                  style={{}}
-                  data-line-number={i + 1}
-                  className={`${getLineProps({line, key: i}).className} ${
-                    lines.includes(i + 1) ? 'highlighted-line' : ''
+                  {...getLineProps({line, key})}
+                  data-line-number={key + 1}
+                  className={`${
+                    lines.includes(key + 1) ? 'highlighted-line' : ''
                   }`}
                 >
                   {line.map((token, key) => (
-                    <span
-                      key={key}
-                      {...getTokenProps({token, key})}
-                      style={{}}
-                    />
+                    <span {...getTokenProps({token, key})} />
                   ))}
                 </div>
               ))}
