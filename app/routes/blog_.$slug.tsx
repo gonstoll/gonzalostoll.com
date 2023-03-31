@@ -1,5 +1,7 @@
 import type {LoaderArgs} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
+import * as React from 'react'
+import type {Components} from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
@@ -33,9 +35,23 @@ export default function Index() {
   return (
     <>
       <h1 className="text-3xl underline">{attributes.title}</h1>
+      <MarkdownContainer body={body} />
+    </>
+  )
+}
+
+type MarkdownProps = {
+  body: string
+  components?: Components
+}
+
+function MarkdownContainer({body, components}: MarkdownProps) {
+  return React.useMemo(
+    () => (
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
+        includeElementIndex={true}
         components={{
           pre({children}) {
             return <CodeBlock>{children}</CodeBlock>
@@ -47,7 +63,8 @@ export default function Index() {
       >
         {body}
       </ReactMarkdown>
-    </>
+    ),
+    [body]
   )
 }
 

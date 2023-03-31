@@ -71,10 +71,10 @@ function App() {
 }
 
 export default function AppWithProviders() {
-  const {theme} = useLoaderData<typeof loader>()
+  const {theme: ssrTheme} = useLoaderData<typeof loader>()
 
   return (
-    <ThemeProvider ssrTheme={theme}>
+    <ThemeProvider ssrTheme={ssrTheme}>
       <App />
     </ThemeProvider>
   )
