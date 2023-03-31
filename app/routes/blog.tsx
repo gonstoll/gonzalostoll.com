@@ -34,7 +34,7 @@ export function BlogPost({post}: {post: PostAttributes}) {
   })
 
   return (
-    <li>
+    <li className="mb-4 last:mb-0">
       <Link to={post.slug}>
         <h3 className="text-2xl font-bold">{post.title}</h3>
         <p>{postDate}</p>

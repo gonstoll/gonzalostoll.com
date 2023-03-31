@@ -53,8 +53,8 @@ function MarkdownContainer({body, components}: MarkdownProps) {
         rehypePlugins={[rehypeRaw]}
         includeElementIndex={true}
         components={{
-          pre({children}) {
-            return <CodeBlock>{children}</CodeBlock>
+          pre({node, children, ...props}) {
+            return <CodeBlock {...props}>{children}</CodeBlock>
           },
           code({children}) {
             return <code className="inline-code">{children}</code>

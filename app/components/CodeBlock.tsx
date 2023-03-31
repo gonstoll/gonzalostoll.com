@@ -72,32 +72,35 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
     <Highlight
       {...defaultProps}
       theme={undefined}
-      code={code}
+      code={code.trim()}
       language={lang || 'bash'}
     >
-      {({className, tokens, getLineProps, getTokenProps, style}) => {
-        return (
-          <pre
-            className={`${className} overflow-auto text-base font-mono p-4 my-4 rounded-lg`}
-          >
-            <code>
-              {tokens.map((line, key) => (
+      {({className, tokens, getLineProps, getTokenProps}) => (
+        <pre
+          className={`${className} overflow-auto text-base font-mono p-4 my-4 rounded-lg`}
+        >
+          <code className={className}>
+            {tokens.map((line, key) => {
+              const lineNumber = key + 1
+
+              return (
                 <div
+                  key={key}
                   {...getLineProps({line, key})}
-                  data-line-number={key + 1}
-                  className={`${
-                    lines.includes(key + 1) ? 'highlighted-line' : ''
+                  data-line-number={lineNumber}
+                  className={`${getLineProps({line, key}).className} ${
+                    lines.includes(lineNumber) ? 'highlighted-line' : ''
                   }`}
                 >
                   {line.map((token, key) => (
-                    <span {...getTokenProps({token, key})} />
+                    <span key={key} {...getTokenProps({token, key})} />
                   ))}
                 </div>
-              ))}
-            </code>
-          </pre>
-        )
-      }}
+              )
+            })}
+          </code>
+        </pre>
+      )}
     </Highlight>
   )
 }
