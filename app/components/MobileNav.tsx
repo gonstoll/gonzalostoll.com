@@ -10,7 +10,7 @@ export default function MobileNav() {
     : '-top-full opacity-70'
   const menuBtnClass = isMenuOpen
     ? 'before:rotate-45 after:-rotate-45'
-    : 'before:-translate-y-1 after:translate-y-1'
+    : 'before:-translate-y-2 after:translate-y-2'
 
   React.useEffect(() => {
     if (isMenuOpen) {
@@ -23,14 +23,14 @@ export default function MobileNav() {
   return (
     <header className="lg:hidden mb-10 flex items-center justify-between">
       <Link to="/">
-        <h1 className="font-bold text-2xl z-20 relative">GS</h1>
+        <h1 className="font-bold text-3xl z-20 relative">GS</h1>
       </Link>
       <div className="flex items-center z-20">
         <ThemeSwitch />
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className={`ml-6 h-6 w-6 flex items-center before:bg-black after:bg-black before:rounded-sm after:rounded-sm dark:before:bg-white dark:after:bg-white before:w-6 after:w-6 before:h-1 after:h-1 before:absolute after:absolute  before:transition-toggle after:transition-toggle before:duration-500 after:duration-500 ${menuBtnClass}`}
+          className={`ml-4 h-8 w-8 flex items-center before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white before:w-8 after:w-8 before:h-1 after:h-1 before:absolute after:absolute  before:transition-toggle after:transition-toggle before:duration-500 after:duration-500 ${menuBtnClass}`}
         />
       </div>
       <div
