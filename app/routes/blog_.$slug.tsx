@@ -1,7 +1,6 @@
 import type {LoaderArgs} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import * as React from 'react'
-import type {Components} from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
@@ -42,10 +41,9 @@ export default function Index() {
 
 type MarkdownProps = {
   body: string
-  components?: Components
 }
 
-function MarkdownContainer({body, components}: MarkdownProps) {
+function MarkdownContainer({body}: MarkdownProps) {
   return React.useMemo(
     () => (
       <ReactMarkdown
