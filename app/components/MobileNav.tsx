@@ -50,7 +50,7 @@ export default function MobileNav() {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className={`ml-4 h-8 w-8 flex items-center before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white before:rounded-sm after:rounded-sm before:w-8 after:w-8 before:h-1 after:h-1 before:absolute after:absolute  before:transition-toggle after:transition-toggle before:duration-500 after:duration-500 ${menuBtnClass}`}
+          className={`ml-4 h-8 w-8 flex items-center before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white before:rounded-xs after:rounded-xs before:w-8 after:w-8 before:h-1 after:h-1 before:absolute after:absolute  before:transition-toggle after:transition-toggle before:duration-500 after:duration-500 ${menuBtnClass}`}
         />
       </div>
       <div
