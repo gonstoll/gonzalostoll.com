@@ -1,22 +1,28 @@
 import {useCatch, useLoaderData} from '@remix-run/react'
+import ReactMarkdown from 'react-markdown'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getAllPosts} from '~/models/content.server'
+import {getAllPosts, getContentByFilaname} from '~/models/content.server'
 import {BlogPost} from './blog'
 
 export async function loader() {
   const posts = await getAllPosts()
+  const aboutMarkdown = await getContentByFilaname('bio.md')
   if (!posts) {
     throw new Response('No posts found', {status: 404})
   }
-  return {posts}
+  if (!aboutMarkdown) {
+    throw new Response('No bio content found', {status: 404})
+  }
+  return {posts, aboutMarkdown}
 }
 
 export default function Blog() {
-  const {posts} = useLoaderData<typeof loader>()
+  const {posts, aboutMarkdown} = useLoaderData<typeof loader>()
 
   return (
     <>
-      <ul>
+      <ReactMarkdown>{aboutMarkdown}</ReactMarkdown>
+      <ul className="mt-4">
         {posts.map(post => (
           <BlogPost
             key={post.slug}
