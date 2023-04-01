@@ -1,7 +1,7 @@
 import frontMatter from 'front-matter'
-import {z} from 'zod'
 import fs from 'fs/promises'
 import path from 'path'
+import {z} from 'zod'
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN
 const ACCOUNT_NAME = process.env.ACCOUNT_NAME
@@ -9,7 +9,6 @@ const REPO_NAME = process.env.REPO_NAME
 const IS_DEV = process.env.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const ARTICLES_DIR = '/contents/content/articles/'
-const CONTENT_DIR = '/contents/content/'
 
 const postSchema = z.object({
   name: z.string(),
@@ -57,27 +56,11 @@ async function githubFetch(url: string) {
   return response
 }
 
-async function readContent(fileName: string, isPost = false) {
+async function readPost(fileName: string) {
   const content = await fs.readFile(
-    path.resolve(
-      __dirname,
-      isPost ? `../content/articles/${fileName}` : `../content/${fileName}`
-    )
+    path.resolve(__dirname, `../content/articles/${fileName}`)
   )
   return content.toString()
-}
-
-export async function getContentByFilaname(fileName: string) {
-  if (IS_DEV) {
-    console.log('📚 Fetching content from local environment')
-    const content = await readContent(fileName)
-    return content
-  }
-
-  const url = new URL(REPO_URL + CONTENT_DIR + fileName)
-  const response = await githubFetch(url.toString())
-  const content = await response?.text()
-  return content
 }
 
 async function getPostByUrl(url: string) {
@@ -89,7 +72,7 @@ async function getPostByUrl(url: string) {
 export async function getPostByFilename(fileName: string) {
   if (IS_DEV) {
     console.log('📚 Fetching post from local environment')
-    const post = await readContent(fileName, true)
+    const post = await readPost(fileName)
     return post
   }
 
@@ -108,7 +91,7 @@ export async function getAllPosts() {
       path.resolve(__dirname, '../content/articles')
     )
     for (const post of posts) {
-      const markdown = await readContent(post, true)
+      const markdown = await readPost(post)
       if (!markdown) return
       const {attributes} = parseFrontMatter(markdown)
       postAttributes.push({

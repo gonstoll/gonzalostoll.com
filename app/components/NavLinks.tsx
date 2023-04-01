@@ -3,7 +3,6 @@ import {Link, useLocation} from '@remix-run/react'
 const LINKS = [
   {name: 'Blog', to: '/blog'},
   {name: 'About', to: '/about'},
-  {name: 'Stack / setup', to: '/i-use'},
   {name: 'Github', to: 'https://github.com/gonstoll'},
   {name: 'Contact', to: '/contact'},
 ]
