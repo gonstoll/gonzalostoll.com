@@ -34,20 +34,20 @@
   :root {
     --font-sans: 'Scto', sans-serif;
     --font-mono: 'Dank Mono', 'Roboto Mono', Menlo, Consolas, Monaco,
-    source-code-pro, Courier New, monospace;
+      source-code-pro, Courier New, monospace;
     --color-white: #fbf9f9;
-    --color-black: #201919;
+    --color-black: #1c1c27;
   }
 }
 
 html.light {
-  --color-primary: #ce1919;
+  --color-primary: #d44e4e;
   --text-color: var(--color-black);
   --bg-color: var(--color-white);
 }
 
 html.dark {
-  --color-primary: #d42929;
+  --color-primary: #d44e4e;
   --text-color: var(--color-white);
   --bg-color: var(--color-black);
 }
