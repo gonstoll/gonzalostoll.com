@@ -50,7 +50,7 @@ function App() {
         <Links />
         <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
-      <body className="p-10">
+      <body className="p-5 sm:p-10">
         <MobileNav />
         <MobileStickyNav />
         <Sidebar />
