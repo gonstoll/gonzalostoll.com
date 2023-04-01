@@ -8,7 +8,7 @@ export default function ThemeSwitch() {
       aria-label={`Activate ${theme === 'light' ? 'dark' : 'light'} mode`}
       title={`Activate ${theme === 'light' ? 'dark' : 'light'} mode`}
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-      className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-black text-white dark:bg-white dark:text-black"
+      className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-black text-white dark:bg-white dark:text-black"
     >
       <Icons />
     </button>
