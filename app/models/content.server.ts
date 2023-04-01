@@ -8,7 +8,8 @@ const ACCOUNT_NAME = process.env.ACCOUNT_NAME
 const REPO_NAME = process.env.REPO_NAME
 const IS_DEV = process.env.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
-const REPO_DIR = '/contents/content/articles/'
+const ARTICLES_DIR = '/contents/content/articles/'
+const CONTENT_DIR = '/contents/content/'
 
 const postSchema = z.object({
   name: z.string(),
@@ -56,27 +57,43 @@ async function githubFetch(url: string) {
   return response
 }
 
+async function readContent(fileName: string, isPost = false) {
+  const content = await fs.readFile(
+    path.resolve(
+      __dirname,
+      isPost ? `../content/articles/${fileName}` : `../content/${fileName}`
+    )
+  )
+  return content.toString()
+}
+
+export async function getContentByFilaname(fileName: string) {
+  if (IS_DEV) {
+    console.log('📚 Fetching content from local environment')
+    const content = await readContent(fileName)
+    return content
+  }
+
+  const url = new URL(REPO_URL + CONTENT_DIR + fileName)
+  const response = await githubFetch(url.toString())
+  const content = await response?.text()
+  return content
+}
+
 async function getPostByUrl(url: string) {
   const response = await githubFetch(url)
   const post = await response?.text()
   return post
 }
 
-async function readPost(fileName: string) {
-  const post = await fs.readFile(
-    path.resolve(__dirname, `../content/articles/${fileName}`)
-  )
-  return post.toString()
-}
-
 export async function getPostByFilename(fileName: string) {
   if (IS_DEV) {
     console.log('📚 Fetching post from local environment')
-    const post = await readPost(fileName)
+    const post = await readContent(fileName, true)
     return post
   }
 
-  const url = new URL(REPO_URL + REPO_DIR + fileName)
+  const url = new URL(REPO_URL + ARTICLES_DIR + fileName)
   const response = await githubFetch(url.toString())
   const post = await response?.text()
   return post
@@ -91,7 +108,7 @@ export async function getAllPosts() {
       path.resolve(__dirname, '../content/articles')
     )
     for (const post of posts) {
-      const markdown = await readPost(post)
+      const markdown = await readContent(post, true)
       if (!markdown) return
       const {attributes} = parseFrontMatter(markdown)
       postAttributes.push({
@@ -102,7 +119,7 @@ export async function getAllPosts() {
     return postAttributes
   }
 
-  const url = new URL(REPO_URL + REPO_DIR)
+  const url = new URL(REPO_URL + ARTICLES_DIR)
   const response = await githubFetch(url.toString())
   const postsData = await response?.json()
   const posts = postSchema.array().parse(postsData)

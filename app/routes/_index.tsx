@@ -1,6 +1,6 @@
 import {useCatch, useLoaderData} from '@remix-run/react'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getAllPosts} from '~/models/blog.server'
+import {getAllPosts} from '~/models/content.server'
 import {BlogPost} from './blog'
 
 export async function loader() {

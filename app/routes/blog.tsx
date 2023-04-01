@@ -1,7 +1,7 @@
 import {Link, useCatch, useLoaderData} from '@remix-run/react'
 import ErrorBlock from '~/components/ErrorBlock'
-import type {PostAttributes} from '~/models/blog.server'
-import {getAllPosts} from '~/models/blog.server'
+import type {PostAttributes} from '~/models/content.server'
+import {getAllPosts} from '~/models/content.server'
 
 export async function loader() {
   const posts = await getAllPosts()

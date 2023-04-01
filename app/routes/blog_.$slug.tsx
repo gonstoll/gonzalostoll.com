@@ -7,7 +7,7 @@ import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
+import {getPostByFilename, parseFrontMatter} from '~/models/content.server'
 import blogStyles from '~/styles/blog.css'
 
 export function links() {
