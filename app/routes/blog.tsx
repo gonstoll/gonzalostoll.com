@@ -32,7 +32,7 @@ export function BlogPost({post}: {post: PostAttributes}) {
 
   return (
     <li className="mb-4 last:mb-0">
-      <Link to={post.slug}>
+      <Link to={post.slug} prefetch="intent">
         <h3 className="text-2xl font-bold">{post.title}</h3>
         <p>{postDate}</p>
         <p>{post.summary}</p>

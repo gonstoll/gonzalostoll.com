@@ -7,7 +7,7 @@
   src: url('/fonts/scto/regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: fallback;
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   src: url('/fonts/scto/bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: block;
+  font-display: fallback;
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   src: url('/fonts/dank-mono/regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: fallback;
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   src: url('/fonts/dank-mono/italic.woff2') format('woff2');
   font-weight: 400;
   font-style: italic;
-  font-display: block;
+  font-display: fallback;
 }
 
 @layer base {
