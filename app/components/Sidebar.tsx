@@ -8,7 +8,7 @@ export default function Sidebar() {
         <div className="mb-auto">
           <Link to="/">
             <h1 className="font-bold text-4xl">Gonzalo Stoll</h1>
-            <h2>Frontend Engineer</h2>
+            <h2 className="text-xl mt-2">Frontend Engineer</h2>
           </Link>
         </div>
         <NavLinks type="desktop" />

@@ -69,5 +69,7 @@ function MarkdownContainer() {
 
 export function CatchBoundary() {
   const caught = useCatch()
-  return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
+  return (
+    <ErrorBlock title="Oh no... Something went wrong" reason={caught.data} />
+  )
 }
