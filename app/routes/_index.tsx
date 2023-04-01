@@ -1,42 +1,36 @@
 import {useCatch, useLoaderData} from '@remix-run/react'
-import ReactMarkdown from 'react-markdown'
+import Bio from '~/components/Bio'
+import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getAllPosts, getContentByFilaname} from '~/models/content.server'
-import {BlogPost} from './blog'
+import {getAllPosts} from '~/models/content.server'
 
 export async function loader() {
   const posts = await getAllPosts()
-  const aboutMarkdown = await getContentByFilaname('bio.md')
   if (!posts) {
-    throw new Response('No posts found', {status: 404})
+    throw new Response('Posts not found', {status: 404})
   }
-  if (!aboutMarkdown) {
-    throw new Response('No bio content found', {status: 404})
-  }
-  return {posts, aboutMarkdown}
+  return {posts}
 }
 
-export default function Blog() {
-  const {posts, aboutMarkdown} = useLoaderData<typeof loader>()
+export default function HomePage() {
+  const {posts} = useLoaderData<typeof loader>()
 
   return (
     <>
-      <ReactMarkdown>{aboutMarkdown}</ReactMarkdown>
-      <ul className="mt-4">
-        {posts.map(post => (
-          <BlogPost
-            key={post.slug}
-            post={{...post, slug: `blog/${post.slug}`}}
-          />
-        ))}
-      </ul>
+      <Bio />
+      <div className="mt-20">
+        <p className="text-xl mb-10">Check out some of my articles:</p>
+        <BlogPostList posts={posts} isHome />
+      </div>
     </>
   )
 }
 
 export function CatchBoundary() {
   const caught = useCatch()
-  return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
+  return (
+    <ErrorBlock title="Oh no... Something went wrong" reason={caught.data} />
+  )
 }
 
 export function ErrorBoundary({error}: {error: unknown}) {
