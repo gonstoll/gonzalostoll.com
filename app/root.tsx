@@ -85,17 +85,35 @@ type ErrorWrapperProps = {
   reason?: any
 }
 
-function ErrorWrapper({title, reason}: ErrorWrapperProps) {
+function ErrorPage({title, reason}: ErrorWrapperProps) {
   return (
     <html lang="en" className="light">
       <head>
         <Links />
         <title>Oh no... something went wrong!</title>
       </head>
-      <body className="p-4">
-        <ErrorBlock title={title} reason={reason} />
+      <body className="p-5 sm:p-10">
+        <MobileNav />
+        <MobileStickyNav />
+        <Sidebar />
+        <main className="lg:mx-64 mt-10 lg:mt-0">
+          <div className="mx-auto lg:max-w-2xl">
+            <ErrorBlock title={title} reason={reason} />
+          </div>
+        </main>
+        <div className="hidden lg:block fixed top-10 right-10 left-auto">
+          <ThemeSwitch />
+        </div>
       </body>
     </html>
+  )
+}
+
+function ErrorWrapper({title, reason}: ErrorWrapperProps) {
+  return (
+    <ThemeProvider ssrTheme={null}>
+      <ErrorPage title={title} reason={reason} />
+    </ThemeProvider>
   )
 }
 
