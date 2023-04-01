@@ -29,21 +29,22 @@ export async function loader({params}: LoaderArgs) {
 }
 
 export default function Index() {
-  const {body, attributes} = useLoaderData<typeof loader>()
+  const {attributes} = useLoaderData<typeof loader>()
 
   return (
     <>
       <h1 className="text-3xl underline">{attributes.title}</h1>
-      <MarkdownContainer body={body} />
+      <MarkdownContainer />
     </>
   )
 }
 
-type MarkdownProps = {
-  body: string
-}
+// We need to memoize this because ReactMarkdown will re-render all defined
+// components on every change. CodeBlock is an expensive component to
+// aggresively re-render.
+function MarkdownContainer() {
+  const {body} = useLoaderData<typeof loader>()
 
-function MarkdownContainer({body}: MarkdownProps) {
   return React.useMemo(
     () => (
       <ReactMarkdown

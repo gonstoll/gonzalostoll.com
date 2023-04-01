@@ -48,3 +48,18 @@ export function CatchBoundary() {
   const caught = useCatch()
   return <ErrorBlock title="Oh no! Something went wrong" reason={caught.data} />
 }
+
+export function ErrorBoundary({error}: {error: unknown}) {
+  console.error(error)
+
+  if (error instanceof Error) {
+    return (
+      <ErrorBlock
+        title="Oh no! Something went wrong :("
+        reason={error.message}
+      />
+    )
+  }
+
+  return <ErrorBlock title="Oh no! Something went wrong :(" />
+}
