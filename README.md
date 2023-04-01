@@ -1,6 +1,6 @@
 # Gonzalo Stoll portfolio
 
-This website is my own personal [portfolio](http://gonzalostoll.com), done with React, TypeScript, styled components and personal UI library published on npm.
+This website is my own personal [portfolio](https://gonzalostoll.com), done with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/).
 
 ## Development
 
