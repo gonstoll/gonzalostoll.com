@@ -54,11 +54,11 @@ function App() {
         <MobileNav />
         <MobileStickyNav />
         <Sidebar />
-        <main className="lg:mx-64 mt-10 lg:mt-0">
+        <main className="mt-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
             <Outlet />
           </div>
-          <div className="hidden lg:block fixed top-10 right-10 left-auto">
+          <div className="fixed top-10 right-10 left-auto hidden lg:block">
             <ThemeSwitch />
           </div>
         </main>
@@ -96,12 +96,12 @@ function ErrorPage({title, reason}: ErrorWrapperProps) {
         <MobileNav />
         <MobileStickyNav />
         <Sidebar />
-        <main className="lg:mx-64 mt-10 lg:mt-0">
+        <main className="mt-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
             <ErrorBlock title={title} reason={reason} />
           </div>
         </main>
-        <div className="hidden lg:block fixed top-10 right-10 left-auto">
+        <div className="fixed top-10 right-10 left-auto hidden lg:block">
           <ThemeSwitch />
         </div>
       </body>

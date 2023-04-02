@@ -20,7 +20,7 @@ function NavLink({
   }`
 
   return (
-    <li className="mb-4 last:mb-0 text-xl">
+    <li className="mb-4 text-xl last:mb-0">
       <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
         {children} →
       </Link>

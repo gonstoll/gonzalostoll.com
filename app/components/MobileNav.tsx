@@ -41,20 +41,20 @@ export default function MobileNav() {
   }, [isMenuOpen])
 
   return (
-    <header className="lg:hidden flex items-center justify-between">
+    <header className="flex items-center justify-between lg:hidden">
       <Link to="/" onClick={() => setIsMenuOpen(false)}>
-        <h1 className="font-bold text-3xl z-20 relative">GS</h1>
+        <h1 className="relative z-20 text-3xl font-bold">GS</h1>
       </Link>
-      <div className="flex items-center z-20">
+      <div className="z-20 flex items-center">
         <ThemeSwitch />
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className={`ml-4 h-8 w-8 flex items-center before:bg-black after:bg-black dark:before:bg-white dark:after:bg-white before:rounded-xs after:rounded-xs before:w-8 after:w-8 before:h-1 after:h-1 before:absolute after:absolute  before:transition-toggle after:transition-toggle before:duration-500 after:duration-500 ${menuBtnClass}`}
+          className={`ml-4 flex h-8 w-8 items-center before:absolute before:h-1 before:w-8 before:rounded-xs before:bg-black before:transition-toggle before:duration-500 after:absolute after:h-1 after:w-8 after:rounded-xs after:bg-black  after:transition-toggle after:duration-500 dark:before:bg-white dark:after:bg-white ${menuBtnClass}`}
         />
       </div>
       <div
-        className={`z-10 flex items-end p-10 w-full max-h-full fixed bottom-0 left-0 right-0 bg-white dark:bg-black transition-top duration-500 ${mobileMenuClass}`}
+        className={`fixed bottom-0 left-0 right-0 z-10 flex max-h-full w-full items-end bg-white p-10 transition-top duration-500 dark:bg-black ${mobileMenuClass}`}
       >
         <NavLinks
           type="mobile"
@@ -72,7 +72,7 @@ export function MobileStickyNav() {
 
   return (
     <div
-      className={`bg-white dark:bg-black w-full px-5 sm:px-10 py-4 fixed left-0 transition-top duration-300 z-10 ${visibleClass}`}
+      className={`fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 ${visibleClass}`}
     >
       <MobileNav />
     </div>

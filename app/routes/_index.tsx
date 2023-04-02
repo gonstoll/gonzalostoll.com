@@ -19,7 +19,7 @@ export default function HomePage() {
     <>
       <Bio />
       <div className="mt-20">
-        <p className="text-xl mb-10">Check out some of my articles:</p>
+        <p className="mb-10 text-xl">Check out some of my articles:</p>
         <BlogPostList posts={posts} isHome />
       </div>
     </>

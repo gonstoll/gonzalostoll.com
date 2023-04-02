@@ -25,7 +25,7 @@ export default function AboutPage() {
       <img
         src="/images/profile.png"
         alt="Gonzalo Stoll"
-        className="max-w-xxs mb-6"
+        className="mb-6 max-w-xxs"
       />
       <Bio />
 
@@ -45,7 +45,7 @@ export default function AboutPage() {
             ul: ({children}) => <ul>{children}</ul>,
             li: ({children}) => <li>{children}</li>,
             h2: ({children}) => (
-              <h2 className="text-xl mt-20 mb-6">{children}</h2>
+              <h2 className="mt-20 mb-6 text-xl">{children}</h2>
             ),
           }}
         >
