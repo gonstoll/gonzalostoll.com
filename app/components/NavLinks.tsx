@@ -48,7 +48,7 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
 
   return (
     <nav className={computedClassName}>
-      <ul className="duration">
+      <ul>
         {LINKS.map(link => (
           <NavLink
             key={link.to}
