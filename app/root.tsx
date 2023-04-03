@@ -43,7 +43,23 @@ export function meta({data}: Parameters<MetaFunction<typeof loader>>[0]) {
 }
 
 export function links() {
-  return [{rel: 'stylesheet', href: globalStyles}]
+  return [
+    {rel: 'stylesheet', href: globalStyles},
+    {
+      rel: 'preload',
+      href: '/fonts/scto/regular.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'preload',
+      href: '/fonts/scto/bold.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+  ]
 }
 
 export async function loader({request}: LoaderArgs) {

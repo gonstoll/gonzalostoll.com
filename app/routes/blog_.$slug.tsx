@@ -32,7 +32,23 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
 }
 
 export function links() {
-  return [{rel: 'stylesheet', href: blogStyles}]
+  return [
+    {rel: 'stylesheet', href: blogStyles},
+    {
+      rel: 'preload',
+      href: '/fonts/dank-mono/regular.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'preload',
+      href: '/fonts/dank-mono/italic.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+  ]
 }
 
 export async function loader({params}: LoaderArgs) {
@@ -48,11 +64,13 @@ export async function loader({params}: LoaderArgs) {
 export default function Index() {
   const {attributes} = useLoaderData<typeof loader>() || {}
 
-  const postDate = new Date(attributes?.date).toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
+  const postDate = attributes?.date
+    ? new Date(attributes.date).toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : ''
 
   return (
     <>
