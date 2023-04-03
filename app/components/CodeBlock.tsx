@@ -77,7 +77,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
     >
       {({className, tokens, getLineProps, getTokenProps}) => (
         <pre
-          className={`${className} my-4 overflow-auto rounded-lg p-4 font-mono text-base`}
+          className={`${className} my-6 overflow-auto rounded-lg p-4 font-mono text-base`}
         >
           <code className={className}>
             {tokens.map((line, key) => {
