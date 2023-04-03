@@ -3,6 +3,13 @@ import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/content.server'
 
+export function meta() {
+  return {
+    title: 'Gonzalo Stoll - Blog',
+    'og:title': 'Gonzalo Stoll - Blog',
+  }
+}
+
 export async function loader() {
   const posts = await getAllPosts()
   if (!posts) {

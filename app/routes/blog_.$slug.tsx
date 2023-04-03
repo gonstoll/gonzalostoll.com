@@ -1,4 +1,4 @@
-import type {LoaderArgs} from '@remix-run/node'
+import type {LoaderArgs, MetaFunction} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import * as React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -10,13 +10,30 @@ import ErrorBlock from '~/components/ErrorBlock'
 import {getPostByFilename, parseFrontMatter} from '~/models/content.server'
 import blogStyles from '~/styles/blog.css'
 
+const paramsSchema = z.object({slug: z.string()})
+
+export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
+  const {slug} = z.object({slug: z.string()}).parse(args.params)
+  const keywords = args.data.attributes.meta.keywords.join(', ')
+
+  return {
+    title: `Gonzalo Stoll - ${args.data.attributes.title}`,
+    description: args.data.attributes.summary,
+    keywords: keywords,
+    'og:title': `Gonzalo Stoll - ${args.data.attributes.title}`,
+    'og:description': args.data.attributes.summary,
+    'og:image': 'https://gonzalo.stoll.com/images/profile.png',
+    'og:url': `https://gonzalo.stoll.com/blog/${slug}`,
+    'og:type': 'article',
+    'article:published_time': args.data.attributes.date,
+    'article:author': 'Gonzalo Stoll',
+    'article:tag': keywords,
+  }
+}
+
 export function links() {
   return [{rel: 'stylesheet', href: blogStyles}]
 }
-
-const paramsSchema = z.object({
-  slug: z.string(),
-})
 
 export async function loader({params}: LoaderArgs) {
   const {slug} = paramsSchema.parse(params)

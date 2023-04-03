@@ -1,4 +1,4 @@
-import type {LoaderArgs} from '@remix-run/node'
+import type {LoaderArgs, MetaFunction} from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -21,11 +21,21 @@ import {
 } from './utils/theme-provider'
 import {getThemeSession} from './utils/theme.server'
 
-export function meta() {
+export function meta({data}: Parameters<MetaFunction<typeof loader>>[0]) {
   return {
     charset: 'utf-8',
     title: 'Gonzalo Stoll',
     viewport: 'width=device-width,initial-scale=1',
+    description:
+      'Gonzalo Stoll is a software engineer and a web developer based in Copenhagen. He is currently working at Workday. He also enjoys writting and mentoring.',
+    keywords: 'gonzalo, stoll, gonzalo stoll',
+    author: 'Gonzalo Stoll',
+    'theme-color': data.theme === 'dark' ? '#1c1c27' : '#fbf9f9',
+    'og:title': 'Gonzalo Stoll',
+    'og:description':
+      'Gonzalo Stoll is a software engineer and a web developer based in Copenhagen. He is currently working at Workday. He also enjoys writting and mentoring.',
+    'og:image': 'https://gonzalo.stoll.com/images/profile.png',
+    'og:url': 'https://gonzalo.stoll.com',
   }
 }
 
