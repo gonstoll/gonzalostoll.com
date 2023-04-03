@@ -19,7 +19,7 @@ export async function loader() {
 }
 
 export default function Blog() {
-  const {posts} = useLoaderData<typeof loader>()
+  const {posts} = useLoaderData<typeof loader>() || {}
 
   return <BlogPostList posts={posts} />
 }

@@ -32,7 +32,23 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
 }
 
 export function links() {
-  return [{rel: 'stylesheet', href: blogStyles}]
+  return [
+    {rel: 'stylesheet', href: blogStyles},
+    {
+      rel: 'preload',
+      href: '/fonts/dank-mono/regular.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'preload',
+      href: '/fonts/dank-mono/italic.woff2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
+  ]
 }
 
 export async function loader({params}: LoaderArgs) {
@@ -46,17 +62,19 @@ export async function loader({params}: LoaderArgs) {
 }
 
 export default function Index() {
-  const {attributes} = useLoaderData<typeof loader>()
+  const {attributes} = useLoaderData<typeof loader>() || {}
 
-  const postDate = new Date(attributes.date).toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
+  const postDate = attributes?.date
+    ? new Date(attributes.date).toLocaleString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      })
+    : ''
 
   return (
     <>
-      <h1 className="mb-6 text-2xl font-bold">{attributes.title}</h1>
+      <h1 className="mb-6 text-2xl font-bold">{attributes?.title}</h1>
       <p className="mb-6 text-base">{postDate}</p>
       <MarkdownContainer />
     </>
@@ -67,7 +85,7 @@ export default function Index() {
 // components on every change. CodeBlock is an expensive component to
 // aggresively re-render.
 function MarkdownContainer() {
-  const {body} = useLoaderData<typeof loader>()
+  const {body} = useLoaderData<typeof loader>() || {}
 
   return React.useMemo(
     () => (

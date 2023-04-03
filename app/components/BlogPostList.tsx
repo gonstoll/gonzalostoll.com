@@ -9,7 +9,7 @@ type Props = {
 export default function BlogPostList({posts, isHome}: Props) {
   return (
     <ul>
-      {posts.map(post => (
+      {posts?.map(post => (
         <BlogPost
           key={post.slug}
           post={{
