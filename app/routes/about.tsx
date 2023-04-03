@@ -45,7 +45,7 @@ export default function AboutPage() {
                 className="hover:text-primary"
                 href={href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 {children}
               </a>

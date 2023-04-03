@@ -21,9 +21,20 @@ function NavLink({
 
   return (
     <li className="mb-4 text-xl last:mb-0">
-      <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
-        {children} →
-      </Link>
+      {to.startsWith('http') ? (
+        <a
+          className={computedClassName}
+          href={to}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children} →
+        </a>
+      ) : (
+        <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
+          {children} →
+        </Link>
+      )}
     </li>
   )
 }
