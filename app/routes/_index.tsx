@@ -19,7 +19,19 @@ export default function HomePage() {
     <>
       <Bio />
       <div className="mt-20">
-        <p className="mb-10 text-xl">Check out some of my articles:</p>
+        <p className="mb-10 text-xl">
+          Feel free to check out my coding skills on{' '}
+          <a
+            className="hover:text-primary"
+            href="https://github.com/gonstoll"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            my GitHub page
+          </a>
+          . I'm also very enthusiastic about writing and have published various
+          posts that you can explore below.
+        </p>
         <BlogPostList posts={posts} isHome />
       </div>
     </>
@@ -44,3 +56,7 @@ export function ErrorBoundary({error}: {error: unknown}) {
 
   return <ErrorBlock title="Oh no! Something went wrong :(" />
 }
+
+// Feel free to check out my coding skills on my GitHub page, but I also enjoy writing and have published various posts that you can explore below.
+
+// Feel free to browse my coding projects on my GitHub page, but I also enjoy writing and have published several posts which you can explore here.

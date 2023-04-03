@@ -13,7 +13,7 @@ export default function ContactPage() {
         <a className="hover:text-primary" href="mailto:stollgonzalo@gmail.com">
           stollgonzalo@gmail.com
         </a>
-        , or give me an good 'ol fashion call at{' '}
+        , or give me an good 'ol-fashioned call at{' '}
         <a className="hover:text-primary" href="tel:+4550205677">
           +45 50 20 56 77
         </a>
