@@ -3,12 +3,15 @@ import {
   Links,
   LiveReload,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useCatch,
   useLoaderData,
+  useLocation,
+  useOutlet,
 } from '@remix-run/react'
+import * as React from 'react'
+import {CSSTransition, SwitchTransition} from 'react-transition-group'
 import ErrorBlock from './components/ErrorBlock'
 import MobileNav, {MobileStickyNav} from './components/MobileNav'
 import Sidebar from './components/Sidebar'
@@ -49,9 +52,16 @@ export async function loader({request}: LoaderArgs) {
   return {theme}
 }
 
+function AnimatedOutlet() {
+  const [outlet] = React.useState(useOutlet())
+  return outlet
+}
+
 function App() {
-  const {theme: ssrTheme} = useLoaderData<typeof loader>()
+  const {theme: ssrTheme} = useLoaderData<typeof loader>() || {}
   const {theme} = useTheme()
+  const location = useLocation()
+  const outletRef = React.useRef<HTMLDivElement>(null)
 
   return (
     <html lang="en" className={theme || ''}>
@@ -66,7 +76,22 @@ function App() {
         <Sidebar />
         <main className="mt-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
-            <Outlet />
+            <SwitchTransition>
+              <CSSTransition
+                key={location.pathname}
+                timeout={300}
+                nodeRef={outletRef}
+                classNames={{
+                  enter: 'opacity-0',
+                  enterActive: 'opacity-100',
+                  exitActive: 'opacity-0',
+                }}
+              >
+                <div ref={outletRef} className="transition-all duration-300">
+                  <AnimatedOutlet />
+                </div>
+              </CSSTransition>
+            </SwitchTransition>
           </div>
           <div className="fixed top-10 right-10 left-auto hidden lg:block">
             <ThemeSwitch />
@@ -81,7 +106,7 @@ function App() {
 }
 
 export default function AppWithProviders() {
-  const {theme: ssrTheme} = useLoaderData<typeof loader>()
+  const {theme: ssrTheme} = useLoaderData<typeof loader>() || {}
 
   return (
     <ThemeProvider ssrTheme={ssrTheme}>
