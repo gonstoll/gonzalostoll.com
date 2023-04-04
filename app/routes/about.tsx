@@ -1,5 +1,7 @@
+import type {V2_MetaFunction} from '@remix-run/node'
 import ReactMarkdown from 'react-markdown'
 import Bio from '~/components/Bio'
+import {getRootMeta} from '~/utils/get-root-meta'
 
 const markdown = `
 ## Technologies
@@ -20,11 +22,14 @@ I work on a M2 Macbook Air (midnight blue), but my setup also includes:
 - Mouse: Magic mouse (black)
 `
 
-export function meta() {
-  return {
-    title: 'Gonzalo Stoll - About',
-    'og:title': 'Gonzalo Stoll - About',
-  }
+export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
+  const parentMeta = getRootMeta(matches)
+
+  return [
+    ...parentMeta,
+    {title: 'Gonzalo Stoll - About'},
+    {property: 'og:title', content: 'Gonzalo Stoll - About'},
+  ]
 }
 
 export function links() {

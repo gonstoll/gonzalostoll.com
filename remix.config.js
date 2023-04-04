@@ -7,6 +7,7 @@ module.exports = {
   server: process.env.NODE_ENV === 'development' ? undefined : './server.js',
   ignoredRouteFiles: ['**/.*'],
   future: {
+    v2_meta: true,
     v2_routeConvention: true,
     unstable_tailwind: true,
   },

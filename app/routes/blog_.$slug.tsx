@@ -25,19 +25,28 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
 
   const keywords = args.data.attributes.meta.keywords.join(', ')
 
-  return {
-    title: `Gonzalo Stoll - ${args.data.attributes.title}`,
-    description: args.data.attributes.summary,
-    keywords: keywords,
-    'og:title': `Gonzalo Stoll - ${args.data.attributes.title}`,
-    'og:description': args.data.attributes.summary,
-    'og:image': 'https://gonzalo.stoll.com/images/profile.png',
-    'og:url': `https://gonzalo.stoll.com/blog/${slug}`,
-    'og:type': 'article',
-    'article:published_time': args.data.attributes.date,
-    'article:author': 'Gonzalo Stoll',
-    'article:tag': keywords,
-  }
+  return [
+    {title: `Gonzalo Stoll - ${args.data.attributes.title}`},
+    {name: 'description', content: args.data.attributes.summary},
+    {name: 'keywords', content: keywords},
+    {
+      property: 'og:title',
+      content: `Gonzalo Stoll - ${args.data.attributes.title}`,
+    },
+    {property: 'og:description', content: args.data.attributes.summary},
+    {
+      property: 'og:image',
+      content: 'https://gonzalo.stoll.com/images/profile.png',
+    },
+    {property: 'og:url', content: `https://gonzalo.stoll.com/blog/${slug}`},
+    {property: 'og:type', content: 'article'},
+    {
+      property: 'article:published_time',
+      content: args.data.attributes.date,
+    },
+    {property: 'article:author', content: 'Gonzalo Stoll'},
+    {property: 'article:tag', content: keywords},
+  ]
 }
 
 export function links() {

@@ -1,14 +1,19 @@
+import type {V2_MetaFunction} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import {json} from '@vercel/remix'
 import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
+import {getRootMeta} from '~/utils/get-root-meta'
 
-export function meta() {
-  return {
-    title: 'Gonzalo Stoll - Blog',
-    'og:title': 'Gonzalo Stoll - Blog',
-  }
+export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
+  const parentMeta = getRootMeta(matches)
+
+  return [
+    ...parentMeta,
+    {title: 'Gonzalo Stoll - Blog'},
+    {property: 'og:title', content: 'Gonzalo Stoll - Blog'},
+  ]
 }
 
 export async function loader() {
