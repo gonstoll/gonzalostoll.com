@@ -90,7 +90,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
                   data-line-number={lineNumber}
                   className={`${
                     getLineProps({line, key}).className
-                  } relative block ${
+                  } relative block pr-4 ${
                     lines.includes(lineNumber) ? 'highlighted-line' : ''
                   }`}
                 >
