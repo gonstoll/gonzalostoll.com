@@ -13,7 +13,7 @@ export async function loader() {
 }
 
 export default function HomePage() {
-  const {posts} = useLoaderData<typeof loader>() || {}
+  const {posts} = useLoaderData<typeof loader>()
 
   return (
     <>
