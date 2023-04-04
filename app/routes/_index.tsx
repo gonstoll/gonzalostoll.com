@@ -18,7 +18,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Bio />
+      <Bio isHome />
       <div className="mt-20">
         <p className="mb-10 text-xl">
           Feel free to check out my coding skills on{' '}
