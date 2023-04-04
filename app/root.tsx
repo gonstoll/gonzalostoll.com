@@ -1,5 +1,4 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
-import {json} from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -11,6 +10,7 @@ import {
   useLoaderData,
   useLocation,
 } from '@remix-run/react'
+import {json} from '@vercel/remix'
 import ErrorBlock from './components/ErrorBlock'
 import MobileNav, {MobileStickyNav} from './components/MobileNav'
 import Sidebar from './components/Sidebar'

@@ -1,6 +1,7 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
-import {json} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
+import {json} from '@vercel/remix'
+import {cacheHeader} from 'pretty-cache-header'
 import * as React from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
@@ -66,7 +67,18 @@ export async function loader({params}: LoaderArgs) {
     throw new Response('Post not found', {status: 404})
   }
   const {attributes, body} = parseFrontMatter(markdown)
-  return json({attributes, body})
+  return json(
+    {attributes, body},
+    {
+      headers: {
+        'Cache-Control': cacheHeader({
+          sMaxage: '30days',
+          staleWhileRevalidate: '1day',
+          staleIfError: '7days',
+        }),
+      },
+    }
+  )
 }
 
 export default function Index() {

@@ -7,7 +7,7 @@ function getPreferredTheme() {
   return window.matchMedia(prefersLightMQ).matches ? 'light' : 'dark'
 }
 
-export type Theme = typeof themes[number]
+export type Theme = (typeof themes)[number]
 type ThemeContextType = {
   theme: Theme | null
   setTheme: (theme: Theme) => void
@@ -44,9 +44,6 @@ export function ThemeProvider({
     // which we never configured. This means, this script should never be
     // reached. The server always sets a theme in the session (see `getTheme()`
     // method on `theme.server.ts`).
-    console.warn(
-      "Hi there, could you let Gonzalo know you're seeing this message? Thanks!"
-    )
     if (typeof window !== 'object') {
       return null
     }

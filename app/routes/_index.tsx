@@ -1,5 +1,5 @@
-import {json} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
+import {json} from '@vercel/remix'
 import Bio from '~/components/Bio'
 import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
