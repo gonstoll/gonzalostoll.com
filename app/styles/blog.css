@@ -231,17 +231,6 @@ code[class*='language-'] ::selection {
   font-style: italic;
 }
 
-.highlighted-line {
-  background-color: hsla(207, 95%, 15%, 1);
-  display: block;
-  margin-right: -1rem;
-  margin-left: -1rem;
-  padding-right: 1em;
-  padding-left: 0.75em;
-  border-left: 0.25em solid var(--color-purple);
-  z-index: 1;
-}
-
 .inline-code {
   background-color: var(--color-code-bg);
   padding: 0.2em 0.4em;
@@ -252,11 +241,30 @@ code[class*='language-'] ::selection {
 }
 
 [data-line-number]:before {
+  background-color: var(--pre-color-bg);
   color: var(--color-grey);
   content: attr(data-line-number);
   display: inline-block;
+  left: 0;
   padding-left: 0;
   padding-right: 1.5rem;
   text-align: right;
-  width: 2.5rem;
+  width: 3.5rem;
+  position: sticky;
+}
+
+.highlighted-line[data-line-number]:before {
+  border-left: 0.25em solid var(--color-purple);
+}
+
+.highlighted-line:after {
+  background: var(--color-blue);
+  content: ' ';
+  left: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
