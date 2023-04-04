@@ -27,6 +27,16 @@ export function meta() {
   }
 }
 
+export function links() {
+  return [
+    {
+      rel: 'preload',
+      href: '/images/profile.png',
+      as: 'image',
+    },
+  ]
+}
+
 export default function AboutPage() {
   return (
     <>

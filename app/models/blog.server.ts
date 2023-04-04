@@ -57,10 +57,13 @@ async function githubFetch(url: string) {
 }
 
 async function readPost(fileName: string) {
-  const content = await fs.readFile(
-    path.resolve(__dirname, `../content/articles/${fileName}`)
-  )
-  return content.toString()
+  const content = await fs
+    .readFile(path.resolve(__dirname, `../content/articles/${fileName}`))
+    .catch(error => {
+      console.error(error)
+      return undefined
+    })
+  return content?.toString()
 }
 
 async function getPostByUrl(url: string) {
@@ -87,9 +90,15 @@ export async function getAllPosts() {
 
   if (IS_DEV) {
     console.log('📚 Fetching posts from local environment')
-    const posts = await fs.readdir(
-      path.resolve(__dirname, '../content/articles')
-    )
+    const posts = await fs
+      .readdir(path.resolve(__dirname, '../content/articles'))
+      .catch(error => {
+        console.error(error)
+        return undefined
+      })
+
+    if (!posts) return
+
     for (const post of posts) {
       const markdown = await readPost(post)
       if (!markdown) return

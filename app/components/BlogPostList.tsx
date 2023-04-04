@@ -1,5 +1,5 @@
 import {Link} from '@remix-run/react'
-import type {PostAttributes} from '~/models/content.server'
+import type {PostAttributes} from '~/models/blog.server'
 
 type Props = {
   posts: Array<PostAttributes>

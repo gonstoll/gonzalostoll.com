@@ -1,15 +1,16 @@
+import {json} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import Bio from '~/components/Bio'
 import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getAllPosts} from '~/models/content.server'
+import {getAllPosts} from '~/models/blog.server'
 
 export async function loader() {
   const posts = await getAllPosts()
   if (!posts) {
     throw new Response('Posts not found', {status: 404})
   }
-  return {posts}
+  return json({posts})
 }
 
 export default function HomePage() {
@@ -56,7 +57,3 @@ export function ErrorBoundary({error}: {error: unknown}) {
 
   return <ErrorBlock title="Oh no! Something went wrong :(" />
 }
-
-// Feel free to check out my coding skills on my GitHub page, but I also enjoy writing and have published various posts that you can explore below.
-
-// Feel free to browse my coding projects on my GitHub page, but I also enjoy writing and have published several posts which you can explore here.

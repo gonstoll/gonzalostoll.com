@@ -1,4 +1,5 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
+import {json} from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -8,6 +9,7 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
+  useLocation,
 } from '@remix-run/react'
 import ErrorBlock from './components/ErrorBlock'
 import MobileNav, {MobileStickyNav} from './components/MobileNav'
@@ -62,7 +64,7 @@ export function links() {
 export async function loader({request}: LoaderArgs) {
   const themeSession = await getThemeSession(request)
   const theme = themeSession.getTheme()
-  return {theme}
+  return json({theme})
 }
 
 function App() {
@@ -145,12 +147,13 @@ function ErrorWrapper({title, reason}: ErrorWrapperProps) {
 
 export function CatchBoundary() {
   const caught = useCatch()
+  const location = useLocation()
 
   if (caught.status === 404) {
     return (
       <ErrorWrapper
-        title="404 - Oh no! You found a broken link :("
-        reason={caught.data}
+        title="404 - Oh no... You found a broken link :("
+        reason={`No page was found at ${location.pathname}. Please try going back to the homepage.`}
       />
     )
   }
@@ -158,7 +161,7 @@ export function CatchBoundary() {
   if (caught.status === 500) {
     return (
       <ErrorWrapper
-        title="505 - Oh no! Something did not go well"
+        title="500 - Oh no... Something did not go well"
         reason={caught.data}
       />
     )
@@ -172,12 +175,12 @@ export function ErrorBoundary({error}: {error: unknown}) {
 
   if (error instanceof Error) {
     return (
-      <ErrorWrapper
-        title="Oh no! Something went wrong :("
+      <ErrorBlock
+        title="Oh no... Something went wrong!"
         reason={error.message}
       />
     )
   }
 
-  return <ErrorWrapper title="Oh no! Something went wrong :(" />
+  return <ErrorBlock title="Oh no... Something went wrong!" />
 }

@@ -1,4 +1,5 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
+import {json} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import * as React from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -7,13 +8,20 @@ import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getPostByFilename, parseFrontMatter} from '~/models/content.server'
+import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
 
 const paramsSchema = z.object({slug: z.string()})
 
 export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
   const {slug} = z.object({slug: z.string()}).parse(args.params)
+
+  if (!args.data) {
+    return {
+      title: 'Gonzalo Stoll - Post not found',
+    }
+  }
+
   const keywords = args.data.attributes.meta.keywords.join(', ')
 
   return {
@@ -58,7 +66,7 @@ export async function loader({params}: LoaderArgs) {
     throw new Response('Post not found', {status: 404})
   }
   const {attributes, body} = parseFrontMatter(markdown)
-  return {attributes, body}
+  return json({attributes, body})
 }
 
 export default function Index() {
@@ -128,7 +136,30 @@ function MarkdownContainer() {
 
 export function CatchBoundary() {
   const caught = useCatch()
-  return (
-    <ErrorBlock title="Oh no... Something went wrong" reason={caught.data} />
-  )
+
+  if (caught.status === 404) {
+    return (
+      <ErrorBlock
+        title="Oh no... Something went wrong!"
+        reason="The post you were looking for was not found. Try going back to the blog page and choose from there!"
+      />
+    )
+  }
+
+  throw new Error(`Unhandled status code: ${caught.status}`)
+}
+
+export function ErrorBoundary({error}: {error: unknown}) {
+  console.error(error)
+
+  if (error instanceof Error) {
+    return (
+      <ErrorBlock
+        title="Oh no... Something went wrong!"
+        reason={error.message}
+      />
+    )
+  }
+
+  return <ErrorBlock title="Oh no... Something went wrong!" />
 }
