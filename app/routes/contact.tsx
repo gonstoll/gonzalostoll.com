@@ -13,16 +13,32 @@ export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
 
 export default function ContactPage() {
   return (
-    <p className="text-xl">
-      Shoot me an email at{' '}
-      <a className="hover:text-primary" href="mailto:stollgonzalo@gmail.com">
-        stollgonzalo@gmail.com
-      </a>
-      , or give me an good 'ol-fashioned call at{' '}
-      <a className="hover:text-primary" href="tel:+4550205677">
+    <>
+      <a className="block text-xl hover:text-primary" href="tel:+4550205677">
         +45 50 20 56 77
       </a>
-      .
-    </p>
+      <a
+        className="block text-xl hover:text-primary"
+        href="mailto:stollgonzalo@gmail.com"
+      >
+        stollgonzalo@gmail.com
+      </a>
+      <a
+        className="block text-xl hover:text-primary"
+        href="https://www.linkedin.com/in/gonzalostoll/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        linkedin.com/in/gonzalostoll
+      </a>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="/docs/Gonzalo_Stoll_2023.pdf"
+        className="block text-xl hover:text-primary"
+      >
+        Resume ↓
+      </a>
+    </>
   )
 }
