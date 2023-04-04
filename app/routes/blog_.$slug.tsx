@@ -73,11 +73,11 @@ export default function Index() {
     : ''
 
   return (
-    <>
+    <article>
       <h1 className="mb-6 text-2xl font-bold">{attributes?.title}</h1>
       <p className="mb-6 text-base">{postDate}</p>
       <MarkdownContainer />
-    </>
+    </article>
   )
 }
 
