@@ -325,7 +325,7 @@ pre.language-html .token.plain {
 /* Component specifics */
 .inline-code {
   font-family: var(--font-mono);
-  background-color: var(--color-code-bg);
+  background-color: var(--pre-color-bg);
   color: var(--color-0A);
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
