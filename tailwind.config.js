@@ -11,7 +11,7 @@ module.exports = {
         white: 'var(--color-white)',
         black: 'var(--color-black)',
         primary: 'var(--color-primary)',
-        codeBg: 'var(--color-code-bg)',
+        codeBg: 'var(--pre-color-bg)',
       },
       transitionProperty: {
         top: `top, opacity, ${transitionProperty.colors}`,
@@ -25,8 +25,8 @@ module.exports = {
         xs: '0.0625rem', // 1px
       },
       maxWidth: {
-        xxs: '7.5rem'
-      }
+        xxs: '7.5rem',
+      },
     },
   },
   plugins: [],
