@@ -77,7 +77,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
     >
       {({className, tokens, getLineProps, getTokenProps}) => (
         <pre
-          className={`${className} my-6 overflow-auto rounded-lg py-4 font-mono text-base`}
+          className={`${className} my-6 overflow-auto rounded-lg bg-codeBg py-4 font-mono text-base duration-300`}
         >
           <code className={className}>
             {tokens.map((line, key) => {
@@ -90,7 +90,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
                   data-line-number={lineNumber}
                   className={`${
                     getLineProps({line, key}).className
-                  } relative block pr-4 ${
+                  } relative block pr-4 before:duration-300 ${
                     lines.includes(lineNumber) ? 'highlighted-line' : ''
                   }`}
                 >

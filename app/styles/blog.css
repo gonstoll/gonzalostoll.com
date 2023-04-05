@@ -62,10 +62,6 @@ code[class*='language-'] {
   min-width: 100%;
 }
 
-pre[class*='language-'] {
-  background: var(--pre-color-bg);
-}
-
 pre[class*='language-']::-moz-selection,
 pre[class*='language-'] ::-moz-selection,
 code[class*='language-']::-moz-selection,
