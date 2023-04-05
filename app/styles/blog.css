@@ -31,7 +31,7 @@ html.dark {
   --color-0L: #82aaff; /* Whatever */
   --pre-color-bg: #011627;
   --highlighted-line: #c792ea;
-  --color-selection: rgba(29, 59, 83, 0.99);
+  --color-selection: #1d3b53;
 }
 
 pre,
