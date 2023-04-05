@@ -1,22 +1,33 @@
-:root {
-  --color-purple: #c894eb;
-  --color-blue: #82aaff;
-  --color-yellow: #ffcb8b;
-  --color-orange: #f78c6c;
-  --color-green: #c5e478;
-  --color-grey: #637777;
-  --color-white: #ffffff;
-  --color-light-green: #baebe2;
-  --pre-color-bg: #011627;
-  --highlighted-line: #022a4b;
-}
-
 html.light {
-  --color-code-bg: #fbfbfb;
+  --color-0A: #994cc3;
+  --color-0B: #111111;
+  --color-0C: #c96765;
+  --color-0D: #aa0982;
+  --color-0E: #4876d6;
+  --color-0F: #989fb1;
+  --color-0G: #111111;
+  --color-0H: #0c969b;
+  --color-0I: #ff5874;
+  --color-0J: #aa0982;
+  --color-0K: #0c969b;
+  --pre-color-bg: #ededed;
+  --highlighted-line: #994cc3;
 }
 
 html.dark {
-  --color-code-bg: #011627;
+  --color-0A: #c792ea;
+  --color-0B: #82aaff;
+  --color-0C: #ffcb8b;
+  --color-0D: #f78c6c;
+  --color-0E: #c5e478;
+  --color-0F: #637777;
+  --color-0G: #ffffff;
+  --color-0H: #baebe2;
+  --color-0I: #bc5454;
+  --color-0J: #f78c6c;
+  --color-0K: #80cbc4;
+  --pre-color-bg: #011627;
+  --highlighted-line: #c792ea;
 }
 
 pre,
@@ -78,19 +89,24 @@ code[class*='language-'] ::selection {
   color: #b2ccd6;
 }
 
+.token.imports,
+.token.template-string.interpolation {
+  color: var(--color-0G);
+}
+
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: var(--color-grey);
+  color: var(--color-0F);
   font-style: italic;
 }
 
 .token.punctuation {
-  color: var(--color-purple);
+  color: var(--color-0A);
 }
 
 .token.plain {
-  color: var(--color-blue);
+  color: var(--color-0B);
   font-style: italic;
 }
 
@@ -100,26 +116,26 @@ code[class*='language-'] ::selection {
 }
 
 .token.imports.operator {
-  color: var(--color-blue);
+  color: var(--color-0B);
 }
 
 .token.symbol,
 .token.property {
-  color: rgb(128, 203, 196);
+  color: var(--color-0K);
 }
 
 .token.property-access {
   font-style: italic;
-  color: var(--color-light-green);
+  color: var(--color-0H);
 }
 
 .token.property-access.maybe-class-name {
-  color: var(--color-yellow);
+  color: var(--color-0C);
 }
 
 .token.maybe-class-name {
   font-style: italic;
-  color: var(--color-white);
+  color: var(--color-0G);
 }
 
 .token.tag.attr-value.punctuation,
@@ -127,66 +143,67 @@ code[class*='language-'] ::selection {
 .token.tag,
 .token.imports.punctuation,
 .token.class-name {
-  color: var(--color-white);
+  color: var(--color-0G);
 }
 
 .token.tag.punctuation {
-  color: var(--color-light-green);
+  color: var(--color-0H);
 }
 
 .token.tag.script.script-punctuation.punctuation {
-  color: rgb(200, 148, 235);
+  color: var(--color-0A);
 }
 
 .token.tag.class-name {
-  color: var(--color-orange);
+  color: var(--color-0D);
 }
 
 .token.known-class-name.class-name {
   font-style: italic;
-  color: var(--color-blue);
+  color: var(--color-0B);
 }
 
 .token.spread.operator {
-  color: rgb(127, 219, 202);
+  color: var(--color-0H);
 }
 
 /* Generics */
 .token.generic-function.generic.class-name {
   font-style: italic;
-  color: rgb(255, 255, 255);
+  color: var(--color-0G);
 }
 
 .token.generic-function.generic.class-name.operator {
-  color: rgb(200, 148, 235);
+  color: var(--color-0A);
 }
 
 .token.generic-function.generic.class-name.keyword {
-  color: rgb(127, 219, 202);
+  color: #7fdbca;
+  color: red;
 }
 
 .token.operator,
 .token.keyword,
 .token.tag.attr-value.punctuation.attr-equals {
-  color: rgb(200, 148, 235);
+  color: var(--color-0A);
 }
 
 .token.boolean {
-  color: rgb(255, 88, 116);
+  color: var(--color-0I);
 }
 
 .token.number {
-  color: rgb(247, 140, 108);
+  color: var(--color-0J);
 }
 
 .token.builtin {
-  color: var(--color-green);
+  color: var(--color-0E);
 }
 
 .token.constant,
 .token.function,
 .token.char {
-  color: var(--color-blue);
+  color: var(--color-0B);
   font-style: italic;
 }
 
@@ -198,7 +215,7 @@ code[class*='language-'] ::selection {
 
 .token.attr-name,
 .token.inserted {
-  color: var(--color-green);
+  color: var(--color-0E);
   font-style: italic;
 }
 
@@ -207,19 +224,19 @@ code[class*='language-'] ::selection {
 .token.entity,
 .language-css .token.string,
 .style .token.string {
-  color: var(--color-green);
+  color: var(--color-0E);
 }
 
 .token.atrule,
 .token.attr-value,
 .token.string {
-  color: var(--color-yellow);
+  color: var(--color-0C);
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-  color: var(--color-light-green);
+  color: var(--color-0H);
 }
 
 .token.important,
@@ -231,18 +248,77 @@ code[class*='language-'] ::selection {
   font-style: italic;
 }
 
+.token.selector.class {
+  color: var(--color-0E);
+}
+
+.token.color {
+  color: var(--color-0K);
+}
+
+.token.color.number {
+  color: var(--color-0D);
+}
+
+.token.color.function {
+  color: var(--color-0E);
+  font-style: normal;
+}
+
+/* CSS */
+pre.language-css .token.punctuation {
+  color: var(--color-0G);
+}
+
+pre.language-css .token.selector {
+  color: var(--color-0I);
+  font-style: normal;
+}
+
+pre.language-css .token.selector.attribute.punctuation {
+  color: var(--color-0A);
+}
+
+pre.language-css .token.selector.attribute.attr-name,
+pre.language-css .token.selector.pseudo-element {
+  color: var(--color-0E);
+  font-style: italic;
+}
+
+pre.language-css .token.unit {
+  color: var(--color-0C);
+}
+
+pre.language-css .token.function,
+pre.language-css .token.variable {
+  color: var(--color-0E);
+  font-style: normal;
+}
+
+pre.language-css .token.plain {
+  color: var(--color-0G);
+  font-style: normal;
+}
+
+/* HTML */
+pre.language-html .token.plain {
+  color: var(--color-0G);
+  font-style: normal;
+}
+
+/* Component specifics */
 .inline-code {
   background-color: var(--color-code-bg);
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
-  color: var(--color-purple);
+  color: var(--color-0A);
   font-family: var(--font-mono);
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 [data-line-number]:before {
   background-color: var(--pre-color-bg);
-  color: var(--color-grey);
+  color: var(--color-0F);
   content: attr(data-line-number);
   display: inline-block;
   left: 0;
@@ -254,11 +330,12 @@ code[class*='language-'] ::selection {
 }
 
 .highlighted-line[data-line-number]:before {
-  border-left: 0.25em solid var(--color-purple);
+  border-left: 0.25em solid var(--color-0A);
 }
 
 .highlighted-line:after {
-  background: var(--color-blue);
+  /* background: var(--color-0B); */
+  background: var(--highlighted-line);
   content: ' ';
   left: 0;
   opacity: 0.15;
