@@ -1,6 +1,7 @@
 import type {V2_MetaFunction} from '@remix-run/node'
 import {useCatch, useLoaderData} from '@remix-run/react'
 import {json} from '@vercel/remix'
+import {cacheHeader} from 'pretty-cache-header'
 import BlogPostList from '~/components/BlogPostList'
 import ErrorBlock from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
@@ -21,7 +22,18 @@ export async function loader() {
   if (!posts) {
     throw new Response('Posts not found', {status: 404})
   }
-  return json({posts})
+  return json(
+    {posts},
+    {
+      headers: {
+        'Cache-Control': cacheHeader({
+          maxAge: '30days',
+          staleWhileRevalidate: '1day',
+          staleIfError: '7days',
+        }),
+      },
+    }
+  )
 }
 
 export default function Blog() {
