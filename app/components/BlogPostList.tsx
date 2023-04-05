@@ -32,7 +32,7 @@ function BlogPost({post}: {post: PostAttributes}) {
   return (
     <li className="mb-10 last:mb-0">
       <Link to={post.slug} prefetch="intent">
-        <h3 className="text-xl font-bold">{post.title}</h3>
+        <h2 className="text-xl font-bold">{post.title}</h2>
         <p className="my-2">{postDate}</p>
         <p className="text-xl">{post.summary}</p>
       </Link>
