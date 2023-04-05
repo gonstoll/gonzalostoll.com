@@ -7,11 +7,13 @@ html.light {
   --color-0F: #989fb1;
   --color-0G: #111111;
   --color-0H: #0c969b;
-  --color-0I: #ff5874;
+  --color-0I: #bc5454;
   --color-0J: #aa0982;
   --color-0K: #0c969b;
-  --pre-color-bg: #ededed;
+  --color-0L: #4876d6;
+  --pre-color-bg: #f0f0f0;
   --highlighted-line: #994cc3;
+  --color-selection: #dad9d9;
 }
 
 html.dark {
@@ -23,11 +25,13 @@ html.dark {
   --color-0F: #637777;
   --color-0G: #ffffff;
   --color-0H: #baebe2;
-  --color-0I: #bc5454;
+  --color-0I: #ff5874;
   --color-0J: #f78c6c;
   --color-0K: #80cbc4;
+  --color-0L: #82aaff; /* Whatever */
   --pre-color-bg: #011627;
   --highlighted-line: #c792ea;
+  --color-selection: rgba(29, 59, 83, 0.99);
 }
 
 pre,
@@ -67,7 +71,7 @@ pre[class*='language-'] ::-moz-selection,
 code[class*='language-']::-moz-selection,
 code[class*='language-'] ::-moz-selection {
   text-shadow: none;
-  background: rgba(29, 59, 83, 0.99);
+  background: var(--color-selection);
 }
 
 pre[class*='language-']::selection,
@@ -75,7 +79,7 @@ pre[class*='language-'] ::selection,
 code[class*='language-']::selection,
 code[class*='language-'] ::selection {
   text-shadow: none;
-  background: rgba(29, 59, 83, 0.99);
+  background: var(--color-selection);
 }
 
 @media print {
@@ -94,6 +98,10 @@ code[class*='language-'] ::selection {
   color: var(--color-0G);
 }
 
+.token.template-string.interpolation.interpolation-punctuation.punctuation {
+  color: var(--color-0I);
+}
+
 .token.comment,
 .token.prolog,
 .token.cdata {
@@ -108,6 +116,10 @@ code[class*='language-'] ::selection {
 .token.plain {
   color: var(--color-0B);
   font-style: italic;
+}
+
+.token.tag.script.language-javascript.template-string.interpolation.function {
+  color: var(--color-0L);
 }
 
 .token.deleted {
@@ -134,7 +146,6 @@ code[class*='language-'] ::selection {
 }
 
 .token.maybe-class-name {
-  font-style: italic;
   color: var(--color-0G);
 }
 
@@ -169,8 +180,9 @@ code[class*='language-'] ::selection {
 
 /* Generics */
 .token.generic-function.generic.class-name {
-  font-style: italic;
-  color: var(--color-0G);
+  /* font-style: italic;
+  color: var(--color-0G); */
+  color: var(--color-0C);
 }
 
 .token.generic-function.generic.class-name.operator {
@@ -178,8 +190,8 @@ code[class*='language-'] ::selection {
 }
 
 .token.generic-function.generic.class-name.keyword {
-  color: #7fdbca;
-  color: red;
+  color: var(--color-0K);
+  font-style: normal;
 }
 
 .token.operator,
@@ -203,7 +215,7 @@ code[class*='language-'] ::selection {
 .token.constant,
 .token.function,
 .token.char {
-  color: var(--color-0B);
+  color: var(--color-0L);
   font-style: italic;
 }
 
@@ -219,7 +231,6 @@ code[class*='language-'] ::selection {
   font-style: italic;
 }
 
-.token.string,
 .token.url,
 .token.entity,
 .language-css .token.string,
@@ -229,7 +240,8 @@ code[class*='language-'] ::selection {
 
 .token.atrule,
 .token.attr-value,
-.token.string {
+.token.string,
+.token.tag.script.language-javascript.template-string.interpolation.string {
   color: var(--color-0C);
 }
 
@@ -263,6 +275,10 @@ code[class*='language-'] ::selection {
 .token.color.function {
   color: var(--color-0E);
   font-style: normal;
+}
+
+.token.generic-function.function {
+  color: var(--color-0L);
 }
 
 /* CSS */
@@ -308,11 +324,11 @@ pre.language-html .token.plain {
 
 /* Component specifics */
 .inline-code {
+  font-family: var(--font-mono);
   background-color: var(--color-code-bg);
+  color: var(--color-0A);
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
-  color: var(--color-0A);
-  font-family: var(--font-mono);
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
@@ -334,7 +350,6 @@ pre.language-html .token.plain {
 }
 
 .highlighted-line:after {
-  /* background: var(--color-0B); */
   background: var(--highlighted-line);
   content: ' ';
   left: 0;
