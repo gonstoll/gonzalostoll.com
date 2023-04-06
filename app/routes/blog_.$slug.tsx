@@ -107,7 +107,7 @@ export default function Index() {
 }
 
 // We need to memoize this because ReactMarkdown will re-render all defined
-// components on every change. CodeBlock is an expensive component to
+// components on every theme change. CodeBlock is an expensive component to
 // aggresively re-render.
 function MarkdownContainer() {
   const {body} = useLoaderData<typeof loader>()
