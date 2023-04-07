@@ -17,7 +17,7 @@ const postSchema = z.object({
   download_url: z.string().url(),
 })
 
-const frontMatterSchema = z.object({
+const postAttributesSchema = z.object({
   title: z.string(),
   date: z.string(),
   summary: z.string(),
@@ -27,13 +27,23 @@ const frontMatterSchema = z.object({
   }),
 })
 
-export type PostAttributes = z.infer<typeof frontMatterSchema> & {
+const postAttributesWithSlugSchema = postAttributesSchema.merge(
+  z.object({
+    slug: z.string(),
+  })
+)
+
+type PostAttributes = z.infer<typeof postAttributesSchema>
+export type PostAttributesWithSlug = PostAttributes & {
   slug: string
+}
+export type CachedPostAttributes = PostAttributesWithSlug & {
+  sha: string
 }
 
 export function parseFrontMatter(markdown: string) {
   const {attributes, body} = frontMatter(markdown)
-  const parsedAttributes = frontMatterSchema.parse(attributes)
+  const parsedAttributes = postAttributesSchema.parse(attributes)
   return {
     attributes: parsedAttributes,
     body,
@@ -88,7 +98,7 @@ export async function getPostByFilename(fileName: string) {
 }
 
 export async function getAllPosts() {
-  const postAttributes: Array<PostAttributes> = []
+  const postAttributes: Array<PostAttributesWithSlug> = []
 
   if (!IS_DEV) {
     console.log('📚 Fetching posts from local environment')
@@ -119,10 +129,14 @@ export async function getAllPosts() {
   const posts = postSchema.array().parse(postsData)
 
   for (const post of posts) {
-    if (cache.has(post.sha)) {
-      const cachedPost = cache.get(post.sha)
-      if (cachedPost) {
+    if (cache.has(post.name)) {
+      const cachedPost = cache.get(post.name)
+      if (!cachedPost) continue
+      if (cachedPost.sha === post.sha) {
         postAttributes.push(cachedPost)
+      } else {
+        // There is a new SHA, so we need to delete the old entry from the cache
+        cache.delete(post.name)
       }
       continue
     }
@@ -130,13 +144,16 @@ export async function getAllPosts() {
     const markdown = await getPostByUrl(post.download_url)
     if (!markdown) return
     const {attributes} = parseFrontMatter(markdown)
-    const composedAttributes = {
+    const attributesWithSlug = {
       ...attributes,
       slug: post.name.replace('.md', ''),
     }
-    postAttributes.push(composedAttributes)
-    cache.set(post.sha, composedAttributes)
+    postAttributes.push(attributesWithSlug)
+    cache.set(post.name, {
+      ...attributesWithSlug,
+      sha: post.sha,
+    })
   }
 
-  return postAttributes
+  return postAttributesWithSlugSchema.array().parse(postAttributes)
 }

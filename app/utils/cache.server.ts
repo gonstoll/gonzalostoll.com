@@ -1,9 +1,9 @@
-import type {PostAttributes} from '~/models/blog.server'
+import type {CachedPostAttributes} from '~/models/blog.server'
 
-let cache: Map<string, PostAttributes>
+let cache: Map<string, CachedPostAttributes>
 
 declare global {
-  var __cache__: Map<string, PostAttributes> | undefined
+  var __cache__: Map<string, CachedPostAttributes> | undefined
 }
 
 // this is needed because in development we don't want to restart

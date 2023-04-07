@@ -1,8 +1,8 @@
 import {Link} from '@remix-run/react'
-import type {PostAttributes} from '~/models/blog.server'
+import type {PostAttributesWithSlug} from '~/models/blog.server'
 
 type Props = {
-  posts: Array<PostAttributes>
+  posts: Array<PostAttributesWithSlug>
   isHome?: boolean
 }
 
@@ -22,7 +22,7 @@ export default function BlogPostList({posts, isHome}: Props) {
   )
 }
 
-function BlogPost({post}: {post: PostAttributes}) {
+function BlogPost({post}: {post: PostAttributesWithSlug}) {
   const postDate = new Date(post.date).toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
