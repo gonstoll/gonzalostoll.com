@@ -40,14 +40,7 @@ const formFields = {
 Considering this is an object that holds the configuration to setup a contact form, we’d want to make sure we don’t have a typo or miss a crucial property. We might feel tempted to then do something like this:
 
 ```typescript
-interface Field {
-  id: string
-  name: string
-  placeholder: string
-  type: 'text' | 'number' | 'mail'
-}
-
-type Foo = {
+type Field = {
   id: string
   name: string
   placeholder: string

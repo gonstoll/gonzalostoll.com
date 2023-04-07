@@ -1,5 +1,5 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
-import {useCatch, useLoaderData} from '@remix-run/react'
+import {Link, useCatch, useLoaderData} from '@remix-run/react'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import * as React from 'react'
@@ -13,6 +13,26 @@ import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
 
 const paramsSchema = z.object({slug: z.string()})
+
+function isReactElement(child: unknown): child is React.ReactElement {
+  return typeof child === 'object' && child !== null && 'props' in child
+}
+
+function flatten(text: string, child: React.ReactNode): string {
+  if (typeof child === 'string') {
+    return text + child
+  }
+  if (isReactElement(child)) {
+    return React.Children.toArray(child?.props.children).reduce(flatten, text)
+  }
+  return ''
+}
+
+function getIdFromChildren(children: Array<React.ReactNode>) {
+  const text = children.reduce(flatten, '')
+  const slug = text.toLowerCase().replace(/\W/g, '-')
+  return slug
+}
 
 export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
   const {slug} = z.object({slug: z.string()}).parse(args.params)
@@ -126,10 +146,20 @@ function MarkdownContainer() {
             return <code className="inline-code">{children}</code>
           },
           h2({children}) {
-            return <h1 className="mt-8 mb-6 text-xl font-bold">{children}</h1>
+            const id = getIdFromChildren(children)
+            return (
+              <h2 id={id} className="mt-8 mb-6 text-xl font-bold">
+                <Link to={`#${id}`}>{children}</Link>
+              </h2>
+            )
           },
           h3({children}) {
-            return <h1 className="mt-8 mb-6 text-base font-bold">{children}</h1>
+            const id = getIdFromChildren(children)
+            return (
+              <h3 id={id} className="mt-8 mb-6 text-base font-bold">
+                <Link to={`#${id}`}>{children}</Link>
+              </h3>
+            )
           },
           p({children}) {
             return <p className="mb-6 text-base">{children}</p>
