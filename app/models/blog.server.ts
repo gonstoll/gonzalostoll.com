@@ -2,6 +2,7 @@ import frontMatter from 'front-matter'
 import fs from 'fs/promises'
 import path from 'path'
 import {z} from 'zod'
+import {cache} from '~/utils/cache.server'
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN
 const ACCOUNT_NAME = process.env.ACCOUNT_NAME
@@ -11,6 +12,7 @@ const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const ARTICLES_DIR = '/contents/content/articles/'
 
 const postSchema = z.object({
+  sha: z.string(),
   name: z.string(),
   download_url: z.string().url(),
 })
@@ -88,7 +90,7 @@ export async function getPostByFilename(fileName: string) {
 export async function getAllPosts() {
   const postAttributes: Array<PostAttributes> = []
 
-  if (IS_DEV) {
+  if (!IS_DEV) {
     console.log('📚 Fetching posts from local environment')
     const posts = await fs
       .readdir(path.resolve(__dirname, '../content/articles'))
@@ -117,13 +119,23 @@ export async function getAllPosts() {
   const posts = postSchema.array().parse(postsData)
 
   for (const post of posts) {
+    if (cache.has(post.sha)) {
+      const cachedPost = cache.get(post.sha)
+      if (cachedPost) {
+        postAttributes.push(cachedPost)
+      }
+      continue
+    }
+
     const markdown = await getPostByUrl(post.download_url)
     if (!markdown) return
     const {attributes} = parseFrontMatter(markdown)
-    postAttributes.push({
+    const composedAttributes = {
       ...attributes,
       slug: post.name.replace('.md', ''),
-    })
+    }
+    postAttributes.push(composedAttributes)
+    cache.set(post.sha, composedAttributes)
   }
 
   return postAttributes
