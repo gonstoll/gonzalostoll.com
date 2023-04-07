@@ -100,7 +100,7 @@ export async function getPostByFilename(fileName: string) {
 export async function getAllPosts() {
   const postAttributes: Array<PostAttributesWithSlug> = []
 
-  if (!IS_DEV) {
+  if (IS_DEV) {
     console.log('📚 Fetching posts from local environment')
     const posts = await fs
       .readdir(path.resolve(__dirname, '../content/articles'))
