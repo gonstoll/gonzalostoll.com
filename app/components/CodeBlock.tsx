@@ -2,6 +2,7 @@ import rangeParser from 'parse-numeric-range'
 import type {Language} from 'prism-react-renderer'
 import Highlight, {defaultProps} from 'prism-react-renderer'
 import * as React from 'react'
+import {classNames} from '~/utils/classNames'
 
 function getHighlightLines(meta: string) {
   const HIGHLIGHT_REGEX = /{([\d,-]+)}/
@@ -77,7 +78,10 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
     >
       {({className, tokens, getLineProps, getTokenProps}) => (
         <pre
-          className={`${className} my-6 overflow-auto rounded-lg bg-codeBg py-4 font-mono text-base duration-300`}
+          className={classNames(
+            'my-6 overflow-auto rounded-lg bg-codeBg py-4 font-mono text-base duration-300',
+            className
+          )}
         >
           <code className={className}>
             {tokens.map((line, key) => {
@@ -88,11 +92,11 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
                   key={key}
                   {...getLineProps({line, key})}
                   data-line-number={lineNumber}
-                  className={`${
-                    getLineProps({line, key}).className
-                  } relative block pr-4 before:duration-300 ${
-                    lines.includes(lineNumber) ? 'highlighted-line' : ''
-                  }`}
+                  className={classNames(
+                    getLineProps({line, key}).className,
+                    'relative block pr-4 before:duration-300',
+                    {'highlighted-line': lines.includes(lineNumber)}
+                  )}
                 >
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({token, key})} />

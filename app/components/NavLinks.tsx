@@ -1,4 +1,5 @@
 import {Link, useLocation} from '@remix-run/react'
+import {classNames} from '~/utils/classNames'
 
 const LINKS = [
   {name: 'Blog', to: '/blog'},
@@ -15,9 +16,10 @@ function NavLink({
   const location = useLocation()
   const isSelected =
     to === location.pathname || location.pathname.startsWith(`${to}/`)
-  const computedClassName = `${
-    isSelected ? 'text-primary' : 'font-normal hover:text-primary'
-  }`
+  const computedClassName = classNames({
+    'text-primary': isSelected,
+    'font-normal hover:text-primary': !isSelected,
+  })
 
   return (
     <li className="mb-4 text-xl last:mb-0">
@@ -52,9 +54,11 @@ type DesktopProps = {
 export default function NavLinks(props: MobileProps | DesktopProps) {
   const computedClassName =
     props.type === 'mobile'
-      ? `transition-opacity duration-300 ease-in-out ${
-          props.isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
-        }`
+      ? classNames(
+          'transition-opacity duration-300 ease-in-out',
+          {'opacity-100': props.isMobileMenuOpen},
+          {'opacity-0': !props.isMobileMenuOpen}
+        )
       : ''
 
   return (
