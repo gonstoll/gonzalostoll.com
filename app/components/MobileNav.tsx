@@ -60,15 +60,15 @@ export default function MobileNav() {
         className={classNames(
           'fixed bottom-0 left-0 right-0 z-10 flex max-h-full w-full items-end bg-white p-10 transition-top duration-500 dark:bg-black',
           {
-            'top-0 opacity-100': isMenuOpen && isLoading,
-            '-top-full opacity-70': !isLoading && !isMenuOpen,
+            'top-0 opacity-100': isMenuOpen,
+            '-top-full opacity-70': !isMenuOpen,
           }
         )}
       >
         <NavLinks
           type="mobile"
           isMobileMenuOpen={isMenuOpen}
-          onCloseMobileMenu={() => setIsMenuOpen(false)}
+          onCloseMobileMenu={() => (isLoading ? null : setIsMenuOpen(false))}
         />
       </div>
     </header>
