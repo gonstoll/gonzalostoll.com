@@ -8,7 +8,7 @@ type Props = {
 
 export default function BlogPostList({posts, isHome}: Props) {
   return (
-    <ul>
+    <>
       {posts?.map(post => (
         <BlogPost
           key={post.slug}
@@ -18,7 +18,7 @@ export default function BlogPostList({posts, isHome}: Props) {
           }}
         />
       ))}
-    </ul>
+    </>
   )
 }
 
@@ -30,12 +30,14 @@ function BlogPost({post}: {post: PostAttributesWithSlug}) {
   })
 
   return (
-    <li className="mb-10 last:mb-0">
+    <article className="mb-10 last:mb-0">
       <Link to={post.slug} prefetch="intent">
-        <h2 className="text-xl font-bold">{post.title}</h2>
-        <p className="my-2">{postDate}</p>
+        <header>
+          <h2 className="text-xl font-bold">{post.title}</h2>
+          <time className="my-2 block">{postDate}</time>
+        </header>
         <p className="text-xl">{post.summary}</p>
       </Link>
-    </li>
+    </article>
   )
 }
