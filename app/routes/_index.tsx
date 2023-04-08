@@ -35,18 +35,9 @@ export default function HomePage() {
   return (
     <>
       <Bio isHome />
-      <div className="mt-20">
+      <div className="mt-10">
         <p className="mb-10 text-xl">
-          Feel free to check out my coding skills on{' '}
-          <a
-            className="hover:text-primary"
-            href="https://github.com/gonstoll"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            my GitHub page
-          </a>
-          . I'm also very enthusiastic about writing and have published various
+          I'm also very enthusiastic about writing and have published various
           posts that you can explore below.
         </p>
         <BlogPostList posts={posts} isHome />
