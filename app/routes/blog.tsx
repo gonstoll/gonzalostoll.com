@@ -1,5 +1,9 @@
 import type {V2_MetaFunction} from '@remix-run/node'
-import {useCatch, useLoaderData} from '@remix-run/react'
+import {
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from '@remix-run/react'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import BlogPostList from '~/components/BlogPostList'
@@ -42,10 +46,10 @@ export default function Blog() {
   return <BlogPostList posts={posts} />
 }
 
-export function CatchBoundary() {
-  const caught = useCatch()
+export function ErrorBoundary() {
+  const error = useRouteError()
 
-  if (caught.status === 404) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
     return (
       <ErrorBlock
         title="Oh no... Something went wrong!"
@@ -54,10 +58,6 @@ export function CatchBoundary() {
     )
   }
 
-  throw new Error(`Unhandled error status: ${caught.status}`)
-}
-
-export function ErrorBoundary({error}: {error: unknown}) {
   console.error(error)
 
   if (error instanceof Error) {

@@ -1,4 +1,8 @@
-import {useCatch, useLoaderData} from '@remix-run/react'
+import {
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from '@remix-run/react'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import Bio from '~/components/Bio'
@@ -51,14 +55,15 @@ export default function HomePage() {
   )
 }
 
-export function CatchBoundary() {
-  const caught = useCatch()
-  return (
-    <ErrorBlock title="Oh no... Something went wrong" reason={caught.data} />
-  )
-}
+export function ErrorBoundary() {
+  const error = useRouteError()
 
-export function ErrorBoundary({error}: {error: unknown}) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
+    return (
+      <ErrorBlock title="Oh no... Something went wrong" reason={error.data} />
+    )
+  }
+
   console.error(error)
 
   if (error instanceof Error) {

@@ -1,5 +1,10 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
-import {Link, useCatch, useLoaderData} from '@remix-run/react'
+import {
+  Link,
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from '@remix-run/react'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import * as React from 'react'
@@ -148,7 +153,7 @@ function MarkdownContainer() {
           h2({children}) {
             const id = getIdFromChildren(children)
             return (
-              <h2 id={id} className="mt-8 mb-6 text-xl font-bold">
+              <h2 id={id} className="mb-6 mt-8 text-xl font-bold">
                 <Link to={`#${id}`}>{children}</Link>
               </h2>
             )
@@ -156,7 +161,7 @@ function MarkdownContainer() {
           h3({children}) {
             const id = getIdFromChildren(children)
             return (
-              <h3 id={id} className="mt-8 mb-6 text-base font-bold">
+              <h3 id={id} className="mb-6 mt-8 text-base font-bold">
                 <Link to={`#${id}`}>{children}</Link>
               </h3>
             )
@@ -183,10 +188,10 @@ function MarkdownContainer() {
   )
 }
 
-export function CatchBoundary() {
-  const caught = useCatch()
+export function ErrorBoundary() {
+  const error = useRouteError()
 
-  if (caught.status === 404) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
     return (
       <ErrorBlock
         title="Oh no... Something went wrong!"
@@ -195,10 +200,6 @@ export function CatchBoundary() {
     )
   }
 
-  throw new Error(`Unhandled status code: ${caught.status}`)
-}
-
-export function ErrorBoundary({error}: {error: unknown}) {
   console.error(error)
 
   if (error instanceof Error) {
