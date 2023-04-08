@@ -48,7 +48,7 @@ export default function AboutPage() {
       <img
         src="/images/profile.png"
         alt="Gonzalo Stoll"
-        className="mb-6 max-w-xxs"
+        className="mb-6 max-w-xxs rounded-full"
       />
       <Bio />
 
