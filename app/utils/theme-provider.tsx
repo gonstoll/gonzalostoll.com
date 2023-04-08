@@ -53,7 +53,7 @@ export function ThemeProvider({
   const themeFetcher = useFetcher()
 
   function setTheme(theme: Theme) {
-    themeFetcher.submit({theme}, {action: 'action/set-theme', method: 'post'})
+    themeFetcher.submit({theme}, {action: 'action/set-theme', method: 'POST'})
     setThemeState(theme)
   }
 
