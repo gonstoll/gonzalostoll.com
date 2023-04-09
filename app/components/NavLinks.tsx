@@ -1,5 +1,5 @@
 import {Link, useLocation} from '@remix-run/react'
-import {classNames} from '~/utils/classNames'
+import {classNames} from '~/utils/class-names'
 
 const LINKS = [
   {name: 'Blog', to: '/blog'},

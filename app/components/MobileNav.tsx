@@ -1,6 +1,6 @@
 import {Link} from '@remix-run/react'
 import * as React from 'react'
-import {classNames} from '~/utils/classNames'
+import {classNames} from '~/utils/class-names'
 import NavLinks from './NavLinks'
 import ThemeSwitch from './ThemeSwitch'
 

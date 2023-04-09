@@ -2,7 +2,7 @@ import rangeParser from 'parse-numeric-range'
 import type {Language} from 'prism-react-renderer'
 import Highlight, {defaultProps} from 'prism-react-renderer'
 import * as React from 'react'
-import {classNames} from '~/utils/classNames'
+import {classNames} from '~/utils/class-names'
 
 function getHighlightLines(meta: string) {
   const HIGHLIGHT_REGEX = /{([\d,-]+)}/

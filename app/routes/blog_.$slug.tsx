@@ -1,4 +1,5 @@
 import type {LoaderArgs, MetaFunction} from '@remix-run/node'
+import type {LinkProps} from '@remix-run/react'
 import {
   Link,
   isRouteErrorResponse,
@@ -16,28 +17,9 @@ import CodeBlock from '~/components/CodeBlock'
 import ErrorBlock from '~/components/ErrorBlock'
 import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
+import {getIdFromChildren} from '~/utils/get-id-from-children'
 
 const paramsSchema = z.object({slug: z.string()})
-
-function isReactElement(child: unknown): child is React.ReactElement {
-  return typeof child === 'object' && child !== null && 'props' in child
-}
-
-function flatten(text: string, child: React.ReactNode): string {
-  if (typeof child === 'string') {
-    return text + child
-  }
-  if (isReactElement(child)) {
-    return React.Children.toArray(child?.props.children).reduce(flatten, text)
-  }
-  return ''
-}
-
-function getIdFromChildren(children: Array<React.ReactNode>) {
-  const text = children.reduce(flatten, '')
-  const slug = text.toLowerCase().replace(/\W/g, '-')
-  return slug
-}
 
 export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
   const {slug} = z.object({slug: z.string()}).parse(args.params)
@@ -178,6 +160,27 @@ function MarkdownContainer() {
           },
           em({children}) {
             return <em className="not-italic">"{children}"</em>
+          },
+          a({children, href}) {
+            if (!href) return null
+
+            const props = new Map<LinkProps['target' | 'rel'], string>()
+            const isExternal = href.startsWith('http')
+
+            if (isExternal) {
+              props.set('target', '_blank')
+              props.set('rel', 'noopener noreferrer')
+            }
+
+            return (
+              <Link
+                to={href}
+                className="underline hover:text-primary"
+                {...Object.fromEntries(props)}
+              >
+                {children}
+              </Link>
+            )
           },
         }}
       >
