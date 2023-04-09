@@ -8,7 +8,6 @@ import {
 } from '@remix-run/react'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
-import * as React from 'react'
 import type {Components} from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
