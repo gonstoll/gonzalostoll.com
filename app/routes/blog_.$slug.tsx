@@ -9,6 +9,7 @@ import {
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import * as React from 'react'
+import type {Components} from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
@@ -18,6 +19,63 @@ import ErrorBlock from '~/components/ErrorBlock'
 import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
 import {getIdFromChildren} from '~/utils/get-id-from-children'
+
+const markdownComponents = {
+  pre({node, children, ...props}) {
+    return <CodeBlock {...props}>{children}</CodeBlock>
+  },
+  code({children}) {
+    return <code className="inline-code">{children}</code>
+  },
+  p({children}) {
+    return <p className="mb-6 text-base">{children}</p>
+  },
+  h2({children}) {
+    const id = getIdFromChildren(children)
+    return (
+      <h2 id={id} className="-mt-6 mb-6 pt-8 text-xl font-bold">
+        <Link to={`#${id}`}>{children}</Link>
+      </h2>
+    )
+  },
+  h3({children}) {
+    const id = getIdFromChildren(children)
+    return (
+      <h3 id={id} className="-mt-6 mb-6 pt-8 text-base font-bold">
+        <Link to={`#${id}`}>{children}</Link>
+      </h3>
+    )
+  },
+  blockquote({children}) {
+    return (
+      <blockquote className="px-6 text-base !not-italic">{children}</blockquote>
+    )
+  },
+  em({children}) {
+    return <em className="not-italic">"{children}"</em>
+  },
+  a({children, href}) {
+    if (!href) return null
+
+    const props = new Map<LinkProps['target' | 'rel'], string>()
+    const isExternal = href.startsWith('http')
+
+    if (isExternal) {
+      props.set('target', '_blank')
+      props.set('rel', 'noopener noreferrer')
+    }
+
+    return (
+      <Link
+        to={href}
+        className="underline hover:text-primary"
+        {...Object.fromEntries(props)}
+      >
+        {children}
+      </Link>
+    )
+  },
+} satisfies Components
 
 const paramsSchema = z.object({slug: z.string()})
 
@@ -95,8 +153,8 @@ export async function loader({params}: LoaderArgs) {
   )
 }
 
-export default function Index() {
-  const {attributes} = useLoaderData<typeof loader>()
+export default function BlogPost() {
+  const {attributes, body} = useLoaderData<typeof loader>()
 
   const postDate = new Date(attributes.date).toLocaleString('en-US', {
     month: 'long',
@@ -108,86 +166,14 @@ export default function Index() {
     <article>
       <h1 className="mb-6 text-2xl font-bold">{attributes.title}</h1>
       <p className="mb-6 text-base">{postDate}</p>
-      <MarkdownContainer />
-    </article>
-  )
-}
-
-// We need to memoize this because ReactMarkdown will re-render all defined
-// components on every theme change. CodeBlock is an expensive component to
-// aggresively re-render.
-function MarkdownContainer() {
-  const {body} = useLoaderData<typeof loader>()
-
-  return React.useMemo(
-    () => (
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
-        includeElementIndex={true}
-        components={{
-          pre({node, children, ...props}) {
-            return <CodeBlock {...props}>{children}</CodeBlock>
-          },
-          code({children}) {
-            return <code className="inline-code">{children}</code>
-          },
-          p({children}) {
-            return <p className="mb-6 text-base">{children}</p>
-          },
-          h2({children}) {
-            const id = getIdFromChildren(children)
-            return (
-              <h2 id={id} className="-mt-6 mb-6 pt-8 text-xl font-bold">
-                <Link to={`#${id}`}>{children}</Link>
-              </h2>
-            )
-          },
-          h3({children}) {
-            const id = getIdFromChildren(children)
-            return (
-              <h3 id={id} className="-mt-6 mb-6 pt-8 text-base font-bold">
-                <Link to={`#${id}`}>{children}</Link>
-              </h3>
-            )
-          },
-          blockquote({children}) {
-            return (
-              <blockquote className="px-6 text-base !not-italic">
-                {children}
-              </blockquote>
-            )
-          },
-          em({children}) {
-            return <em className="not-italic">"{children}"</em>
-          },
-          a({children, href}) {
-            if (!href) return null
-
-            const props = new Map<LinkProps['target' | 'rel'], string>()
-            const isExternal = href.startsWith('http')
-
-            if (isExternal) {
-              props.set('target', '_blank')
-              props.set('rel', 'noopener noreferrer')
-            }
-
-            return (
-              <Link
-                to={href}
-                className="underline hover:text-primary"
-                {...Object.fromEntries(props)}
-              >
-                {children}
-              </Link>
-            )
-          },
-        }}
+        components={markdownComponents}
       >
         {body}
       </ReactMarkdown>
-    ),
-    [body]
+    </article>
   )
 }
 
