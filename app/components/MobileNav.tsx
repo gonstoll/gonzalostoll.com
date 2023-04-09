@@ -1,4 +1,4 @@
-import {Link, useNavigation} from '@remix-run/react'
+import {Link} from '@remix-run/react'
 import * as React from 'react'
 import {classNames} from '~/utils/classNames'
 import NavLinks from './NavLinks'
@@ -26,8 +26,6 @@ function useStickyHeader() {
 
 export default function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const navigation = useNavigation()
-  const isLoading = navigation.state !== 'idle'
 
   React.useEffect(() => {
     if (isMenuOpen) {
@@ -68,7 +66,7 @@ export default function MobileNav() {
         <NavLinks
           type="mobile"
           isMobileMenuOpen={isMenuOpen}
-          onCloseMobileMenu={() => (isLoading ? null : setIsMenuOpen(false))}
+          onCloseMobileMenu={() => setIsMenuOpen(false)}
         />
       </div>
     </header>
