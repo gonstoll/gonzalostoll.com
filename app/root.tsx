@@ -82,7 +82,7 @@ export function links() {
       href: '/favicons/favicon-16x16.png',
     },
     {rel: 'manifest', href: '/site.webmanifest'},
-    {rel: 'icon', href: '/favicon.ico'},
+    {rel: 'icon', href: '/favicons/favicon.ico'},
   ]
 }
 
