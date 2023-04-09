@@ -150,10 +150,13 @@ function MarkdownContainer() {
           code({children}) {
             return <code className="inline-code">{children}</code>
           },
+          p({children}) {
+            return <p className="mb-6 text-base">{children}</p>
+          },
           h2({children}) {
             const id = getIdFromChildren(children)
             return (
-              <h2 id={id} className="mb-6 mt-8 text-xl font-bold">
+              <h2 id={id} className="-mt-6 mb-6 pt-8 text-xl font-bold">
                 <Link to={`#${id}`}>{children}</Link>
               </h2>
             )
@@ -161,13 +164,10 @@ function MarkdownContainer() {
           h3({children}) {
             const id = getIdFromChildren(children)
             return (
-              <h3 id={id} className="mb-6 mt-8 text-base font-bold">
+              <h3 id={id} className="-mt-6 mb-6 pt-8 text-base font-bold">
                 <Link to={`#${id}`}>{children}</Link>
               </h3>
             )
-          },
-          p({children}) {
-            return <p className="mb-6 text-base">{children}</p>
           },
           blockquote({children}) {
             return (
