@@ -79,7 +79,7 @@ export function MobileStickyNav() {
   return (
     <div
       className={classNames(
-        'fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10',
+        'fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
         {'top-0': isVisible, '-top-20': !isVisible}
       )}
     >

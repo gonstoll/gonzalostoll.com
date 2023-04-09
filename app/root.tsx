@@ -166,6 +166,8 @@ function ErrorPage({title, reason}: ErrorWrapperProps) {
   )
 }
 
+// We need to wrap the error page in a ThemeProvider because MobileNav uses
+// the ThemeSwitch component which uses the useTheme hook.
 function ErrorWrapper({title, reason}: ErrorWrapperProps) {
   return (
     <ThemeProvider ssrTheme={null}>
