@@ -46,12 +46,7 @@ const markdownComponents = {
     )
   },
   blockquote({children}) {
-    return (
-      <blockquote className="px-6 text-base !not-italic">{children}</blockquote>
-    )
-  },
-  em({children}) {
-    return <em className="not-italic">"{children}"</em>
+    return <blockquote className="px-6 text-base">{children}</blockquote>
   },
   a({children, href}) {
     if (!href) return null
