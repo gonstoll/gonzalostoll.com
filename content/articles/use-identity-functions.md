@@ -9,6 +9,8 @@ meta:
     - typescript
     - object suggestions
     - satisfies
+    - identity functions
+    - generics
 ---
 
 Have you struggled with Typescript’s object suggestions sometimes? Do you feel like you’re missing out on some of the benefits of Typescript? Well, you’re definitely not alone. This has bitten me quite a number of times, so in this article we’ll explore how to leverage better type safety in dynamic objects with Typescript.
