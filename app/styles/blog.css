@@ -98,13 +98,6 @@ code[class*='language-'] ::selection {
   color: var(--color-0I);
 }
 
-.token.comment,
-.token.prolog,
-.token.cdata {
-  color: var(--color-0F);
-  font-style: italic;
-}
-
 .token.punctuation {
   color: var(--color-0A);
 }
@@ -151,6 +144,14 @@ code[class*='language-'] ::selection {
 .token.imports.punctuation,
 .token.class-name {
   color: var(--color-0G);
+}
+
+.token.comment,
+.token.prolog,
+.token.cdata
+.token.tag.comment {
+  color: var(--color-0F);
+  font-style: italic;
 }
 
 .token.tag.punctuation {
@@ -355,4 +356,9 @@ pre.language-html .token.plain {
   top: 0;
   left: 0;
   width: 100%;
+}
+
+.token-line .token {
+  line-height: 1.2;
+  vertical-align: text-top;
 }

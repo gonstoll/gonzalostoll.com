@@ -49,8 +49,7 @@
 @layer base {
   :root {
     --font-sans: 'Scto', sans-serif;
-    --font-mono: 'Dank Mono', 'Roboto Mono', Menlo, Consolas, Monaco,
-      source-code-pro, Courier New, monospace;
+    --font-mono: 'Dank Mono';
     --color-white: #fbf9f9;
     --color-black: #1c1c27;
   }
