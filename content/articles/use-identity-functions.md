@@ -13,7 +13,7 @@ meta:
     - generics
 ---
 
-Have you struggled with Typescript’s object suggestions sometimes? Do you feel like you’re missing out on some of the benefits of Typescript? Well, you’re definitely not alone. This has bitten me quite a number of times, so in this article we’ll explore how to leverage better type safety in dynamic objects with Typescript.
+Have you struggled with Typescript’s object suggestions sometimes? Do you feel like you’re missing out on some of the benefits of Typescript? Well, you’re definitely not alone. This has bitten me quite a few times, so in this article we’ll explore how to leverage better type safety in dynamic objects with Typescript.
 
 If you're running with Typescript v4.9 or higher, you can skip to the [Using the satisfies operator](#using-the-satisfies-operator) section, where we discover a clean and readable solution to this particular issue. However, across this article we are going to cover the basics of generics and identity functions, and how we can use them to solve this problem. If you are unfamiliar with these concepts, I'd recommend you to read along!
 
