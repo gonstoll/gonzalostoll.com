@@ -120,40 +120,45 @@ export async function getAllPosts() {
         slug: post.replace('.md', ''),
       })
     }
-    return postAttributes
-  }
+  } else {
+    const url = new URL(REPO_URL + ARTICLES_DIR)
+    const response = await githubFetch(url.toString())
+    const postsData = await response?.json()
+    const posts = postSchema.array().parse(postsData)
 
-  const url = new URL(REPO_URL + ARTICLES_DIR)
-  const response = await githubFetch(url.toString())
-  const postsData = await response?.json()
-  const posts = postSchema.array().parse(postsData)
-
-  for (const post of posts) {
-    if (cache.has(post.name)) {
-      const cachedPost = cache.get(post.name)
-      if (!cachedPost) continue
-      if (cachedPost.sha === post.sha) {
-        postAttributes.push(cachedPost)
-      } else {
-        // There is a new SHA, so we need to delete the old entry from the cache
-        cache.delete(post.name)
+    for (const post of posts) {
+      if (cache.has(post.name)) {
+        const cachedPost = cache.get(post.name)
+        if (!cachedPost) continue
+        if (cachedPost.sha === post.sha) {
+          postAttributes.push(cachedPost)
+        } else {
+          // There is a new SHA, so we need to delete the old entry from the cache
+          cache.delete(post.name)
+        }
+        continue
       }
-      continue
-    }
 
-    const markdown = await getPostByUrl(post.download_url)
-    if (!markdown) return
-    const {attributes} = parseFrontMatter(markdown)
-    const attributesWithSlug = {
-      ...attributes,
-      slug: post.name.replace('.md', ''),
+      const markdown = await getPostByUrl(post.download_url)
+      if (!markdown) return
+      const {attributes} = parseFrontMatter(markdown)
+      const attributesWithSlug = {
+        ...attributes,
+        slug: post.name.replace('.md', ''),
+      }
+      postAttributes.push(attributesWithSlug)
+      cache.set(post.name, {
+        ...attributesWithSlug,
+        sha: post.sha,
+      })
     }
-    postAttributes.push(attributesWithSlug)
-    cache.set(post.name, {
-      ...attributesWithSlug,
-      sha: post.sha,
-    })
   }
 
-  return postAttributesWithSlugSchema.array().parse(postAttributes)
+  const sortedPosts = [...postAttributes].sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateB.getTime() - dateA.getTime()
+  })
+
+  return postAttributesWithSlugSchema.array().parse(sortedPosts)
 }

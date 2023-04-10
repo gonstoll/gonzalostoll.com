@@ -104,6 +104,8 @@ But, things get complicated if we add more complexity to the API on this compone
 
 Moreover, going back to the _other developer_, things look pretty much the same. They will be able to provide any set of properties regardles of the `variant` they choose. So, why is that?
 
+## Discriminated unions
+
 This is happening because of the shape of our props type. We are providing a set of optional properties by default, and so all of them can be declared at any given time. What we need is a way to **constrain** the component's properties depending on the chosen `variant`. In essense, we need Typescript to norrow down the possible current type for us. This is exactly what discriminated unions are useful for. Let's work with them in our example to better understand this:
 
 ```tsx{3-7,10-13,15,20}
@@ -159,6 +161,8 @@ export default function Banner({
 
 This is great! There's also a hidden improvement with this approach, we managed to make `subtitle` a required property of the `primary` variant 🎉! It goes to say, with discriminated unions you have the freedom of shaping each specific time the way you want. Typescript will just pick the right type and apply it!
 
+## Destructuring props
+
 Furthermore, notice how now we are not desctructuring all the props? That's because only `title` and `variant` are the props shared between the two, but `title` is the only one that keeps its shape between the two. If it helps, let's look at our prop types again and do some rearranging:
 
 ```tsx{11}
@@ -211,3 +215,5 @@ Notice how also our error message infers that the `PrimaryBanner` type is being 
 ## Conclusion
 
 I hope this article was helpful and you learned something new! I'm sure there are other ways to achieve the same result, but this is the one I found to be the most straightforward and easy to understand. If you have any questions or suggestions, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll), [Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com). I'm always happy to chat!
+
+Cheers!
