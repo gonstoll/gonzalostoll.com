@@ -126,8 +126,11 @@ export async function getAllPosts() {
     const postsData = await response?.json()
     const posts = postSchema.array().parse(postsData)
 
+    console.log('Posts response: ', {posts})
+
     for (const post of posts) {
       if (cache.has(post.name)) {
+        console.log('Cache was hit: ', {cache, sha: post.sha})
         const cachedPost = cache.get(post.name)
         if (!cachedPost) continue
         if (cachedPost.sha === post.sha) {

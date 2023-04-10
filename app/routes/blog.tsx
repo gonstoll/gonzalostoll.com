@@ -31,9 +31,9 @@ export async function loader() {
     {
       headers: {
         'Cache-Control': cacheHeader({
-          maxAge: '30days',
+          maxAge: '7days',
           staleWhileRevalidate: '1day',
-          staleIfError: '7days',
+          staleIfError: '1days',
         }),
       },
     }
