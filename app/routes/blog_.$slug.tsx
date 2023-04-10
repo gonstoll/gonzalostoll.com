@@ -48,6 +48,9 @@ const markdownComponents = {
   blockquote({children}) {
     return <blockquote className="px-6 text-base">{children}</blockquote>
   },
+  ul({children}) {
+    return <ul className="mb-6 list-inside list-disc">{children}</ul>
+  },
   a({children, href}) {
     if (!href) return null
 
