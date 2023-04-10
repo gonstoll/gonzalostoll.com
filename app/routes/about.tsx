@@ -16,7 +16,7 @@ With [React](https://react.dev/) always by my side, I’m currently hacking with
 
 ## My workflow
 
-My preferred editor is and has been for a long time [VS Code](https://code.visualstudio.com/). There I use the [Night Owl](https://marketplace.visualstudio.com/items?itemName=sdras.night-owl) theme and [Dank Mono](https://philpl.gumroad.com/l/dank-mono) font. I use [warp](https://www.warp.dev/) as my terminal.
+My preferred editor is and has been for a long time [VS Code](https://code.visualstudio.com/). There I use the [Night Owl](https://marketplace.visualstudio.com/items?itemName=sdras.night-owl) theme and [Dank Mono](https://philpl.gumroad.com/l/dank-mono) font. I use [warp](https://www.warp.dev/) as my terminal and [Arc](https://arc.net/) as my broswer.
 
 ## My setup
 
