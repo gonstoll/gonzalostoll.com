@@ -1,5 +1,5 @@
 ---
-title: Use identity functions
+title: Identity functions and how we can make use of them
 date: '2023-03-27'
 summary: Leverage better type safety in dynamic objects with Typescript
 categories:
@@ -271,4 +271,4 @@ This shows us how we can use `satisfies` to achieve the same result as our previ
 
 ## Conculsion
 
-Although this is a contrived example, it shows you how you can use generics to your advantage. There are many more use cases where you can apply this knowledge, and I hope this article has given you a good starting point. If you have any questions or comments, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll) or [Linkedin](https://www.linkedin.com/in/gonzalostoll/), I’ll be happy to help.
+Although this is a contrived example, it shows you how you can use generics to your advantage. There are many more use cases where you can apply this knowledge, and I hope this article has given you a good starting point. If you have any questions or comments, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll), [Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com), I’ll be happy to help.
