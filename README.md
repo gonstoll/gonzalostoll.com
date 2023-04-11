@@ -1,6 +1,6 @@
-# Gonzalo Stoll portfolio
+# Gonzalo Stoll's blog
 
-This website is my own personal [portfolio](https://gonzalostoll.com), done with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/).
+This is my own personal [blog](https://gonzalostoll.com), done with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/). Syntax highlight theme heavily inspired by [Sarah Drasner's Night Owl](https://github.com/sdras/night-owl-vscode-theme/).
 
 ## Development
 
