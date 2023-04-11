@@ -7,7 +7,6 @@ export async function loader() {
   }
 
   const rootUrl = 'https://gonzalostoll.com'
-
   const postItems = posts.map(post => `
     <url>
       <loc>${rootUrl}/blog/${post.slug}</loc>
@@ -39,9 +38,6 @@ export async function loader() {
     </urlset>
   `.trim()
 
-  console.log(xml)
-
-  // Return the response with the content, a status 200 message, and the appropriate headers for an XML page
   return new Response(xml, {
     status: 200,
     headers: {
