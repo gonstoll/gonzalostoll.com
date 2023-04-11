@@ -67,7 +67,7 @@ export function links() {
     {
       rel: 'apple-touch-icon',
       sizes: '180x180',
-      href: '/favicons/apple-touch-icon-180-180.png',
+      href: '/favicons/apple-touch-icon-180x180.png',
     },
     {
       rel: 'icon',
