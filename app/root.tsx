@@ -41,9 +41,9 @@ export function meta() {
     },
     {
       property: 'og:image',
-      content: 'https://gonzalo.stoll.com/images/profile.png',
+      content: 'https://gonzalostoll.com/images/profile.png',
     },
-    {property: 'og:url', content: 'https://gonzalo.stoll.com'},
+    {property: 'og:url', content: 'https://gonzalostoll.com'},
   ]
 }
 

@@ -96,9 +96,9 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
     {property: 'og:description', content: args.data.attributes.summary},
     {
       property: 'og:image',
-      content: 'https://gonzalo.stoll.com/images/profile.png',
+      content: 'https://gonzalostoll.com/images/profile.png',
     },
-    {property: 'og:url', content: `https://gonzalo.stoll.com/blog/${slug}`},
+    {property: 'og:url', content: `https://gonzalostoll.com/blog/${slug}`},
     {property: 'og:type', content: 'article'},
     {
       property: 'article:published_time',
