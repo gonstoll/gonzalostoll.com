@@ -17,9 +17,8 @@ export async function loader() {
   }
   const headers = {
     'Cache-Control': cacheHeader({
-      maxAge: '1day',
-      staleWhileRevalidate: '1day',
-      staleIfError: '1day',
+      maxAge: '1hr',
+      staleIfError: '1hr',
     }),
   }
   return json({posts}, {headers})

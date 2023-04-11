@@ -135,14 +135,13 @@ export async function loader({params}: LoaderArgs) {
   if (!markdown) {
     throw new Response('Post not found', {status: 404})
   }
-  const {attributes, body} = parseFrontMatter(markdown)
   const headers = {
     'Cache-Control': cacheHeader({
-      maxAge: '7days',
-      staleWhileRevalidate: '1day',
-      staleIfError: '1day',
+      maxAge: '1hr',
+      staleIfError: '1hr',
     }),
   }
+  const {attributes, body} = parseFrontMatter(markdown)
   return json({attributes, body}, {headers})
 }
 
