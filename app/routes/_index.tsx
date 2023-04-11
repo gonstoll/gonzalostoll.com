@@ -15,18 +15,14 @@ export async function loader() {
   if (!posts) {
     throw new Response('Posts not found', {status: 404})
   }
-  return json(
-    {posts},
-    {
-      headers: {
-        'Cache-Control': cacheHeader({
-          maxAge: '7days',
-          staleWhileRevalidate: '1day',
-          staleIfError: '1days',
-        }),
-      },
-    }
-  )
+  const headers = {
+    'Cache-Control': cacheHeader({
+      maxAge: '1day',
+      staleWhileRevalidate: '1day',
+      staleIfError: '1day',
+    }),
+  }
+  return json({posts}, {headers})
 }
 
 export default function HomePage() {

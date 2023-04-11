@@ -126,20 +126,20 @@ export async function getAllPosts() {
     const postsData = await response?.json()
     const posts = postSchema.array().parse(postsData)
 
-    console.log('Posts response: ', {posts})
-
     for (const post of posts) {
       if (cache.has(post.name)) {
-        console.log('Cache was hit: ', {cache, sha: post.sha})
+        console.log('Cache was hit: ', {cache, post})
         const cachedPost = cache.get(post.name)
+
         if (!cachedPost) continue
+
         if (cachedPost.sha === post.sha) {
           postAttributes.push(cachedPost)
-        } else {
-          // There is a new SHA, so we need to delete the old entry from the cache
-          cache.delete(post.name)
+          continue
         }
-        continue
+        // There is a new SHA, so we need to delete the old entry from the cache
+        // fetch the new one and add it to the cache ↓
+        cache.delete(post.name)
       }
 
       const markdown = await getPostByUrl(post.download_url)

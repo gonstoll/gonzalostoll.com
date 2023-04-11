@@ -37,7 +37,7 @@ Hmmm... how can we make Typescript **remember** then?
 
 ## Generics
 
-Again, generics will come to our rescue. [As we covered previously](https://gonzalostoll.com/blog/identity-functions-and-how-we-can-make-use-of-them#introducing-identity-functions), generics are like type variables that **store** types as values. Sounds handy!
+Again, generics will come to our rescue. [As we covered here](https://gonzalostoll.com/blog/identity-functions-and-how-we-can-make-use-of-them#introducing-identity-functions), generics are like type variables that **store** types as values. Sounds handy!
 
 We will first create a function that will take our generic, **capturing** the object's shape:
 
@@ -49,7 +49,7 @@ function objectKeys<TObj>(obj: TObj) {
 
 There's a problem with this. Specifing a generic without a constrain is too wide. Typescript will not know that `TObj` is an object, and trying to do `Object.keys(obj)` on something that may or may not be an object ain't gonna fly with Typescript. So, we need a way to tell it that we are only getting an object here, and nothing else:
 
-```typescript
+```typescript{1}
 function objectKeys<TObj extends Record<any, any>>(obj: TObj) {
   return Object.keys(obj)
 }
