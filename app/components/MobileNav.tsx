@@ -39,7 +39,7 @@ export default function MobileNav() {
   return (
     <header
       className={classNames(
-        'sticky z-10 flex items-center justify-between bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
+        'sticky z-10 mt-5 flex items-center justify-between bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
         {'top-0': isVisible, '-top-20': !isVisible}
       )}
     >
