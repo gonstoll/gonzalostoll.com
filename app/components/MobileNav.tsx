@@ -45,6 +45,8 @@ export default function MobileNav() {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu-nav"
           className={classNames(
             'ml-4 flex h-8 w-8 items-center before:absolute before:h-1 before:w-8 before:rounded-xs before:bg-black before:transition-toggle before:duration-500 after:absolute after:h-1 after:w-8 after:rounded-xs after:bg-black  after:transition-toggle after:duration-500 dark:before:bg-white dark:after:bg-white',
             {
@@ -52,7 +54,11 @@ export default function MobileNav() {
               'before:-translate-y-2 after:translate-y-2': !isMenuOpen,
             }
           )}
-        />
+        >
+          <p className="hidden" aria-hidden>
+            Menu
+          </p>
+        </button>
       </div>
       <div
         className={classNames(
@@ -73,6 +79,7 @@ export default function MobileNav() {
   )
 }
 
+// TODO: Fix this. It's not accessible to have two mobie navs :/
 export function MobileStickyNav() {
   const {isVisible} = useStickyHeader()
 
@@ -80,7 +87,7 @@ export function MobileStickyNav() {
     <div
       className={classNames(
         'fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
-        {'top-0': isVisible, '-top-20': !isVisible}
+        {'visible top-0': isVisible, 'invisible -top-20': !isVisible}
       )}
     >
       <MobileNav />

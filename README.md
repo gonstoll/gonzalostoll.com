@@ -2,6 +2,16 @@
 
 This is my own personal [blog](https://gonzalostoll.com), done with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/). Syntax highlight theme heavily inspired by [Sarah Drasner's Night Owl](https://github.com/sdras/night-owl-vscode-theme/).
 
+## This website uses
+
+* [Remix](https://remix.run)
+* [Typescript](https://www.typescriptlang.org/)
+* [Tailwind](https://tailwindcss.com/)
+* [Zod](https://github.com/colinhacks/zod)
+* [Playwright](https://playwright.dev/)
+* [Vercel](https://vercel.com/)
+
+
 ## Development
 
 To run this website locally, make sure your project's local dependencies are installed:

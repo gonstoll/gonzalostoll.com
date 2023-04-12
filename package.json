@@ -10,7 +10,8 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
     "@remix-run/node": "^1.14.3",
@@ -33,6 +34,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.32.3",
     "@remix-run/dev": "^1.14.3",
     "@remix-run/eslint-config": "^1.14.3",
     "@remix-run/serve": "^1.14.3",
