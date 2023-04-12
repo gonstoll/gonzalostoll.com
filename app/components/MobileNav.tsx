@@ -26,6 +26,7 @@ function useStickyHeader() {
 
 export default function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const {isVisible} = useStickyHeader()
 
   React.useEffect(() => {
     if (isMenuOpen) {
@@ -36,7 +37,12 @@ export default function MobileNav() {
   }, [isMenuOpen])
 
   return (
-    <header className="flex items-center justify-between lg:hidden">
+    <header
+      className={classNames(
+        'sticky z-10 flex items-center justify-between bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
+        {'top-0': isVisible, '-top-20': !isVisible}
+      )}
+    >
       <Link to="/" onClick={() => setIsMenuOpen(false)}>
         <h1 className="relative z-20 text-3xl font-bold">GS</h1>
       </Link>
@@ -76,21 +82,5 @@ export default function MobileNav() {
         />
       </div>
     </header>
-  )
-}
-
-// TODO: Fix this. It's not accessible to have two mobie navs :/
-export function MobileStickyNav() {
-  const {isVisible} = useStickyHeader()
-
-  return (
-    <div
-      className={classNames(
-        'fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
-        {'visible top-0': isVisible, 'invisible -top-20': !isVisible}
-      )}
-    >
-      <MobileNav />
-    </div>
   )
 }

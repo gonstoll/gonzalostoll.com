@@ -23,10 +23,11 @@ test('Mobile navigation works', async ({page, isMobile}) => {
   const blogLink = page.getByRole('link', {name: 'Blog'})
   const mobileMenu = page.getByTestId('mobile-menu-nav')
 
-  await expect(mobileMenu).toBeHidden()
   await page.goto('/')
+  await expect(mobileMenu).not.toBeInViewport()
   await expect(menuButton).toHaveAttribute('aria-expanded', 'false')
   await menuButton.click()
+  await expect(mobileMenu).toBeVisible()
   await expect(menuButton).toHaveAttribute('aria-expanded', 'true')
   await blogLink.click()
   await expect(page).toHaveURL(/.*blog/)

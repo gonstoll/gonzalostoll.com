@@ -13,7 +13,7 @@ import {
 } from '@remix-run/react'
 import {json} from '@vercel/remix'
 import ErrorBlock from './components/ErrorBlock'
-import MobileNav, {MobileStickyNav} from './components/MobileNav'
+import MobileNav from './components/MobileNav'
 import Sidebar from './components/Sidebar'
 import ThemeSwitch from './components/ThemeSwitch'
 import globalStyles from './styles/global.css'
@@ -110,11 +110,10 @@ function App() {
         <Links />
         <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
-      <body className="p-5 sm:p-10">
+      <body>
         <MobileNav />
-        <MobileStickyNav />
         <Sidebar />
-        <main className="mt-10 lg:mx-64 lg:mt-0">
+        <main className="p-5 sm:p-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
             <Outlet />
           </div>
@@ -154,7 +153,6 @@ function ErrorPage({title, reason}: ErrorWrapperProps) {
       </head>
       <body className="p-5 sm:p-10">
         <MobileNav />
-        <MobileStickyNav />
         <Sidebar />
         <main className="mt-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
