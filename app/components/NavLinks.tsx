@@ -66,7 +66,6 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
       role="navigation"
       className={computedClassName}
       id={props.type === 'desktop' ? 'menu-nav' : 'mobile-menu-nav'}
-      data-testid={props.type === 'desktop' ? 'menu-nav' : 'mobile-menu-nav'}
     >
       <ul>
         {LINKS.map(link => (

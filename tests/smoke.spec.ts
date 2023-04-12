@@ -21,7 +21,7 @@ test('Mobile navigation works', async ({page, isMobile}) => {
 
   const menuButton = page.getByRole('button', {name: 'Menu'})
   const blogLink = page.getByRole('link', {name: 'Blog'})
-  const mobileMenu = page.getByTestId('mobile-menu-nav')
+  const mobileMenu = page.getByRole('navigation')
 
   await page.goto('/')
   await expect(mobileMenu).not.toBeInViewport()
