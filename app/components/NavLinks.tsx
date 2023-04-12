@@ -62,7 +62,11 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
       : ''
 
   return (
-    <nav className={computedClassName}>
+    <nav
+      role="navigation"
+      className={computedClassName}
+      id={props.type === 'desktop' ? 'menu-nav' : 'mobile-menu-nav'}
+    >
       <ul>
         {LINKS.map(link => (
           <NavLink

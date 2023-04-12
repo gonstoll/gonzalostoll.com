@@ -26,6 +26,7 @@ function useStickyHeader() {
 
 export default function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const {isVisible} = useStickyHeader()
 
   React.useEffect(() => {
     if (isMenuOpen) {
@@ -36,7 +37,12 @@ export default function MobileNav() {
   }, [isMenuOpen])
 
   return (
-    <header className="flex items-center justify-between lg:hidden">
+    <header
+      className={classNames(
+        'sticky z-10 mt-5 flex items-center justify-between bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
+        {'top-0': isVisible, '-top-20': !isVisible}
+      )}
+    >
       <Link to="/" onClick={() => setIsMenuOpen(false)}>
         <h1 className="relative z-20 text-3xl font-bold">GS</h1>
       </Link>
@@ -45,6 +51,8 @@ export default function MobileNav() {
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu-nav"
           className={classNames(
             'ml-4 flex h-8 w-8 items-center before:absolute before:h-1 before:w-8 before:rounded-xs before:bg-black before:transition-toggle before:duration-500 after:absolute after:h-1 after:w-8 after:rounded-xs after:bg-black  after:transition-toggle after:duration-500 dark:before:bg-white dark:after:bg-white',
             {
@@ -52,7 +60,11 @@ export default function MobileNav() {
               'before:-translate-y-2 after:translate-y-2': !isMenuOpen,
             }
           )}
-        />
+        >
+          <p className="hidden" aria-hidden>
+            Menu
+          </p>
+        </button>
       </div>
       <div
         className={classNames(
@@ -70,20 +82,5 @@ export default function MobileNav() {
         />
       </div>
     </header>
-  )
-}
-
-export function MobileStickyNav() {
-  const {isVisible} = useStickyHeader()
-
-  return (
-    <div
-      className={classNames(
-        'fixed left-0 z-10 w-full bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
-        {'top-0': isVisible, '-top-20': !isVisible}
-      )}
-    >
-      <MobileNav />
-    </div>
   )
 }

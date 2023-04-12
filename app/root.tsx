@@ -12,8 +12,9 @@ import {
   useRouteError,
 } from '@remix-run/react'
 import {json} from '@vercel/remix'
+import * as React from 'react'
 import ErrorBlock from './components/ErrorBlock'
-import MobileNav, {MobileStickyNav} from './components/MobileNav'
+import MobileNav from './components/MobileNav'
 import Sidebar from './components/Sidebar'
 import ThemeSwitch from './components/ThemeSwitch'
 import globalStyles from './styles/global.css'
@@ -23,6 +24,24 @@ import {
   useTheme,
 } from './utils/theme-provider'
 import {getThemeSession} from './utils/theme.server'
+
+function useWindowWidth() {
+  const [windowWidth, setWindowWidth] = React.useState(0)
+
+  React.useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth)
+    }
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return {windowWidth}
+}
 
 export function meta() {
   return [
@@ -95,6 +114,8 @@ export async function loader({request}: LoaderArgs) {
 function App() {
   const {theme: ssrTheme} = useLoaderData<typeof loader>()
   const {theme} = useTheme()
+  const {windowWidth} = useWindowWidth()
+  const isMobileLayout = windowWidth < 1024
 
   return (
     <html lang="en" className={theme || ''}>
@@ -110,11 +131,9 @@ function App() {
         <Links />
         <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
-      <body className="p-5 sm:p-10">
-        <MobileNav />
-        <MobileStickyNav />
-        <Sidebar />
-        <main className="mt-10 lg:mx-64 lg:mt-0">
+      <body>
+        {isMobileLayout ? <MobileNav /> : <Sidebar />}
+        <main className="p-5 sm:px-10 lg:mx-64 lg:mt-0 lg:p-10">
           <div className="mx-auto lg:max-w-2xl">
             <Outlet />
           </div>
@@ -154,7 +173,6 @@ function ErrorPage({title, reason}: ErrorWrapperProps) {
       </head>
       <body className="p-5 sm:p-10">
         <MobileNav />
-        <MobileStickyNav />
         <Sidebar />
         <main className="mt-10 lg:mx-64 lg:mt-0">
           <div className="mx-auto lg:max-w-2xl">
