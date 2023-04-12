@@ -1,10 +1,11 @@
 import {defineConfig, devices} from '@playwright/test'
+import path from 'path'
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-require('dotenv').config();
+require('dotenv').config({path: path.resolve(__dirname, '.env.example')})
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -50,7 +51,7 @@ export default defineConfig({
     },
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Galaxy S9+'] },
+      use: {...devices['Galaxy S9+']},
     },
   ],
   webServer: {
@@ -59,4 +60,3 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
 })
-
