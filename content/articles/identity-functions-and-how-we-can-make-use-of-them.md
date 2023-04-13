@@ -57,7 +57,7 @@ const formFields = {
 }
 ```
 
-As you might know, `email` is not an existing type of `input`. Typescript won't worn us about this, yet this is a common mistake that can be easily avoided with Typescript. So, we might feel tempted to then do something like this:
+As you might know, `email` is not an existing type of `input`. Typescript won't warn us about this, yet this is a common mistake that can be easily avoided with Typescript. So, we might feel tempted to then do something like this:
 
 ```typescript
 type Field = {
