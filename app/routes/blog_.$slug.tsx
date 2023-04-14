@@ -137,6 +137,7 @@ export async function loader({params}: LoaderArgs) {
   }
   const headers = {
     'Cache-Control': cacheHeader({
+      public: true,
       maxAge: '5mins',
       sMaxage: '7days',
       staleWhileRevalidate: '1year',
