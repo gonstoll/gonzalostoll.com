@@ -31,7 +31,7 @@ function BlogPost({post}: {post: PostAttributesWithSlug}) {
 
   return (
     <article className="mb-10 last:mb-0">
-      <Link to={post.slug}>
+      <Link to={post.slug} prefetch="intent">
         <header>
           <h2 className="text-xl font-bold">{post.title}</h2>
           <time className="my-2 block">{postDate}</time>
