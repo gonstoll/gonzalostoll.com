@@ -137,8 +137,10 @@ export async function loader({params}: LoaderArgs) {
   }
   const headers = {
     'Cache-Control': cacheHeader({
-      maxAge: '1hr',
-      staleIfError: '1hr',
+      maxAge: '5mins',
+      sMaxage: '7days',
+      staleWhileRevalidate: '1year',
+      staleIfError: '1year',
     }),
   }
   const {attributes, body} = parseFrontMatter(markdown)
