@@ -15,21 +15,34 @@ import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
 import ErrorBlock from '~/components/ErrorBlock'
-import {getPostByFilename, parseFrontMatter} from '~/models/blog.server'
+import {
+  getAllPosts,
+  getPostByFilename,
+  parseFrontMatter,
+} from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
 import {getIdFromChildren} from '~/utils/get-id-from-children'
+import type {SiteHandle} from '~/utils/sitemap.server'
+
+const handleId = 'blog-post'
+export const handle: SiteHandle = {
+  id: handleId,
+  getSitemapEntries: async () => {
+    const posts = await getAllPosts()
+    if (!posts) return []
+    return posts.map(post => {
+      return {route: `/blog/${post.slug}`, priority: 0.7}
+    })
+  },
+}
 
 const markdownComponents = {
-  pre({node, children, ...props}) {
-    return <CodeBlock {...props}>{children}</CodeBlock>
-  },
-  code({children}) {
-    return <code className="inline-code">{children}</code>
-  },
-  p({children}) {
-    return <p className="mb-6 text-base">{children}</p>
-  },
-  h2({children}) {
+  pre: ({node, children, ...props}) => (
+    <CodeBlock {...props}>{children}</CodeBlock>
+  ),
+  code: ({children}) => <code className="inline-code">{children}</code>,
+  p: ({children}) => <p className="mb-6 text-base">{children}</p>,
+  h2: ({children}) => {
     const id = getIdFromChildren(children)
     return (
       <h2 id={id} className="-mt-6 mb-6 pt-8 text-xl font-bold">
@@ -37,7 +50,7 @@ const markdownComponents = {
       </h2>
     )
   },
-  h3({children}) {
+  h3: ({children}) => {
     const id = getIdFromChildren(children)
     return (
       <h3 id={id} className="-mt-6 mb-6 pt-8 text-base font-bold">
@@ -45,13 +58,13 @@ const markdownComponents = {
       </h3>
     )
   },
-  blockquote({children}) {
-    return <blockquote className="px-6 text-base">{children}</blockquote>
-  },
-  ul({children}) {
-    return <ul className="mb-6 list-inside list-disc">{children}</ul>
-  },
-  a({children, href}) {
+  blockquote: ({children}) => (
+    <blockquote className="px-6 text-base">{children}</blockquote>
+  ),
+  ul: ({children}) => (
+    <ul className="mb-6 list-inside list-disc">{children}</ul>
+  ),
+  a: ({children, href}) => {
     if (!href) return null
 
     const props = new Map<LinkProps['target' | 'rel'], string>()

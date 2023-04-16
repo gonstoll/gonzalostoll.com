@@ -8,7 +8,7 @@ test('App loads and has title', async ({page}) => {
 test('Desktop navigation works', async ({page, isMobile}) => {
   if (isMobile) return
 
-  const blogLink = page.getByRole('link', {name: 'Blog'})
+  const blogLink = page.getByRole('menuitem', {name: 'Blog'})
 
   await page.goto('/')
   await blogLink.click()
@@ -20,8 +20,8 @@ test('Mobile navigation works', async ({page, isMobile}) => {
   if (!isMobile) return
 
   const menuButton = page.getByRole('button', {name: 'Menu'})
-  const blogLink = page.getByRole('link', {name: 'Blog'})
-  const mobileMenu = page.getByRole('navigation')
+  const blogLink = page.getByRole('menuitem', {name: 'Blog'})
+  const mobileMenu = page.getByRole('menubar')
 
   await page.goto('/')
   await expect(mobileMenu).not.toBeInViewport()

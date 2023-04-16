@@ -11,6 +11,11 @@ import ErrorBlock from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
 import {getRootMeta} from '~/utils/get-root-meta'
 
+export const handle = {
+  id: 'blog',
+  getSiteMapEntries: () => [{route: '/blog', priority: 0.7}],
+}
+
 export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
   const parentMeta = getRootMeta(matches)
 

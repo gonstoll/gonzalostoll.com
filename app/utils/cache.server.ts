@@ -1,3 +1,4 @@
+import {ENV} from 'env'
 import type {CachedPostAttributes} from '~/models/blog.server'
 
 let cache: Map<string, CachedPostAttributes>
@@ -9,7 +10,7 @@ declare global {
 // This is needed because in development we don't want to restart
 // the server with every change, but we want to make sure we don't
 // create a new empty cache with every change either.
-if (process.env.NODE_ENV === 'production') {
+if (ENV.NODE_ENV === 'production') {
   cache = new Map()
 } else {
   if (!global.__cache__) {
