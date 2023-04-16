@@ -43,6 +43,18 @@ export async function loader() {
   return json({posts}, {headers})
 }
 
+export function headers() {
+  return {
+    'Cache-Control': cacheHeader({
+      public: true,
+      maxAge: '10mins',
+      sMaxage: '7days',
+      staleWhileRevalidate: '1year',
+      staleIfError: '1year',
+    }),
+  }
+}
+
 export default function Blog() {
   const {posts} = useLoaderData<typeof loader>()
 
