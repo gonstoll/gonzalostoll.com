@@ -1,13 +1,14 @@
+import {ENV} from 'env'
 import frontMatter from 'front-matter'
 import fs from 'fs/promises'
 import path from 'path'
 import {z} from 'zod'
 import {cache} from '~/utils/cache.server'
 
-const ACCESS_TOKEN = process.env.ACCESS_TOKEN
-const ACCOUNT_NAME = process.env.ACCOUNT_NAME
-const REPO_NAME = process.env.REPO_NAME
-const IS_DEV = process.env.NODE_ENV === 'development'
+const ACCESS_TOKEN = ENV.ACCESS_TOKEN
+const ACCOUNT_NAME = ENV.ACCOUNT_NAME
+const REPO_NAME = ENV.REPO_NAME
+const IS_DEV = ENV.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const ARTICLES_DIR = '/contents/content/articles/'
 

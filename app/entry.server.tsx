@@ -1,5 +1,6 @@
 import type {EntryContext, HandleDataRequestFunction} from '@remix-run/node'
 import {RemixServer} from '@remix-run/react'
+import {ENV} from 'env'
 import {renderToString} from 'react-dom/server'
 import {etag} from 'remix-etag'
 import {routes as otherRoutes} from './other-routes'
@@ -19,7 +20,7 @@ export default async function handleDocumentRequest(
     if (otherRouteResponse) return otherRouteResponse
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (ENV.NODE_ENV !== 'production') {
     responseHeaders.set('Cache-Control', 'no-store')
   }
 
