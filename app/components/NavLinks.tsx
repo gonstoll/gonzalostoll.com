@@ -22,18 +22,25 @@ function NavLink({
   })
 
   return (
-    <li className="mb-4 text-xl last:mb-0">
+    <li role="none" className="mb-4 text-xl last:mb-0">
       {to.startsWith('http') ? (
         <a
           className={computedClassName}
           href={to}
           target="_blank"
           rel="noopener noreferrer"
+          {...rest}
         >
           {children} →
         </a>
       ) : (
-        <Link prefetch="intent" className={computedClassName} to={to} {...rest}>
+        <Link
+          prefetch="intent"
+          className={computedClassName}
+          to={to}
+          aria-current={isSelected ? 'page' : undefined}
+          {...rest}
+        >
           {children} →
         </Link>
       )}
@@ -63,7 +70,8 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
 
   return (
     <nav
-      role="navigation"
+      aria-label="Menu"
+      role="menubar"
       className={computedClassName}
       id={props.type === 'desktop' ? 'menu-nav' : 'mobile-menu-nav'}
     >
@@ -72,6 +80,9 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
           <NavLink
             key={link.to}
             to={link.to}
+            aria-label={link.name}
+            title={link.name}
+            role="menuitem"
             onClick={() =>
               props.type === 'mobile' ? props.onCloseMobileMenu() : null
             }

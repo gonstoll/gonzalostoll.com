@@ -2,8 +2,9 @@ import type {EntryContext, HandleDataRequestFunction} from '@remix-run/node'
 import {RemixServer} from '@remix-run/react'
 import {renderToString} from 'react-dom/server'
 import {etag} from 'remix-etag'
+import {routes as otherRoutes} from './other-routes'
 
-export default function handleRequest(
+export default async function handleDocumentRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
@@ -12,6 +13,11 @@ export default function handleRequest(
   const markup = renderToString(
     <RemixServer context={remixContext} url={request.url} />
   )
+
+  for (const handler of otherRoutes) {
+    const otherRouteResponse = await handler(request, remixContext)
+    if (otherRouteResponse) return otherRouteResponse
+  }
 
   if (process.env.NODE_ENV !== 'production') {
     responseHeaders.set('Cache-Control', 'no-store')
@@ -24,12 +30,12 @@ export default function handleRequest(
     status: responseStatusCode,
   })
 
-  return etag({request, response, options: {maxAge: 60 * 60}})
+  return etag({request, response})
 }
 
 export async function handleDataRequest(
   response: Response,
   {request}: Parameters<HandleDataRequestFunction>['1']
 ) {
-  return etag({request, response, options: {maxAge: 60 * 60}})
+  return etag({request, response})
 }

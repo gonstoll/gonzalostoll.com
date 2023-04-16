@@ -1,5 +1,6 @@
 import type {V2_MetaFunction} from '@remix-run/node'
 import {Link} from '@remix-run/react'
+import {cacheHeader} from 'pretty-cache-header'
 import ReactMarkdown from 'react-markdown'
 import Bio from '~/components/Bio'
 import {getIdFromChildren} from '~/utils/get-id-from-children'
@@ -28,6 +29,16 @@ I work on a M2 Macbook Air (midnight blue), but my setup also includes:
 - Mouse: [Magic mouse (black)](https://www.apple.com/dk/shop/product/MMMQ3Z/A/magic-mouse-sort-multi-touch-overflade)
 - Headphones: [Sony WH-1000XM4](https://electronics.sony.com/audio/headphones/headband/p/wh1000xm4-b)
 `
+
+export function headers() {
+  return {
+    'Cache-Control': cacheHeader({
+      maxAge: '15mins',
+      sMaxage: '6months',
+      staleWhileRevalidate: '1year',
+    }),
+  }
+}
 
 export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
   const parentMeta = getRootMeta(matches)
@@ -62,25 +73,17 @@ export default function AboutPage() {
       <div className="text-xl">
         <ReactMarkdown
           components={{
-            a({href, children}) {
-              return (
-                <a
-                  className="hover:text-primary"
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {children}
-                </a>
-              )
-            },
-            ul({children}) {
-              return <ul>{children}</ul>
-            },
-            li({children}) {
-              return <li>{children}</li>
-            },
-            h2({children}) {
+            a: ({href, children}) => (
+              <a
+                className="hover:text-primary"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {children}
+              </a>
+            ),
+            h2: ({children}) => {
               const id = getIdFromChildren(children)
               return (
                 <h2 id={id} className="mb-6 mt-10 pt-10 text-xl">
@@ -88,6 +91,8 @@ export default function AboutPage() {
                 </h2>
               )
             },
+            ul: ({children}) => <ul>{children}</ul>,
+            li: ({children}) => <li>{children}</li>,
           }}
         >
           {markdown}
