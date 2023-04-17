@@ -34,13 +34,16 @@ const postAttributesWithSlugSchema = postAttributesSchema.merge(
   })
 )
 
-type PostAttributes = z.infer<typeof postAttributesSchema>
-export type PostAttributesWithSlug = PostAttributes & {
-  slug: string
-}
-export type CachedPostAttributes = PostAttributesWithSlug & {
-  sha: string
-}
+const cachedPostAttributesSchema = postAttributesWithSlugSchema.merge(
+  z.object({
+    sha: z.string(),
+  })
+)
+
+export type PostAttributesWithSlug = z.infer<
+  typeof postAttributesWithSlugSchema
+>
+export type CachedPostAttributes = z.infer<typeof cachedPostAttributesSchema>
 
 export function parseFrontMatter(markdown: string) {
   const {attributes, body} = frontMatter(markdown)
@@ -129,11 +132,10 @@ export async function getAllPosts() {
 
     for (const post of posts) {
       if (cache.has(post.name)) {
-        console.log('Cache was hit: ', {cache, post})
-        const cachedPost = cache.get(post.name)
-
-        if (!cachedPost) continue
-
+        const cachedPost = cachedPostAttributesSchema.parse(
+          cache.get(post.name)
+        )
+        console.log('Cache was hit: ', {cachedPost, post})
         if (cachedPost.sha === post.sha) {
           postAttributes.push(cachedPost)
           continue
