@@ -1,4 +1,3 @@
-import type {LoaderArgs, MetaFunction} from '@remix-run/node'
 import type {LinkProps} from '@remix-run/react'
 import {
   Link,
@@ -6,6 +5,7 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
+import type {HeadersFunction, LoaderArgs, MetaFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import type {Components} from 'react-markdown'
@@ -161,15 +161,9 @@ export async function loader({params}: LoaderArgs) {
   return json({attributes, body}, {headers})
 }
 
-export function headers() {
+export function headers({loaderHeaders}: Parameters<HeadersFunction>[0]) {
   return {
-    'Cache-Control': cacheHeader({
-      public: true,
-      maxAge: '5mins',
-      sMaxage: '7days',
-      staleWhileRevalidate: '1year',
-      staleIfError: '1year',
-    }),
+    'Cache-Control': loaderHeaders.get('Cache-Control'),
   }
 }
 

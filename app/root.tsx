@@ -1,4 +1,3 @@
-import type {LoaderArgs} from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -11,6 +10,7 @@ import {
   useLocation,
   useRouteError,
 } from '@remix-run/react'
+import type {LoaderArgs} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import * as React from 'react'
 import ErrorBlock from './components/ErrorBlock'

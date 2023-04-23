@@ -1,4 +1,4 @@
-import type {ActionArgs} from '@remix-run/node'
+import type {ActionArgs} from '@vercel/remix'
 import {json, redirect} from '@vercel/remix'
 import {isValidTheme} from '~/utils/theme-provider'
 import {getThemeSession} from '~/utils/theme.server'

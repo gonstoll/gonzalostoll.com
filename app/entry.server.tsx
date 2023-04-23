@@ -1,5 +1,5 @@
-import type {EntryContext, HandleDataRequestFunction} from '@remix-run/node'
 import {RemixServer} from '@remix-run/react'
+import type {EntryContext, HandleDataRequestFunction} from '@vercel/remix'
 import {ENV} from 'env'
 import {renderToString} from 'react-dom/server'
 import {etag} from 'remix-etag'

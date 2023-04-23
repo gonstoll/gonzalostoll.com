@@ -3,6 +3,7 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
+import type {HeadersFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import Bio from '~/components/Bio'
@@ -27,15 +28,9 @@ export async function loader() {
   return json({posts}, {headers})
 }
 
-export function headers() {
+export function headers({loaderHeaders}: Parameters<HeadersFunction>[0]) {
   return {
-    'Cache-Control': cacheHeader({
-      public: true,
-      maxAge: '10mins',
-      sMaxage: '7days',
-      staleWhileRevalidate: '1year',
-      staleIfError: '1year',
-    }),
+    'Cache-Control': loaderHeaders.get('Cache-Control'),
   }
 }
 
