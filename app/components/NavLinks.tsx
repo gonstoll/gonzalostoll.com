@@ -70,12 +70,10 @@ export default function NavLinks(props: MobileProps | DesktopProps) {
 
   return (
     <nav
-      aria-label="Menu"
-      role="menubar"
       className={computedClassName}
       id={props.type === 'desktop' ? 'menu-nav' : 'mobile-menu-nav'}
     >
-      <ul>
+      <ul aria-label="Menu" role="menubar">
         {LINKS.map(link => (
           <NavLink
             key={link.to}

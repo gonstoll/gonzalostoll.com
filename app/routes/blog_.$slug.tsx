@@ -90,7 +90,7 @@ const markdownComponents = {
 const paramsSchema = z.object({slug: z.string()})
 
 export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
-  const {slug} = z.object({slug: z.string()}).parse(args.params)
+  const {slug} = paramsSchema.parse(args.params)
 
   if (!args.data) {
     return [{title: 'Gonzalo Stoll - Post not found'}]
