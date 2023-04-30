@@ -10,6 +10,7 @@ import {
   useLocation,
   useRouteError,
 } from '@remix-run/react'
+import {Analytics} from '@vercel/analytics/react'
 import type {LoaderArgs} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import * as React from 'react'
@@ -132,6 +133,7 @@ function App() {
         <NonFlashOfThemeScript ssrTheme={Boolean(ssrTheme)} />
       </head>
       <body>
+        <Analytics />
         {isMobileLayout ? <MobileNav /> : <Sidebar />}
         <main className="p-5 sm:px-10 lg:mx-64 lg:mt-0 lg:p-10">
           <div className="mx-auto lg:max-w-2xl">
