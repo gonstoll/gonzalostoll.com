@@ -1,9 +1,9 @@
+import {Redis} from '@upstash/redis'
 import {ENV} from 'env'
 import frontMatter from 'front-matter'
 import fs from 'fs/promises'
 import path from 'path'
 import {z} from 'zod'
-import {cache} from '~/utils/cache.server'
 
 const ACCESS_TOKEN = ENV.ACCESS_TOKEN
 const ACCOUNT_NAME = ENV.ACCOUNT_NAME
@@ -11,6 +11,11 @@ const REPO_NAME = ENV.REPO_NAME
 const IS_DEV = ENV.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const ARTICLES_DIR = '/contents/content/articles/'
+
+const redis = new Redis({
+  url: ENV.UPSTASH_REDIS_REST_URL,
+  token: ENV.UPSTASH_REDIS_REST_TOKEN,
+})
 
 const postSchema = z.object({
   sha: z.string(),
@@ -131,19 +136,19 @@ export async function getAllPosts() {
     const posts = postSchema.array().parse(postsData)
 
     for (const post of posts) {
-      if (cache.has(post.name)) {
-        const cachedPost = cachedPostAttributesSchema.parse(
-          cache.get(post.name)
-        )
-        console.log('Cache was hit: ', {cachedPost, post})
-        if (cachedPost.sha === post.sha) {
-          postAttributes.push(cachedPost)
-          continue
-        }
-        // There is a new SHA, so we need to delete the old entry from the cache
-        // fetch the new one and add it to the cache ↓
-        cache.delete(post.name)
+      const cachedPost = cachedPostAttributesSchema.safeParse(
+        await redis.get(post.name)
+      )
+
+      if (cachedPost.success && cachedPost.data.sha === post.sha) {
+        console.log('Cache was hit: ', {cachedPost: cachedPost.data, post})
+        postAttributes.push(cachedPost.data)
+        continue
       }
+
+      // There is a new SHA, so we need to delete the old entry from the redis
+      // cache, fetch the new one and add it to the cache ↓
+      await redis.del(post.name)
 
       const markdown = await getPostByUrl(post.download_url)
       if (!markdown) return
@@ -152,8 +157,9 @@ export async function getAllPosts() {
         ...attributes,
         slug: post.name.replace('.md', ''),
       }
+
       postAttributes.push(attributesWithSlug)
-      cache.set(post.name, {
+      await redis.set(post.name, {
         ...attributesWithSlug,
         sha: post.sha,
       })
