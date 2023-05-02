@@ -1,9 +1,9 @@
+import kv from '@vercel/kv'
 import {ENV} from 'env'
 import frontMatter from 'front-matter'
 import fs from 'fs/promises'
 import path from 'path'
 import {z} from 'zod'
-import {cache} from '~/utils/cache.server'
 
 const ACCESS_TOKEN = ENV.ACCESS_TOKEN
 const ACCOUNT_NAME = ENV.ACCOUNT_NAME
@@ -104,7 +104,7 @@ export async function getPostByFilename(fileName: string) {
 export async function getAllPosts() {
   const postAttributes: Array<PostAttributesWithSlug> = []
 
-  if (IS_DEV) {
+  if (!IS_DEV) {
     console.log('📚 Fetching posts from local environment')
     const posts = await fs
       .readdir(path.resolve(__dirname, '../content/articles'))
@@ -131,19 +131,18 @@ export async function getAllPosts() {
     const posts = postSchema.array().parse(postsData)
 
     for (const post of posts) {
-      if (cache.has(post.name)) {
-        const cachedPost = cachedPostAttributesSchema.parse(
-          cache.get(post.name)
-        )
-        console.log('Cache was hit: ', {cachedPost, post})
-        if (cachedPost.sha === post.sha) {
-          postAttributes.push(cachedPost)
-          continue
-        }
-        // There is a new SHA, so we need to delete the old entry from the cache
-        // fetch the new one and add it to the cache ↓
-        cache.delete(post.name)
+      const cachedPost = cachedPostAttributesSchema.safeParse(
+        await kv.get(post.name)
+      )
+
+      if (cachedPost.success && cachedPost.data.sha === post.sha) {
+        console.log('Cache was hit: ', {cachedPost: cachedPost.data, post})
+        postAttributes.push(cachedPost.data)
+        continue
       }
+      // There is a new SHA, so we need to delete the old entry from the redis
+      // cache, fetch the new one and add it to the cache ↓
+      await kv.del(post.name)
 
       const markdown = await getPostByUrl(post.download_url)
       if (!markdown) return
@@ -153,7 +152,7 @@ export async function getAllPosts() {
         slug: post.name.replace('.md', ''),
       }
       postAttributes.push(attributesWithSlug)
-      cache.set(post.name, {
+      await kv.set(post.name, {
         ...attributesWithSlug,
         sha: post.sha,
       })

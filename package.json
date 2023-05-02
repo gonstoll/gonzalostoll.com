@@ -19,6 +19,7 @@
     "@remix-run/vercel": "^1.14.3",
     "@types/react-transition-group": "^4.4.5",
     "@vercel/analytics": "^1.0.0",
+    "@vercel/kv": "^0.1.1",
     "@vercel/node": "^2.6.2",
     "@vercel/remix": "^1.15.0",
     "dotenv": "^16.0.3",

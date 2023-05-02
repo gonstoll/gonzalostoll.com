@@ -6,6 +6,8 @@ const envVariables = z.object({
   REPO_NAME: z.string().nonempty(),
   SESSION_SECRET: z.string().nonempty(),
   NODE_ENV: z.enum(['development', 'production', 'test']),
+  KV_REST_API_URL: z.string().url(),
+  KV_REST_API_TOKEN: z.string().nonempty(),
 })
 
 export const ENV = envVariables.parse(process.env)
