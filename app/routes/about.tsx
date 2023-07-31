@@ -25,7 +25,7 @@ I work on a M2 Macbook Air (midnight blue), but my setup also includes:
 
 - Screen: [LG 27UL650-W 4K Ultra HD IPS 27”](https://www.computersalg.dk/i/5595771/lg-27ul650-w-69cm-27-zoll-led-ips-panel-4k-uhd-hdr-400-amd-freesync-h%C3%B6henverstellung)
 - Microphone: [Røde NT-USB Mini](https://rode.com/en/microphones/usb/nt-usb-mini)
-- Keyboard: [KBD67 V3 Aluminium Case Mirror](https://www.maxgaming.com/en/cases/kbd67-v3-aluminium-case-mirror), [Gazzew Bobagum Silent Linear 62g](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/), [Clear2048 Transparent Keycaps Set designed by Mito](https://kbdfans.com/products/clear2048-keycaps-set)
+- Keyboards: At home, I use a [QK65 White - Golden weight - Wired ANSI - FR4](https://www.qwertykeys.com) with [PBTFans Classic Hangul keycaps](https://kbdfans.com/products/pbtfans-classic-hangul) and [Gazzew Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/). At the office, I use a [KBD67 V3 Aluminium Case Mirror](https://www.maxgaming.com/en/cases/kbd67-v3-aluminium-case-mirror), with [Gazzew Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/) and [Clear2048 Transparent Keycaps Set designed by Mito](https://kbdfans.com/products/clear2048-keycaps-set)
 - Mouse: [Magic mouse (black)](https://www.apple.com/dk/shop/product/MMMQ3Z/A/magic-mouse-sort-multi-touch-overflade)
 - Headphones: [Sony WH-1000XM4](https://electronics.sony.com/audio/headphones/headband/p/wh1000xm4-b)
 `

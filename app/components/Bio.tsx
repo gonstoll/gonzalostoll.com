@@ -67,7 +67,7 @@ export default function Bio({isHome = false}: {isHome?: boolean}) {
       </p>
       <p className="mt-6 text-xl">
         I’ve also been having a blast building custom mechanical keyboards
-        (built 3 so far). It keeps me focused and it’s a nice therapeutic
+        (built 5 so far). It keeps me focused and it’s a nice therapeutic
         channel where I can clear my mind and rejoice.
       </p>
     </>
