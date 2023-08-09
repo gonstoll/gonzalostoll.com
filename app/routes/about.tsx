@@ -9,7 +9,9 @@ import {getRootMeta} from '~/utils/get-root-meta'
 const markdown = `
 ## Tech I use
 
-With [React](https://react.dev/) always by my side, I’m currently hacking with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/) (the stack used for this portfolio). I’ve also worked with and have vast experience in:
+With [React](https://react.dev/) always by my side, I’m currently hacking with [Remix](https://remix.run),
+[Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/) (the stack used for this
+portfolio). I’ve also worked with and have vast experience in:
 
 - [Next.js](https://nextjs.org/)
 - [React Router](https://reactrouter.com/en/main) & [Tanstack Query](https://tanstack.com/query/latest)
@@ -17,7 +19,10 @@ With [React](https://react.dev/) always by my side, I’m currently hacking with
 
 ## My workflow
 
-My preferred editor is and has been for a long time [VS Code](https://code.visualstudio.com/). There I use the [Night Owl](https://marketplace.visualstudio.com/items?itemName=sdras.night-owl) theme and [Dank Mono](https://philpl.gumroad.com/l/dank-mono) font. I use [warp](https://www.warp.dev/) as my terminal and [Arc](https://arc.net/) as my broswer.
+For a long time I've used [VS Code](https://code.visualstudio.com) as my editor of choice,
+but I've recently switched to [Neovim](https://neovim.io/) (find my dotfiles
+[here](https://github.com/gonstoll/dotfiles)). I use [iTerm2](https://iterm2.com/)
+as my terminal and [Arc](https://arc.net/) as my broswer.
 
 ## My setup
 
@@ -25,7 +30,12 @@ I work on a M2 Macbook Air (midnight blue), but my setup also includes:
 
 - Screen: [LG 27UL650-W 4K Ultra HD IPS 27”](https://www.computersalg.dk/i/5595771/lg-27ul650-w-69cm-27-zoll-led-ips-panel-4k-uhd-hdr-400-amd-freesync-h%C3%B6henverstellung)
 - Microphone: [Røde NT-USB Mini](https://rode.com/en/microphones/usb/nt-usb-mini)
-- Keyboards: At home, I use a [QK65 White - Golden weight - Wired ANSI - FR4](https://www.qwertykeys.com) with [PBTFans Classic Hangul keycaps](https://kbdfans.com/products/pbtfans-classic-hangul) and [Gazzew Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/). At the office, I use a [KBD67 V3 Aluminium Case Mirror](https://www.maxgaming.com/en/cases/kbd67-v3-aluminium-case-mirror), with [Gazzew Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/) and [Clear2048 Transparent Keycaps Set designed by Mito](https://kbdfans.com/products/clear2048-keycaps-set)
+- Keyboards: At home, I use a [QK65 White - Golden weight - Wired ANSI - FR4](https://www.qwertykeys.com) with [PBTFans
+Classic Hangul keycaps](https://kbdfans.com/products/pbtfans-classic-hangul) and [Gazzew Bobagum Silent Linear 62g
+switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/). At the office, I
+use a [KBD67 V3 Aluminium Case Mirror](https://www.maxgaming.com/en/cases/kbd67-v3-aluminium-case-mirror), with [Gazzew
+Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/)
+and [Clear2048 Transparent Keycaps Set designed by Mito](https://kbdfans.com/products/clear2048-keycaps-set)
 - Mouse: [Magic mouse (black)](https://www.apple.com/dk/shop/product/MMMQ3Z/A/magic-mouse-sort-multi-touch-overflade)
 - Headphones: [Sony WH-1000XM4](https://electronics.sony.com/audio/headphones/headband/p/wh1000xm4-b)
 `
