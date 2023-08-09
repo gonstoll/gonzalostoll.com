@@ -12,11 +12,13 @@ module.exports = {
   server: process.env.NODE_ENV === 'development' ? undefined : './server.js',
   ignoredRouteFiles: ['**/.*'],
   future: {
+    tailwind: true,
     v2_meta: true,
     v2_errorBoundary: true,
     v2_routeConvention: true,
     v2_normalizeFormMethod: true,
-    unstable_tailwind: true,
+    v2_dev: true,
+    v2_headers: true,
   },
   serverDependenciesToBundle: [
     /^rehype.*/,
@@ -41,9 +43,7 @@ module.exports = {
     /^zwitch*/,
     /^ccount*/,
     /^markdown-table*/,
+    /^is-plain-obj*/,
+    /^escape-string-regexp*/,
   ],
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "api/index.js",
-  // publicPath: "/build/",
 }
