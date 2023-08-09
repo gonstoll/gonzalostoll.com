@@ -40,7 +40,7 @@ const markdownComponents = {
   pre: ({node, children, ...props}) => (
     <CodeBlock {...props}>{children}</CodeBlock>
   ),
-  code: ({children}) => <code className="inline-code">{children}</code>,
+  code: ({children}) => <code className="inline-code text-sm">{children}</code>,
   p: ({children}) => <p className="mb-6 text-base">{children}</p>,
   h2: ({children}) => {
     const id = getIdFromChildren(children)
@@ -126,18 +126,18 @@ export function links() {
   return [
     {rel: 'stylesheet', href: blogStyles},
     {
-      rel: 'preload',
-      href: '/fonts/dank-mono/regular.woff2',
-      as: 'font',
-      type: 'font/woff2',
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com',
       crossOrigin: 'anonymous',
     },
     {
-      rel: 'preload',
-      href: '/fonts/dank-mono/italic.woff2',
-      as: 'font',
-      type: 'font/woff2',
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
       crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;700&display=swap',
     },
   ]
 }

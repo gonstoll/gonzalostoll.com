@@ -4,9 +4,8 @@
 
 @font-face {
   font-family: 'Scto';
-  src:  local('Scto Grotesk A'),
-        url('/fonts/scto/regular.woff2') format('woff2'),
-        url('/fonts/scto/regular.woff') format('woff');
+  src: local('Scto Grotesk A'), url('/fonts/scto/regular.woff2') format('woff2'),
+    url('/fonts/scto/regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -15,33 +14,10 @@
 
 @font-face {
   font-family: 'Scto';
-  src:  local('Scto Grotesk A'),
-        url('/fonts/scto/bold.woff2') format('woff2'),
-        url('/fonts/scto/bold.woff') format('woff');
+  src: local('Scto Grotesk A'), url('/fonts/scto/bold.woff2') format('woff2'),
+    url('/fonts/scto/bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
-  unicode-range: U+000-5FF;
-}
-
-@font-face {
-  font-family: 'Dank Mono';
-  src:  local('Dank Mono'),
-        url('/fonts/dank-mono/regular.woff2') format('woff2'),
-        url('/fonts/dank-mono/regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+000-5FF;
-}
-
-@font-face {
-  font-family: 'Dank Mono';
-  src:  local('Dank Mono'),
-        url('/fonts/dank-mono/italic.woff2') format('woff2'),
-        url('/fonts/dank-mono/italic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
   font-display: swap;
   unicode-range: U+000-5FF;
 }
@@ -49,7 +25,7 @@
 @layer base {
   :root {
     --font-sans: 'Scto', sans-serif;
-    --font-mono: 'Dank Mono';
+    --font-mono: 'Fira Code', monospace;
     --color-white: #fbf9f9;
     --color-black: #1c1c27;
   }

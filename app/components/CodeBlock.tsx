@@ -1,8 +1,9 @@
 import rangeParser from 'parse-numeric-range'
 import type {Language} from 'prism-react-renderer'
-import Highlight, {defaultProps} from 'prism-react-renderer'
+import {Highlight, themes} from 'prism-react-renderer'
 import * as React from 'react'
 import {classNames} from '~/utils/class-names'
+import {useTheme} from '~/utils/theme-provider'
 
 function getHighlightLines(meta: string) {
   const HIGHLIGHT_REGEX = /{([\d,-]+)}/
@@ -56,6 +57,8 @@ function isLanguageSupported(lang: string): lang is Language {
 }
 
 export default function CodeBlock({children}: React.PropsWithChildren<object>) {
+  const {theme} = useTheme()
+
   if (!children) throw Error('CodeBlock: children is required')
 
   const childrenArray = React.Children.toArray(children)
@@ -71,15 +74,14 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
 
   return (
     <Highlight
-      {...defaultProps}
-      theme={undefined}
+      theme={theme === 'dark' ? themes.nightOwl : themes.nightOwlLight}
       code={code.trim()}
       language={lang || 'bash'}
     >
       {({className, tokens, getLineProps, getTokenProps}) => (
         <pre
           className={classNames(
-            'my-6 overflow-auto rounded-lg bg-codeBg py-4 font-mono text-base duration-300',
+            'my-6 overflow-auto rounded-md bg-codeBg py-4 font-mono text-sm/6 duration-300',
             className
           )}
         >
@@ -99,7 +101,14 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
                   )}
                 >
                   {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({token, key})} />
+                    <span
+                      key={key}
+                      {...getTokenProps({token, key})}
+                      style={{
+                        ...getTokenProps({token, key}).style,
+                        fontStyle: 'normal',
+                      }}
+                    />
                   ))}
                 </span>
               )
