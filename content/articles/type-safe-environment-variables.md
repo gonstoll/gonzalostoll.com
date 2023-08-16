@@ -124,11 +124,55 @@ import '~/env'
 
 Now our `env.ts` will be executed as soon as our app is run.
 
-## Declaration merge
+## Declaration merging
 
 There's one more thing we can add to our file before we close it at take it home.
 
 Depending on the configuration of your project, there are places where you'd still need to access `process.env`
 directly. Doing so with our current solution will still throw you into the unknown.
 
-To avoid this we can use declaration merging
+```sh
+// .env
+FOO_ACCESS_TOKEN=1234
+```
+
+```typescript
+// some.config.ts
+
+const accessToken = process.env.eerk // This will not lint, nor will it suggest variables based on your .env file
+```
+
+To avoid this we can use declaration merging. We interfere the global `ProcessEnv` interface under the `NodeJS`
+namespace, and add our infered typed variables. This is how:
+
+```typescript{}
+// env.ts
+import {z} from 'zod'
+
+const envVariables = z.object({
+  node_env: z.enum(['development', 'production', 'test']),
+  some_super_secret_token: z.string().nonemtpy(),
+})
+
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv extends z.infer<typeof envVariables> {}
+    }
+}
+
+try {
+  envVariables.parse(process.env)
+} catch (error) {
+  if (error instanceof z.ZodError) {
+    const {fieldErrors} = error.flatten()
+    const errorMessage = Object.entries(fieldErrors)
+      .map(([field, errors]) =>
+        errors ? `${field}: ${errors.join(', ')}` : field
+      )
+      .join('\n  ')
+    throw new Error(`Missing environment variables:\n  ${errorMessage}`)
+  }
+}
+
+export const ENV = envvariables.parse(process.env)
+```
