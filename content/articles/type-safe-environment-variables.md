@@ -1,6 +1,6 @@
 ---
 title: Type safe environment variables
-date: '2023-08-10'
+date: '2023-08-17'
 summary: Get those pesky environment variables to typesafe land
 categories:
   - typescript
