@@ -13,12 +13,12 @@ meta:
 ---
 
 If you've been working with Typescript and needed to access environment variables on your code, you must've noticed that
-after you type `proces.env` you don't get any suggestions. And that makes a lot of sense, because there's no way
-Typescript can effectively know what are the variables living in your `env` file. That's because it's code you never import
-and is executed at runtime.
+after you type `process.env` you don't get any suggestions. And that makes a lot of sense, because there's no way
+Typescript can effectively know what are the variables living in your `env` file. That happens due to the fact that it's
+code you never import, and is executed at runtime.
 
 Personally, when working with Typescript I like to get as much help from it as possible. Now, I know what you're
-thinking. We usually don't go around using env variables a hundred of times across our codebases, it's only on selected
+thinking. We usually don't go around using env variables a hundred times across our codebases, it's only on selected
 spots of our codebase where we do use them. But still, arguably those places where you use them are really imporant.
 Better safe than sorry!
 
@@ -35,25 +35,25 @@ So, first off, on your `src` (or similar) folder, create a `env.ts` file:
 // env.ts
 import {z} from 'zod'
 
-const envVariables = z.object({
-  node_env: z.enum(['development', 'production', 'test']),
-  some_super_secret_token: z.string().nonemtpy(),
+const envVariablesSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
-export const ENV = envvariables.parse(process.env)
+export const ENV = envVariablesSchema.parse(process.env)
 ```
 
 There are a couple of things to notice in this piece of snippet:
 
-1. Notice on line 6, how we chain a `.nonempty()` method to the string parse? That's so you don't accidentally go and
-   create a env variable like so: `SOME_SUPER_SECRET_TOKEN=` (which is valid on your `.env` file). If you do, zod will
-   warn you about it
-2. We are exporting a `ENV` constant, which parses our entire `process.env` object containing our environment variables.
-   That means that, if `process.env` is missing any of the variables declared on your `envVariables` schema, `zod` will
-   throw an error as soon as this file gets imported.
-3. Because of how `zod` works, any other variable that's not defined in the schema will get filtered out. So this helps
-   declaring in one single place all the variables that you'll be using on your entire application. This is extremely
-   useful, this file tends to get really big over time and on big applications.
+- We are exporting an `ENV` constant, which parses our entire `process.env` object containing our environment variables
+  against our defined schema. That means that, if `process.env` is missing any of the variables declared on your
+  `envVariablesSchema` schema, `zod` will throw an error as soon as this file gets imported
+- Notice on line 6, how we chain a `.nonempty()` method to the string parse? That's so you don't accidentally go and
+  create a env variable like so: `SOME_SUPER_SECRET_TOKEN=` (which is valid on your `.env` file). If you do, zod will warn
+  you about it
+- Because of how `zod` works, any other variable that's not defined in the schema will get filtered out. So this helps
+  declaring in one single place all the variables that you'll be using on your entire application. This is extremely
+  useful, as this file tends to get really big over time, specially on big applications
 
 With this, now we can import our newly created `ENV` constant and safely use our env variables 🎉
 
@@ -81,13 +81,13 @@ In order to achive this, we need to `parse` our schema as soon as our app is mou
 // env.ts
 import {z} from 'zod'
 
-const envVariables = z.object({
-  node_env: z.enum(['development', 'production', 'test']),
-  some_super_secret_token: z.string().nonemtpy(),
+const envVariablesSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
 try {
-  envVariables.parse(process.env)
+  envVariablesSchema.parse(process.env)
 } catch (error) {
   if (error instanceof z.ZodError) {
     const {fieldErrors} = error.flatten()
@@ -103,8 +103,8 @@ try {
 export const ENV = envvariables.parse(process.env)
 ```
 
-This `try catch` block will run as soon as this file gets imported, and throw a more pretty error message listing the
-environment variables that were problematic.
+This `try catch` block will run as soon as this file gets imported, and throw a more elegant and readable error message
+listing the environment variables that were problematic.
 
 So now all we need to do is import this file at the root of our application. Which file this is depends on the
 framework you're using:
@@ -143,25 +143,25 @@ const accessToken = process.env.eerk // This will not lint, nor will it suggest 
 ```
 
 To avoid this we can use declaration merging. We interfere the global `ProcessEnv` interface under the `NodeJS`
-namespace, and add our infered typed variables. This is how:
+namespace, and add to it our inferred typed variables. This is how:
 
-```typescript{}
+```typescript{9-13}
 // env.ts
 import {z} from 'zod'
 
-const envVariables = z.object({
-  node_env: z.enum(['development', 'production', 'test']),
-  some_super_secret_token: z.string().nonemtpy(),
+const envVariablesSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
 declare global {
-    namespace NodeJS {
-        interface ProcessEnv extends z.infer<typeof envVariables> {}
-    }
+  namespace NodeJS {
+    interface ProcessEnv extends z.infer<typeof envVariablesSchema> {}
+  }
 }
 
 try {
-  envVariables.parse(process.env)
+  envVariablesSchema.parse(process.env)
 } catch (error) {
   if (error instanceof z.ZodError) {
     const {fieldErrors} = error.flatten()
@@ -176,3 +176,12 @@ try {
 
 export const ENV = envvariables.parse(process.env)
 ```
+
+And that's it! Now you have the best from both worlds: a fully typed `process.env` object and a new `ENV` constant that
+you can **safely** use at your leisure anywhere on your app.
+
+Feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll),
+[Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com) if you have any
+questions, comments or suggestions :)
+
+Til the next one!
