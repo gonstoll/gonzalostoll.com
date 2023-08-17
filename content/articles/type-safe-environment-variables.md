@@ -29,7 +29,7 @@ So, how can we leverage the help from Typescript here?
 We use [zod](https://zod.dev/)! Zod will not only help us get typed environment variables, but also will parse them and
 check if we are missing any.
 
-So, first off, on your `src` (or similar) folder, create a `env.ts` file:
+So, first off, on your `src` (or similar) folder, create a `env.ts` file with the following:
 
 ```typescript
 // env.ts
