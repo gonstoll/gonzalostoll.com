@@ -23,6 +23,7 @@ const postAttributesSchema = z.object({
   date: z.string(),
   summary: z.string(),
   categories: z.array(z.string()),
+  published: z.boolean(),
   meta: z.object({
     keywords: z.array(z.string()),
   }),
@@ -166,5 +167,10 @@ export async function getAllPosts() {
     return dateB.getTime() - dateA.getTime()
   })
 
-  return postAttributesWithSlugSchema.array().parse(sortedPosts)
+  const posts =
+    ENV.NODE_ENV === 'production'
+      ? sortedPosts.filter(p => Boolean(p.published))
+      : sortedPosts
+
+  return postAttributesWithSlugSchema.array().parse(posts)
 }

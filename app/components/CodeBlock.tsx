@@ -42,7 +42,7 @@ function isLanguageSupported(lang: string): lang is Language {
     lang === 'tsx' ||
     lang === 'typescript' ||
     lang === 'html' ||
-    lang === 'sh'
+    lang === 'yaml'
   )
 }
 

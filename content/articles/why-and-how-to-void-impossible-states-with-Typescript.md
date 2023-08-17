@@ -2,6 +2,7 @@
 title: Why and how to void impossible states with Typescript
 date: '2023-03-29'
 summary: Use Typescript and discriminated unions to avoid impossible states
+published: true
 categories:
   - typescript
   - react

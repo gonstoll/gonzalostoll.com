@@ -2,6 +2,7 @@
 title: Type safe environment variables
 date: '2023-08-17'
 summary: Get those pesky environment variables to typesafe land
+published: false
 categories:
   - typescript
 meta:
@@ -131,14 +132,13 @@ There's one more thing we can add to our file before we close it at take it home
 Depending on the configuration of your project, there are places where you'd still need to access `process.env`
 directly. Doing so with our current solution will still throw you into the unknown.
 
-```sh
-// .env
+```yaml
+# .env
 FOO_ACCESS_TOKEN=1234
 ```
 
 ```typescript
 // some.config.ts
-
 const accessToken = process.env.eerk // This will not lint, nor will it suggest variables based on your .env file
 ```
 
