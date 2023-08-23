@@ -1,8 +1,8 @@
 ---
 title: Type safe environment variables
-date: '2023-08-17'
-summary: Get those pesky environment variables to typesafe land
-published: false
+date: '2023-08-23'
+summary: How to get type safety on environment variables
+published: true
 categories:
   - typescript
 meta:
