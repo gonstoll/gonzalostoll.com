@@ -344,7 +344,7 @@ pre.language-html .token.plain {
   width: 100%;
 }
 
-.token-line .token {
-  line-height: 1.2;
-  vertical-align: text-top;
-}
+/* .token-line .token { */
+/*   line-height: 1.2; */
+/*   vertical-align: text-top; */
+/* } */

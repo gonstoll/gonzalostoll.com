@@ -2,6 +2,7 @@
 title: Why and how to void impossible states with Typescript
 date: '2023-03-29'
 summary: Use Typescript and discriminated unions to avoid impossible states
+published: true
 categories:
   - typescript
   - react
@@ -212,6 +213,10 @@ Notice how also our error message infers that the `PrimaryBanner` type is being 
 
 ## Conclusion
 
-I hope this article was helpful and you learned something new! I'm sure there are other ways to achieve the same result, but this is the one I found to be the most straightforward and easy to understand. If you have any questions or suggestions, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll), [Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com). I'm always happy to chat!
+I hope this article was helpful and you learned something new! I'm sure there are other ways to achieve the same result,
+but this is the one I found to be the most straightforward and easy to understand. If you have any questions or
+suggestions, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll),
+[Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com). I'm always happy to
+chat!
 
 Cheers!

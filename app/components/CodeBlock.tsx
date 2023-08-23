@@ -23,36 +23,26 @@ function isLanguageSupported(lang: string): lang is Language {
   return (
     lang === 'markup' ||
     lang === 'bash' ||
-    lang === 'clike' ||
-    lang === 'c' ||
-    lang === 'cpp' ||
     lang === 'css' ||
     lang === 'javascript' ||
     lang === 'jsx' ||
-    lang === 'coffeescript' ||
     lang === 'actionscript' ||
-    lang === 'css-extr' ||
     lang === 'diff' ||
     lang === 'git' ||
     lang === 'go' ||
     lang === 'graphql' ||
-    lang === 'handlebars' ||
     lang === 'json' ||
     lang === 'less' ||
     lang === 'makefile' ||
     lang === 'markdown' ||
-    lang === 'objectivec' ||
-    lang === 'ocaml' ||
     lang === 'python' ||
-    lang === 'reason' ||
     lang === 'sass' ||
     lang === 'scss' ||
     lang === 'sql' ||
-    lang === 'stylus' ||
     lang === 'tsx' ||
     lang === 'typescript' ||
-    lang === 'wasm' ||
-    lang === 'html'
+    lang === 'html' ||
+    lang === 'yaml'
   )
 }
 

@@ -2,6 +2,7 @@
 title: Type safe object keys
 date: '2023-04-10'
 summary: How to get literal keys from an object, and solve the dreaded Object.keys() issue
+published: true
 categories:
   - typescript
 meta:
