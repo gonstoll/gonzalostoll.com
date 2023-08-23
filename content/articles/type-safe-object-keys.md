@@ -95,4 +95,4 @@ If you liked this article, you might also like [this one](https://gonzalostoll.c
 
 If you have any questions or comments, feel free to reach out to me on [Twitter](https://twitter.com/gonzalostoll), [LinkedIn](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com).
 
-Til the next one!Til the next one!
+Til the next one!
