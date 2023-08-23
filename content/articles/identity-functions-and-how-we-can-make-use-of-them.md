@@ -274,4 +274,4 @@ This shows us how we can use `satisfies` to achieve the same result as our previ
 
 Although this is a contrived example, it shows you how you can use generics to your advantage. There are many more use cases where you can apply this knowledge, and I hope this article has given you a good starting point. If you have any questions or comments, feel free to reach out to me on Twitter [@gonstoll](https://twitter.com/gonstoll), [Linkedin](https://www.linkedin.com/in/gonzalostoll/) or by [mail](mailto:stollgonzalo@gmail.com), I’ll be happy to help.
 
-Thanks for reading!Thanks for reading!
+Thanks for reading!
