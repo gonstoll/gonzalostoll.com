@@ -199,8 +199,8 @@ export async function loader({request}: LoaderArgs) {
       readingTime={readingTime}
     />,
     {
-      width: 600,
-      height: 400,
+      width: 640,
+      height: 360,
       fonts: await getFont('Inter'),
     }
   )
