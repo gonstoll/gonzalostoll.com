@@ -29,20 +29,21 @@ const postAttributesSchema = z.object({
   }),
 })
 
-const postAttributesWithSlugSchema = postAttributesSchema.merge(
+const postAttributesWithDataSchema = postAttributesSchema.merge(
   z.object({
     slug: z.string(),
+    readTime: z.number(),
   })
 )
 
-const cachedPostAttributesSchema = postAttributesWithSlugSchema.merge(
+const cachedPostAttributesSchema = postAttributesWithDataSchema.merge(
   z.object({
     sha: z.string(),
   })
 )
 
-export type PostAttributesWithSlug = z.infer<
-  typeof postAttributesWithSlugSchema
+export type PostAttributesWithData = z.infer<
+  typeof postAttributesWithDataSchema
 >
 export type CachedPostAttributes = z.infer<typeof cachedPostAttributesSchema>
 
@@ -103,7 +104,7 @@ export async function getPostByFilename(fileName: string) {
 }
 
 export async function getAllPosts() {
-  const postAttributes: Array<PostAttributesWithSlug> = []
+  const postAttributes: Array<PostAttributesWithData> = []
 
   if (IS_DEV) {
     console.log('📚 Fetching posts from local environment')
@@ -123,6 +124,7 @@ export async function getAllPosts() {
       postAttributes.push({
         ...attributes,
         slug: post.replace('.md', ''),
+        readTime: getReadingTime(markdown),
       })
     }
   } else {
@@ -148,10 +150,11 @@ export async function getAllPosts() {
 
       const markdown = await getPostByUrl(post.download_url)
       if (!markdown) return
-      const {attributes} = parseFrontMatter(markdown)
+      const {attributes, body} = parseFrontMatter(markdown)
       const attributesWithSlug = {
         ...attributes,
         slug: post.name.replace('.md', ''),
+        readTime: getReadingTime(body),
       }
       postAttributes.push(attributesWithSlug)
       cache.set(post.name, {
@@ -172,5 +175,13 @@ export async function getAllPosts() {
       ? sortedPosts.filter(p => Boolean(p.published))
       : sortedPosts
 
-  return postAttributesWithSlugSchema.array().parse(posts)
+  return postAttributesWithDataSchema.array().parse(posts)
+}
+
+export function getReadingTime(text: string) {
+  const wordsPerMinute = 200
+  const numberOfWords = text.split(/\s/g).length
+  const minutes = numberOfWords / wordsPerMinute
+  const readTime = Math.ceil(minutes)
+  return readTime
 }

@@ -18,6 +18,7 @@ import ErrorBlock from '~/components/ErrorBlock'
 import {
   getAllPosts,
   getPostByFilename,
+  getReadingTime,
   parseFrontMatter,
 } from '~/models/blog.server'
 import blogStyles from '~/styles/blog.css'
@@ -109,7 +110,7 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
     {property: 'og:description', content: args.data.attributes.summary},
     {
       property: 'og:image',
-      content: 'https://gonzalostoll.com/images/profile.png',
+      content: args.data.ogImageUrl,
     },
     {property: 'og:url', content: `https://gonzalostoll.com/blog/${slug}`},
     {property: 'og:type', content: 'article'},
@@ -142,7 +143,7 @@ export function links() {
   ]
 }
 
-export async function loader({params}: LoaderArgs) {
+export async function loader({request, params}: LoaderArgs) {
   const {slug} = paramsSchema.parse(params)
   const markdown = await getPostByFilename(`${slug}.md`)
   if (!markdown) {
@@ -158,7 +159,18 @@ export async function loader({params}: LoaderArgs) {
     }),
   }
   const {attributes, body} = parseFrontMatter(markdown)
-  return json({attributes, body}, {headers})
+  const readingTime = getReadingTime(body)
+
+  // OG image
+  const {origin, searchParams} = new URL(request.url)
+
+  searchParams.set('title', attributes.title)
+  searchParams.set('description', attributes.summary)
+  searchParams.set('readingTime', readingTime.toString())
+
+  const ogImageUrl = `${origin}/resource/og-image?${searchParams.toString()}`
+
+  return json({attributes, body, ogImageUrl, readingTime}, {headers})
 }
 
 export function headers({loaderHeaders}: Parameters<HeadersFunction>[0]) {
@@ -168,7 +180,7 @@ export function headers({loaderHeaders}: Parameters<HeadersFunction>[0]) {
 }
 
 export default function BlogPost() {
-  const {attributes, body} = useLoaderData<typeof loader>()
+  const {attributes, body, readingTime} = useLoaderData<typeof loader>()
 
   const postDate = new Date(attributes.date).toLocaleString('en-US', {
     month: 'long',
@@ -179,7 +191,9 @@ export default function BlogPost() {
   return (
     <article>
       <h1 className="mb-6 text-2xl font-bold">{attributes.title}</h1>
-      <p className="mb-6 text-base">{postDate}</p>
+      <time className="block mb-6 text-base">
+        {postDate} - {readingTime} minutes read
+      </time>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
