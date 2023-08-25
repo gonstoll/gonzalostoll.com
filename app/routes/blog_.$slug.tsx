@@ -138,7 +138,7 @@ export function links() {
     },
     {
       rel: 'stylesheet',
-      href: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;700&display=swap',
+      href: 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap',
     },
   ]
 }
