@@ -1,8 +1,8 @@
 import {Link} from '@remix-run/react'
-import type {PostAttributesWithSlug} from '~/models/blog.server'
+import type {PostAttributesWithData} from '~/models/blog.server'
 
 type Props = {
-  posts: Array<PostAttributesWithSlug>
+  posts: Array<PostAttributesWithData>
   isHome?: boolean
 }
 
@@ -22,7 +22,7 @@ export default function BlogPostList({posts, isHome}: Props) {
   )
 }
 
-function BlogPost({post}: {post: PostAttributesWithSlug}) {
+function BlogPost({post}: {post: PostAttributesWithData}) {
   const postDate = new Date(post.date).toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
@@ -34,7 +34,9 @@ function BlogPost({post}: {post: PostAttributesWithSlug}) {
       <Link to={post.slug} prefetch="intent">
         <header>
           <h2 className="text-xl font-bold">{post.title}</h2>
-          <time className="my-2 block">{postDate}</time>
+          <time className="my-2 block">
+            {postDate} - {post.readTime} minutes read
+          </time>
         </header>
         <p className="text-xl">{post.summary}</p>
       </Link>

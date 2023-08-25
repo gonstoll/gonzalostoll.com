@@ -31,6 +31,8 @@
     "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "remix-etag": "^1.0.0",
+    "satori": "^0.10.3",
+    "svg2img": "^1.0.0-beta.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {
