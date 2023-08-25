@@ -62,7 +62,7 @@ function Content({title, description, readingTime}: Props) {
     >
       <div
         style={{
-          width: '40%',
+          width: '80%',
           minHeight: '120px',
           backgroundColor: 'rgba(31, 31, 40, .75)',
           borderRadius: '10px',
@@ -199,8 +199,8 @@ export async function loader({request}: LoaderArgs) {
       readingTime={readingTime}
     />,
     {
-      width: 1200,
-      height: 627,
+      width: 640,
+      height: 360,
       fonts: await getFont('Inter'),
     }
   )
