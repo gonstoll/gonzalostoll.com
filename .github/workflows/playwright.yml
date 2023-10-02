@@ -9,15 +9,15 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - name: Run Playwright tests
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Run tests
         uses: docker://mcr.microsoft.com/playwright:v1.34.3-jammy
         with:
           args: npx playwright test
-        uses: actions/checkout@v3
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
