@@ -15,5 +15,5 @@ jobs:
         node-version: 16
     - name: Run playwright tests
       uses: docker://mcr.microsoft.com/playwright:v1.34.3-jammy
-        with: 
+        with:
           args: npx playwright test
