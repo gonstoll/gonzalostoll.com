@@ -21,7 +21,7 @@ portfolio). I’ve also worked with and have vast experience in:
 
 For a long time I've used [VS Code](https://code.visualstudio.com) as my editor of choice,
 but I've recently switched to [Neovim](https://neovim.io/) (find my dotfiles
-[here](https://github.com/gonstoll/dotfiles)). I use [iTerm2](https://iterm2.com/)
+[here](https://github.com/gonstoll/dotfiles/tree/master/nvim)). I use [iTerm2](https://iterm2.com/)
 as my terminal and [Arc](https://arc.net/) as my broswer.
 
 ## My setup

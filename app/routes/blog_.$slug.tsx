@@ -1,7 +1,7 @@
 import type {LinkProps} from '@remix-run/react'
 import {
-  Link,
   isRouteErrorResponse,
+  Link,
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
@@ -191,7 +191,7 @@ export default function BlogPost() {
   return (
     <article>
       <h1 className="mb-6 text-2xl font-bold">{attributes.title}</h1>
-      <time className="block mb-6 text-base">
+      <time className="mb-6 block text-base">
         {postDate} - {readingTime} minutes read
       </time>
       <ReactMarkdown

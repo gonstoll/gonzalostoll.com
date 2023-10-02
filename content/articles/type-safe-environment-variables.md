@@ -35,19 +35,19 @@ So, first off, on your `src` (or similar) folder, create a `env.ts` file with th
 // env.ts
 import {z} from 'zod'
 
-const envVariablesSchema = z.object({
+const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
   SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
-export const ENV = envVariablesSchema.parse(process.env)
+export const ENV = envSchema.parse(process.env)
 ```
 
 There are a couple of things to notice in this piece of snippet:
 
 - We are exporting an `ENV` constant, which parses our entire `process.env` object containing our environment variables
   against our defined schema. That means that, if `process.env` is missing any of the variables declared on your
-  `envVariablesSchema` schema, `zod` will throw an error as soon as this file gets imported
+  `envSchema` schema, `zod` will throw an error as soon as this file gets imported
 - Notice on line 6, how we chain a `.nonempty()` method to the string parse? That's so you don't accidentally go and
   create a env variable like so: `SOME_SUPER_SECRET_TOKEN=` (which is valid on your `.env` file). If you do, zod will warn
   you about it
@@ -81,13 +81,13 @@ In order to achive this, we need to `parse` our schema as soon as our app is mou
 // env.ts
 import {z} from 'zod'
 
-const envVariablesSchema = z.object({
+const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
   SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
 try {
-  envVariablesSchema.parse(process.env)
+  envSchema.parse(process.env)
 } catch (error) {
   if (error instanceof z.ZodError) {
     const {fieldErrors} = error.flatten()
@@ -100,7 +100,7 @@ try {
   }
 }
 
-export const ENV = envvariables.parse(process.env)
+export const ENV = envSchema.parse(process.env)
 ```
 
 This `try catch` block will run as soon as this file gets imported, and throw a more elegant and readable error message
@@ -149,19 +149,19 @@ namespace, and add to it our inferred typed variables. This is how:
 // env.ts
 import {z} from 'zod'
 
-const envVariablesSchema = z.object({
+const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']),
   SOME_SUPER_SECRET_TOKEN: z.string().nonemtpy(),
 })
 
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends z.infer<typeof envVariablesSchema> {}
+    interface ProcessEnv extends z.infer<typeof envSchema> {}
   }
 }
 
 try {
-  envVariablesSchema.parse(process.env)
+  envSchema.parse(process.env)
 } catch (error) {
   if (error instanceof z.ZodError) {
     const {fieldErrors} = error.flatten()
@@ -174,7 +174,7 @@ try {
   }
 }
 
-export const ENV = envvariables.parse(process.env)
+export const ENV = envSchema.parse(process.env)
 ```
 
 And that's it! Now you have the best from both worlds: a fully typed `process.env` object and a new `ENV` constant that
