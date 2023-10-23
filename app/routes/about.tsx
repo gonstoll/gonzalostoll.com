@@ -17,8 +17,9 @@ library](https://testing-library.com/), [Playwright](https://playwright.dev/), a
 
 ## Tools I use
 
-I use [Neovim](https://neovim.io/) (find my configuration [here](https://github.com/gonstoll/dotfiles/tree/master/nvim))
-as my editor of choice, [iTerm2](https://iterm2.com/) as my terminal and [Arc](https://arc.net/) as my broswer.
+I use [Neovim](https://neovim.io/) as my editor of choice (find my configuration
+[here](https://github.com/gonstoll/dotfiles/tree/master/nvim)), [iTerm2](https://iterm2.com/) as my terminal emulator
+and [Arc](https://arc.net/) as my broswer.
 
 ## My setup
 

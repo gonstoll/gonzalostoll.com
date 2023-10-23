@@ -64,7 +64,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
 
   return (
     <Highlight
-      theme={theme === 'dark' ? themes.nightOwl : themes.nightOwlLight}
+      theme={theme === 'dark' ? themes.nightOwl : themes.github}
       code={code.trim()}
       language={lang || 'bash'}
     >
@@ -72,7 +72,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
         <pre
           className={classNames(
             'my-6 overflow-auto rounded-md bg-codeBg py-4 font-mono text-sm/6 duration-300',
-            className
+            className,
           )}
         >
           <code className={className}>
@@ -87,7 +87,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
                   className={classNames(
                     getLineProps({line, key}).className,
                     'relative block pr-4 before:duration-300',
-                    {'highlighted-line': lines.includes(lineNumber)}
+                    {'highlighted-line': lines.includes(lineNumber)},
                   )}
                 >
                   {line.map((token, key) => (
