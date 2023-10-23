@@ -1,6 +1,8 @@
-import type {HtmlMetaDescriptor} from '@vercel/remix'
+import type {ServerRuntimeMetaDescriptor} from '@remix-run/server-runtime'
 
-export function getRootMeta(matches: Array<{meta: Array<HtmlMetaDescriptor>}>) {
+export function getRootMeta(
+  matches: Array<{meta: Array<ServerRuntimeMetaDescriptor>}>,
+) {
   return matches
     .flatMap(match => match.meta ?? [])
     .filter(meta => {

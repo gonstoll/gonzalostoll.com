@@ -1,4 +1,4 @@
-import type {EntryContext} from '@vercel/remix'
+import type {EntryContext} from '@remix-run/node'
 
 type SitemapEntry = {
   route: string
@@ -34,7 +34,7 @@ function removeTrailingSlash(s: string) {
 
 export async function getSitemapXml(
   request: Request,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   const domainUrl = getDomainUrl(request)
 
@@ -56,7 +56,13 @@ export async function getSitemapXml(
           if (route === 'root') return undefined
 
           // If the module has a `getSitemapEntries` method, we'll use that
-          if (module.handle?.getSitemapEntries) {
+          if (
+            module.handle &&
+            typeof module.handle === 'object' &&
+            'getSitemapEntries' in module.handle &&
+            typeof module.handle.getSitemapEntries === 'function' &&
+            module.handle.getSitemapEntries
+          ) {
             return module.handle.getSitemapEntries(request)
           }
 
@@ -95,7 +101,7 @@ export async function getSitemapXml(
 
           return {route: removeTrailingSlash(path)}
         })
-        .filter(Boolean)
+        .filter(Boolean),
     )
   ).flatMap(entry => entry)
 
