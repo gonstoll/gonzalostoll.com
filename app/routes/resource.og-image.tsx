@@ -1,4 +1,4 @@
-import type {LoaderArgs} from '@remix-run/node'
+import type {LoaderFunctionArgs} from '@remix-run/node'
 import type {SatoriOptions} from 'satori'
 import satori from 'satori'
 import svg2img from 'svg2img'
@@ -7,11 +7,11 @@ import {z} from 'zod'
 async function getFont(
   font: string,
   weights = [400, 500, 600, 700],
-  text = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\!@#$%^&*()_+-=<>?[]{}|;:,.`\'’"–—'
+  text = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\!@#$%^&*()_+-=<>?[]{}|;:,.`\'’"–—',
 ) {
   const css = await fetch(
     `https://fonts.googleapis.com/css2?family=${font}:wght@${weights.join(
-      ';'
+      ';',
     )}&text=${encodeURIComponent(text)}`,
     {
       headers: {
@@ -19,11 +19,13 @@ async function getFont(
         'User-Agent':
           'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1',
       },
-    }
+    },
   ).then(response => response.text())
+
   const resource = css.matchAll(
-    /src: url\((.+)\) format\('(opentype|truetype)'\)/g
+    /src: url\((.+)\) format\('(opentype|truetype)'\)/g,
   )
+
   return Promise.all(
     [...resource]
       .map(match => match[1])
@@ -33,7 +35,7 @@ async function getFont(
         style: 'normal',
         weight: weights[i],
         data: await buffer,
-      }))
+      })),
   ) as Promise<SatoriOptions['fonts']>
 }
 
@@ -184,7 +186,7 @@ const paramsSchema = z.object({
   readingTime: z.string(),
 })
 
-export async function loader({request}: LoaderArgs) {
+export async function loader({request}: LoaderFunctionArgs) {
   const params = new URL(request.url).searchParams
   const {title, description, readingTime} = paramsSchema.parse({
     title: params.get('title'),
@@ -202,7 +204,7 @@ export async function loader({request}: LoaderArgs) {
       width: 640,
       height: 360,
       fonts: await getFont('Inter'),
-    }
+    },
   )
 
   const {data, error} = await new Promise(
@@ -214,7 +216,7 @@ export async function loader({request}: LoaderArgs) {
           resolve({data: buffer, error: null})
         }
       })
-    }
+    },
   )
 
   if (error) {

@@ -1,7 +1,7 @@
-import type {V2_MetaFunction} from '@remix-run/node'
+import type {MetaFunction} from '@remix-run/node'
 import {getRootMeta} from '~/utils/get-root-meta'
 
-export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
+export function meta({matches}: Parameters<MetaFunction<object>>[0]) {
   const parentMeta = getRootMeta(matches)
 
   return [

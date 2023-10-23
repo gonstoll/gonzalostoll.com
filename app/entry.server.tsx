@@ -1,5 +1,5 @@
 import {RemixServer} from '@remix-run/react'
-import type {EntryContext, HandleDataRequestFunction} from '@vercel/remix'
+import type {EntryContext, HandleDataRequestFunction} from '@remix-run/node'
 import {ENV} from 'env'
 import {renderToString} from 'react-dom/server'
 import {etag} from 'remix-etag'
@@ -9,10 +9,10 @@ export default async function handleDocumentRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   const markup = renderToString(
-    <RemixServer context={remixContext} url={request.url} />
+    <RemixServer context={remixContext} url={request.url} />,
   )
 
   for (const handler of otherRoutes) {
@@ -36,7 +36,7 @@ export default async function handleDocumentRequest(
 
 export async function handleDataRequest(
   response: Response,
-  {request}: Parameters<HandleDataRequestFunction>['1']
+  {request}: Parameters<HandleDataRequestFunction>['1'],
 ) {
   return etag({request, response})
 }

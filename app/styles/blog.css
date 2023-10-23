@@ -312,7 +312,9 @@ pre.language-html .token.plain {
   color: var(--color-0A);
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition:
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
 }
 
 [data-line-number]:before {
@@ -342,6 +344,10 @@ pre.language-html .token.plain {
   top: 0;
   left: 0;
   width: 100%;
+}
+
+.token-line {
+  line-height: 1.6;
 }
 
 /* .token-line .token { */

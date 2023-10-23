@@ -1,9 +1,9 @@
-import type {LinkProps} from '@remix-run/react'
 import {
-  isRouteErrorResponse,
   Link,
+  isRouteErrorResponse,
   useLoaderData,
   useRouteError,
+  type LinkProps,
 } from '@remix-run/react'
 import type {HeadersFunction, LoaderArgs, MetaFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'

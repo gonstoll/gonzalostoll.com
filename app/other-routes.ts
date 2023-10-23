@@ -3,7 +3,7 @@ import {getSitemapXml} from './utils/sitemap.server'
 
 type Handler = (
   request: Request,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) => Promise<Response | null> | null
 
 const pathedRoutes: Record<string, Handler> = {
