@@ -71,7 +71,7 @@ export default function CodeBlock({children}: React.PropsWithChildren<object>) {
       {({className, tokens, getLineProps, getTokenProps}) => (
         <pre
           className={classNames(
-            'my-6 overflow-auto rounded-md bg-codeBg py-4 font-mono text-sm/6 duration-300',
+            'my-6 overflow-auto rounded-md bg-codeBg py-4 font-mono text-sm duration-300',
             className,
           )}
         >
