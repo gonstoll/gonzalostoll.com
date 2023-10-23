@@ -1,4 +1,4 @@
-import type {V2_MetaFunction} from '@remix-run/node'
+import type {MetaFunction} from '@remix-run/node'
 import {Link} from '@remix-run/react'
 import {cacheHeader} from 'pretty-cache-header'
 import ReactMarkdown from 'react-markdown'
@@ -9,20 +9,16 @@ import {getRootMeta} from '~/utils/get-root-meta'
 const markdown = `
 ## Tech I use
 
-With [React](https://react.dev/) always by my side, I’m currently hacking with [Remix](https://remix.run),
-[Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/) (the stack used for this
-portfolio). I’ve also worked with and have vast experience in:
+I don't have a specific stack per-se, as I always try to experiment and try new things. Currently, I'm mostly working
+with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/),
+but I've also worked with [Next.js](https://nextjs.org/), [React Router](https://reactrouter.com/en/main) & [Tanstack
+Query](https://tanstack.com/query/latest), [Jest](https://jestjs.io/), [React testing
+library](https://testing-library.com/), [Playwright](https://playwright.dev/), and many other tools.
 
-- [Next.js](https://nextjs.org/)
-- [React Router](https://reactrouter.com/en/main) & [Tanstack Query](https://tanstack.com/query/latest)
-- [Jest](https://jestjs.io/), [React testing library](https://testing-library.com/), [Playwright](https://playwright.dev/)
+## Tools I use
 
-## My workflow
-
-For a long time I've used [VS Code](https://code.visualstudio.com) as my editor of choice,
-but I've recently switched to [Neovim](https://neovim.io/) (find my dotfiles
-[here](https://github.com/gonstoll/dotfiles/tree/master/nvim)). I use [iTerm2](https://iterm2.com/)
-as my terminal and [Arc](https://arc.net/) as my broswer.
+I use [Neovim](https://neovim.io/) (find my configuration [here](https://github.com/gonstoll/dotfiles/tree/master/nvim))
+as my editor of choice, [iTerm2](https://iterm2.com/) as my terminal and [Arc](https://arc.net/) as my broswer.
 
 ## My setup
 
@@ -50,7 +46,7 @@ export function headers() {
   }
 }
 
-export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
+export function meta({matches}: Parameters<MetaFunction<object>>[0]) {
   const parentMeta = getRootMeta(matches)
 
   return [
