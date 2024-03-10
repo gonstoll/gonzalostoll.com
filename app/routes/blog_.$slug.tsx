@@ -106,7 +106,6 @@ export function meta(
     {title: `Gonzalo Stoll - ${args.data.attributes.title}`},
     {name: 'description', content: args.data.attributes.summary},
     {name: 'keywords', content: keywords},
-    {rel: 'canonical', href: `https://gonzalostoll.com/blog/${slug}`},
     {
       property: 'og:title',
       content: `Gonzalo Stoll - ${args.data.attributes.title}`,
@@ -130,6 +129,7 @@ export function meta(
 export function links() {
   return [
     {rel: 'stylesheet', href: blogStyles},
+    // TODO: Add canonical here
     {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com',

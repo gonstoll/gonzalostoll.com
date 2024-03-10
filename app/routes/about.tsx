@@ -54,12 +54,12 @@ export function meta({matches}: Parameters<MetaFunction<object>>[0]) {
     ...parentMeta,
     {title: 'Gonzalo Stoll - About'},
     {property: 'og:title', content: 'Gonzalo Stoll - About'},
-    {rel: 'canonical', href: 'https://gonzalostoll.com/about'},
   ]
 }
 
 export function links() {
   return [
+    {rel: 'canonical', href: 'https://gonzalostoll.com/about'},
     {
       rel: 'preload',
       href: '/images/profile.png',

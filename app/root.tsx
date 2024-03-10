@@ -57,7 +57,6 @@ export function meta(): Array<MetaDescriptor> {
       keywords:
         'gonzalo, stoll, gonzalo stoll, software engineer, web developer, fullstack developer, frontend developer',
     },
-    {rel: 'canonical', href: 'https://gonzalostoll.com'},
     {property: 'og:title', content: 'Gonzalo Stoll - Sofware Engineer'},
     {
       property: 'og:description',
@@ -76,6 +75,7 @@ export function meta(): Array<MetaDescriptor> {
 export function links() {
   return [
     {rel: 'stylesheet', href: globalStyles},
+    {rel: 'canonical', href: 'https://gonzalostoll.com'},
     {
       rel: 'preload',
       href: '/fonts/scto/regular.woff2',

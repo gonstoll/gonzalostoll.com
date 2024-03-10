@@ -8,8 +8,11 @@ export function meta({matches}: Parameters<MetaFunction<object>>[0]) {
     ...parentMeta,
     {title: 'Gonzalo Stoll - Contact'},
     {property: 'og:title', content: 'Gonzalo Stoll - Contact'},
-    {rel: 'canonical', href: 'https://gonzalostoll.com/contact'},
   ]
+}
+
+export function links() {
+  return [{rel: 'canonical', href: 'https://gonzalostoll.com/contact'}]
 }
 
 export default function ContactPage() {
