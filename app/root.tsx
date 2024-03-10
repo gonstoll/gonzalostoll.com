@@ -151,11 +151,6 @@ function App() {
         </main>
         <ScrollRestoration />
         <Scripts />
-        <script
-          src="https://assets.usestyle.ai/seonajsplugin"
-          defer
-          id="seona-js-plugin"
-        />
         <LiveReload />
       </body>
     </html>
