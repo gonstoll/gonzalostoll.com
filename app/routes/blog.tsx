@@ -23,6 +23,7 @@ export function meta({matches}: Parameters<V2_MetaFunction<object>>[0]) {
     ...parentMeta,
     {title: 'Gonzalo Stoll - Blog'},
     {property: 'og:title', content: 'Gonzalo Stoll - Blog'},
+    {rel: 'canonical', href: 'https://gonzalostoll.com/blog'},
   ]
 }
 

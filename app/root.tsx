@@ -47,7 +47,7 @@ function useWindowWidth() {
 
 export function meta(): Array<MetaDescriptor> {
   return [
-    {title: 'Gonzalo Stoll - Sofware Engineer'},
+    {title: 'Gonzalo Stoll - Sofware Engineer and Web Developer'},
     {
       name: 'description',
       content:
@@ -57,6 +57,7 @@ export function meta(): Array<MetaDescriptor> {
       keywords:
         'gonzalo, stoll, gonzalo stoll, software engineer, web developer, fullstack developer, frontend developer',
     },
+    {rel: 'canonical', href: 'https://gonzalostoll.com'},
     {property: 'og:title', content: 'Gonzalo Stoll - Sofware Engineer'},
     {
       property: 'og:description',
@@ -68,6 +69,7 @@ export function meta(): Array<MetaDescriptor> {
       content: 'https://gonzalostoll.com/images/profile.png',
     },
     {property: 'og:url', content: 'https://gonzalostoll.com'},
+    {property: 'og:type', content: 'website'},
   ]
 }
 

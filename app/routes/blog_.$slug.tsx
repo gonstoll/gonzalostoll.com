@@ -4,6 +4,7 @@ import {
   useLoaderData,
   useRouteError,
   type LinkProps,
+  type MetaDescriptor,
 } from '@remix-run/react'
 import type {HeadersFunction, LoaderArgs, MetaFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
@@ -90,7 +91,9 @@ const markdownComponents = {
 
 const paramsSchema = z.object({slug: z.string()})
 
-export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
+export function meta(
+  args: Parameters<MetaFunction<typeof loader>>[0],
+): Array<MetaDescriptor> {
   const {slug} = paramsSchema.parse(args.params)
 
   if (!args.data) {
@@ -103,6 +106,7 @@ export function meta(args: Parameters<MetaFunction<typeof loader>>[0]) {
     {title: `Gonzalo Stoll - ${args.data.attributes.title}`},
     {name: 'description', content: args.data.attributes.summary},
     {name: 'keywords', content: keywords},
+    {rel: 'canonical', href: `https://gonzalostoll.com/blog/${slug}`},
     {
       property: 'og:title',
       content: `Gonzalo Stoll - ${args.data.attributes.title}`,
