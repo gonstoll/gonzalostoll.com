@@ -1,7 +1,7 @@
 ---
 title: Type safe object keys
 date: '2023-04-10'
-symmary: Learn how to extract literal keys from objects with full type safety
+summary: Learn how to extract literal keys from objects with full type safety
 published: true
 categories:
   - typescript
