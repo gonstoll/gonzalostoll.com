@@ -1,10 +1,10 @@
 import {z} from 'zod'
 
 const envVariables = z.object({
-  ACCESS_TOKEN: z.string().nonempty(),
-  ACCOUNT_NAME: z.string().nonempty(),
-  REPO_NAME: z.string().nonempty(),
-  SESSION_SECRET: z.string().nonempty(),
+  ACCESS_TOKEN: z.string().trim().min(1),
+  ACCOUNT_NAME: z.string().trim().min(1),
+  REPO_NAME: z.string().trim().min(1),
+  SESSION_SECRET: z.string().trim().min(1),
   NODE_ENV: z.enum(['development', 'production', 'test']),
 })
 

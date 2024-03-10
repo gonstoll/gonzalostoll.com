@@ -9,6 +9,7 @@ import {
   useLoaderData,
   useLocation,
   useRouteError,
+  type MetaDescriptor,
 } from '@remix-run/react'
 import {Analytics} from '@vercel/analytics/react'
 import type {LoaderArgs} from '@vercel/remix'
@@ -44,16 +45,19 @@ function useWindowWidth() {
   return {windowWidth}
 }
 
-export function meta() {
+export function meta(): Array<MetaDescriptor> {
   return [
-    {title: 'Gonzalo Stoll'},
+    {title: 'Gonzalo Stoll - Sofware Engineer'},
     {
       name: 'description',
       content:
         'Gonzalo Stoll is a software engineer and a web developer based in Copenhagen. He is currently working at Workday. He also enjoys writting and mentoring.',
     },
-    {keywords: 'gonzalo, stoll, gonzalo stoll'},
-    {property: 'og:title', content: 'Gonzalo Stoll'},
+    {
+      keywords:
+        'gonzalo, stoll, gonzalo stoll, software engineer, web developer, fullstack developer, frontend developer',
+    },
+    {property: 'og:title', content: 'Gonzalo Stoll - Sofware Engineer'},
     {
       property: 'og:description',
       content:
@@ -145,6 +149,11 @@ function App() {
         </main>
         <ScrollRestoration />
         <Scripts />
+        <script
+          src="https://assets.usestyle.ai/seonajsplugin"
+          defer
+          id="seona-js-plugin"
+        />
         <LiveReload />
       </body>
     </html>
