@@ -1,7 +1,7 @@
 ---
 title: Avoid impossible states with Typescript
 date: '2023-03-29'
-summary: Use Typescript and discriminated unions to avoid impossible states
+summary: Learn how to use Typescript and discriminated unions to avoid impossible states in your code.
 published: true
 categories:
   - typescript

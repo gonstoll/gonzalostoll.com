@@ -1,7 +1,7 @@
 ---
 title: Type safe environment variables
 date: '2023-08-23'
-summary: Get autocomplete and safe parsing of environment variables. Never again check for typos or missing values
+summary: Ensure safety and avoid typos with type-safe environment variables. Benefit from autocomplete and safe parsing for a seamless developer experience.
 published: true
 categories:
   - typescript

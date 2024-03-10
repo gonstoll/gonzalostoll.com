@@ -1,7 +1,7 @@
 ---
 title: Identity functions and how we can make use of them
 date: '2023-03-27'
-summary: Leverage better type safety in dynamic objects with Typescript
+summary: Discover how to improve type safety in dynamic objects with in Typescript.
 published: true
 categories:
   - typescript
