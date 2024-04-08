@@ -75,7 +75,7 @@ export function meta(): Array<MetaDescriptor> {
 export function links() {
   return [
     {rel: 'stylesheet', href: globalStyles},
-    {rel: 'canonical', href: 'https://gonzalostoll.com'},
+    {rel: 'canonical', href: 'https://www.gonzalostoll.com'},
     {
       rel: 'preload',
       href: '/fonts/scto/regular.woff2',
