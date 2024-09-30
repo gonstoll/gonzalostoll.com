@@ -1,14 +1,13 @@
-import {ENV} from 'env'
 import frontMatter from 'front-matter'
 import fs from 'fs/promises'
 import path from 'path'
 import {z} from 'zod'
 import {cache} from '~/utils/cache.server'
 
-const ACCESS_TOKEN = ENV.ACCESS_TOKEN
-const ACCOUNT_NAME = ENV.ACCOUNT_NAME
-const REPO_NAME = ENV.REPO_NAME
-const IS_DEV = ENV.NODE_ENV === 'development'
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN
+const ACCOUNT_NAME = process.env.ACCOUNT_NAME
+const REPO_NAME = process.env.REPO_NAME
+const IS_DEV = process.env.NODE_ENV === 'development'
 const REPO_URL = `https://api.github.com/repos/${ACCOUNT_NAME}/${REPO_NAME}`
 const ARTICLES_DIR = '/contents/content/articles/'
 
@@ -33,13 +32,13 @@ const postAttributesWithDataSchema = postAttributesSchema.merge(
   z.object({
     slug: z.string(),
     readTime: z.number(),
-  })
+  }),
 )
 
 const cachedPostAttributesSchema = postAttributesWithDataSchema.merge(
   z.object({
     sha: z.string(),
-  })
+  }),
 )
 
 export type PostAttributesWithData = z.infer<
@@ -68,7 +67,7 @@ async function githubFetch(url: string) {
       return undefined // Not found
     }
     throw Error(
-      `Fetching from GitHub failed with ${response.status}: ${response.statusText}`
+      `Fetching from GitHub failed with ${response.status}: ${response.statusText}`,
     )
   }
   return response
@@ -136,7 +135,7 @@ export async function getAllPosts() {
     for (const post of posts) {
       if (cache.has(post.name)) {
         const cachedPost = cachedPostAttributesSchema.parse(
-          cache.get(post.name)
+          cache.get(post.name),
         )
         console.log('Cache was hit: ', {cachedPost, post})
         if (cachedPost.sha === post.sha) {

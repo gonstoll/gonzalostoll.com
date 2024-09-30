@@ -20,6 +20,7 @@ import MobileNav from './components/MobileNav'
 import Sidebar from './components/Sidebar'
 import ThemeSwitch from './components/ThemeSwitch'
 import globalStyles from './styles/global.css'
+import {getEnv} from './utils/env.server'
 import {
   NonFlashOfThemeScript,
   ThemeProvider,
@@ -115,11 +116,11 @@ export function links() {
 export async function loader({request}: LoaderArgs) {
   const themeSession = await getThemeSession(request)
   const theme = themeSession.getTheme()
-  return json({theme})
+  return json({theme, ENV: getEnv()})
 }
 
 function App() {
-  const {theme: ssrTheme} = useLoaderData<typeof loader>()
+  const {theme: ssrTheme, ENV} = useLoaderData<typeof loader>()
   const {theme} = useTheme()
   const {windowWidth} = useWindowWidth()
   const isMobileLayout = windowWidth < 1024
@@ -151,6 +152,11 @@ function App() {
         </main>
         <ScrollRestoration />
         <Scripts />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(ENV)}`,
+          }}
+        />
         <LiveReload />
       </body>
     </html>

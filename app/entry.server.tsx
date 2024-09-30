@@ -1,9 +1,12 @@
-import {RemixServer} from '@remix-run/react'
 import type {EntryContext, HandleDataRequestFunction} from '@remix-run/node'
-import {ENV} from 'env'
+import {RemixServer} from '@remix-run/react'
 import {renderToString} from 'react-dom/server'
 import {etag} from 'remix-etag'
 import {routes as otherRoutes} from './other-routes'
+import {getEnv, init} from './utils/env.server'
+
+init()
+global.ENV = getEnv()
 
 export default async function handleDocumentRequest(
   request: Request,
