@@ -17,13 +17,13 @@ This is my own personal [blog](https://gonzalostoll.com), done with [Remix](http
 To run this website locally, make sure your project's local dependencies are installed:
 
 ```sh
-npm install
+bun install
 ```
 
 Afterwards, start the Remix development server like so:
 
 ```sh
-npm run dev
+bun dev
 ```
 
 Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!

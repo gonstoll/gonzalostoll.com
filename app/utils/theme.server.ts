@@ -1,9 +1,8 @@
 import {createCookieSessionStorage} from '@vercel/remix'
-import {ENV} from 'env'
 import type {Theme} from './theme-provider'
 import {isValidTheme} from './theme-provider'
 
-const SESSION_SECRET = ENV.SESSION_SECRET
+const SESSION_SECRET = process.env.SESSION_SECRET
 if (!SESSION_SECRET) {
   throw new Error('SESSION_SECRET is not set')
 }
