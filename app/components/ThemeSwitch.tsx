@@ -1,6 +1,6 @@
 import {useTheme} from '~/utils/theme-provider'
 
-export default function ThemeSwitch() {
+export function ThemeSwitch() {
   const {theme, setTheme} = useTheme()
 
   return (

@@ -18,7 +18,7 @@ import * as React from 'react'
 import {ErrorBlock} from './components/ErrorBlock'
 import {MobileNav} from './components/MobileNav'
 import {Sidebar} from './components/Sidebar'
-import ThemeSwitch from './components/ThemeSwitch'
+import {ThemeSwitch} from './components/ThemeSwitch'
 import globalStyles from './styles/global.css'
 import {getEnv} from './utils/env.server'
 import {
