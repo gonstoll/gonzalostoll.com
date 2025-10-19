@@ -46,7 +46,7 @@ function isLanguageSupported(lang: string): lang is Language {
   )
 }
 
-export default function CodeBlock({children}: React.PropsWithChildren<object>) {
+export function CodeBlock({children}: React.PropsWithChildren<object>) {
   const {theme} = useTheme()
 
   if (!children) throw Error('CodeBlock: children is required')
