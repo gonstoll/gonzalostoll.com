@@ -58,13 +58,13 @@ type DesktopProps = {
   type: 'desktop'
 }
 
-export default function NavLinks(props: MobileProps | DesktopProps) {
+export function NavLinks(props: MobileProps | DesktopProps) {
   const computedClassName =
     props.type === 'mobile'
       ? classNames(
           'transition-opacity duration-300 ease-in-out',
           {'opacity-100': props.isMobileMenuOpen},
-          {'opacity-0': !props.isMobileMenuOpen}
+          {'opacity-0': !props.isMobileMenuOpen},
         )
       : ''
 
