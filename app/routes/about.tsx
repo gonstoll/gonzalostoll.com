@@ -2,7 +2,7 @@ import type {MetaFunction} from '@remix-run/node'
 import {Link} from '@remix-run/react'
 import {cacheHeader} from 'pretty-cache-header'
 import ReactMarkdown from 'react-markdown'
-import Bio from '~/components/Bio'
+import {Bio} from '~/components/Bio'
 import {getIdFromChildren} from '~/utils/get-id-from-children'
 import {getRootMeta} from '~/utils/get-root-meta'
 

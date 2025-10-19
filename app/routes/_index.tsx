@@ -6,9 +6,9 @@ import {
 import type {HeadersFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
-import Bio from '~/components/Bio'
+import {HomeBio} from '~/components/HomeBio'
 import BlogPostList from '~/components/BlogPostList'
-import ErrorBlock from '~/components/ErrorBlock'
+import {ErrorBlock} from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
 
 export async function loader() {
@@ -39,7 +39,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Bio isHome />
+      <HomeBio />
       <div className="mt-10">
         <p className="mb-10 text-xl">
           I'm also very enthusiastic about writing and have published various

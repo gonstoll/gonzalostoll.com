@@ -15,7 +15,7 @@ import rehypeRaw from 'rehype-raw'
 import remarkGfm from 'remark-gfm'
 import {z} from 'zod'
 import CodeBlock from '~/components/CodeBlock'
-import ErrorBlock from '~/components/ErrorBlock'
+import {ErrorBlock} from '~/components/ErrorBlock'
 import {
   getAllPosts,
   getPostByFilename,
