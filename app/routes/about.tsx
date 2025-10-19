@@ -10,30 +10,25 @@ const markdown = `
 ## Tech I use
 
 I don't have a specific stack per-se, as I always try to experiment and try new things. Currently, I'm mostly working
-with [Remix](https://remix.run), [Typescript](https://www.typescriptlang.org/) and [Tailwind](https://tailwindcss.com/),
-but I've also worked with [Next.js](https://nextjs.org/), [React Router](https://reactrouter.com/en/main) & [Tanstack
-Query](https://tanstack.com/query/latest), [Jest](https://jestjs.io/), [React testing
-library](https://testing-library.com/), [Playwright](https://playwright.dev/), and many other tools.
+with [Typescript](https://www.typescriptlang.org/) and [React](https://react.dev/), and all of what that ecosystem
+entails: [React Router](https://reactrouter.com/), [Remix](https://remix.run/), [Next.js](https://nextjs.org/),
+[Tailwind](https://tailwindcss.com/), [Jest](https://jestjs.io/), [Playwright](https://playwright.dev/), and many other
+tools.
+
+Some other languages I know include Go, Python, Lua and bash.
 
 ## Tools I use
 
 I use [Neovim](https://neovim.io/) as my editor of choice (find my configuration
-[here](https://github.com/gonstoll/dotfiles/tree/master/nvim)), [iTerm2](https://iterm2.com/) as my terminal emulator
-and [Arc](https://arc.net/) as my broswer.
+[here](https://github.com/gonstoll/dotfiles/tree/master/.config/nvim)), [ghostty](https://ghostty.org/) as my terminal
+emulator and [Arc](https://arc.net/) as my broswer.
 
 ## My setup
 
-I work on a M2 Macbook Air (midnight blue), but my setup also includes:
+I work on a M2 Macbook Air, but my setup also includes:
 
-- Screen: [LG 27UL650-W 4K Ultra HD IPS 27”](https://www.computersalg.dk/i/5595771/lg-27ul650-w-69cm-27-zoll-led-ips-panel-4k-uhd-hdr-400-amd-freesync-h%C3%B6henverstellung)
-- Microphone: [Røde NT-USB Mini](https://rode.com/en/microphones/usb/nt-usb-mini)
-- Keyboards: At home, I use a [QK65 White - Golden weight - Wired ANSI - FR4](https://www.qwertykeys.com) with [PBTFans
-Classic Hangul keycaps](https://kbdfans.com/products/pbtfans-classic-hangul) and [Gazzew Bobagum Silent Linear 62g
-switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/). At the office, I
-use a [KBD67 V3 Aluminium Case Mirror](https://www.maxgaming.com/en/cases/kbd67-v3-aluminium-case-mirror), with [Gazzew
-Bobagum Silent Linear 62g switches](https://www.eloquentclicks.com/product/gazzew-bobagum-silent-linear-switch-62g-clear-top/)
-and [Clear2048 Transparent Keycaps Set designed by Mito](https://kbdfans.com/products/clear2048-keycaps-set)
-- Mouse: [Magic mouse (black)](https://www.apple.com/dk/shop/product/MMMQ3Z/A/magic-mouse-sort-multi-touch-overflade)
+- Keyboards: [Kinesis Advantage360 pro](https://kinesis-ergo.com/shop/adv360pro/)
+- Mouse: [Logitech MX Master 3S](https://www.logitech.com/en-us/shop/p/mx-master-3s)
 - Headphones: [Sony WH-1000XM4](https://electronics.sony.com/audio/headphones/headband/p/wh1000xm4-b)
 `
 
@@ -101,6 +96,7 @@ export default function AboutPage() {
             },
             ul: ({children}) => <ul>{children}</ul>,
             li: ({children}) => <li>{children}</li>,
+            p: ({children}) => <p className="mt-2">{children}</p>,
           }}
         >
           {markdown}
