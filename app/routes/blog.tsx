@@ -6,7 +6,7 @@ import {
 import type {HeadersFunction, V2_MetaFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
-import BlogPostList from '~/components/BlogPostList'
+import {BlogPostList} from '~/components/BlogPostList'
 import {ErrorBlock} from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
 import {getRootMeta} from '~/utils/get-root-meta'

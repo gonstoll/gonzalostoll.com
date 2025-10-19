@@ -7,7 +7,7 @@ import type {HeadersFunction} from '@vercel/remix'
 import {json} from '@vercel/remix'
 import {cacheHeader} from 'pretty-cache-header'
 import {HomeBio} from '~/components/HomeBio'
-import BlogPostList from '~/components/BlogPostList'
+import {BlogPostList} from '~/components/BlogPostList'
 import {ErrorBlock} from '~/components/ErrorBlock'
 import {getAllPosts} from '~/models/blog.server'
 

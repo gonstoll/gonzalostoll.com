@@ -6,7 +6,7 @@ type Props = {
   isHome?: boolean
 }
 
-export default function BlogPostList({posts, isHome}: Props) {
+export function BlogPostList({posts, isHome}: Props) {
   return (
     <>
       {posts?.map(post => (
