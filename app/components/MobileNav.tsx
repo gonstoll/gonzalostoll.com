@@ -24,7 +24,7 @@ function useStickyHeader() {
   return {isVisible}
 }
 
-export default function MobileNav() {
+export function MobileNav() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const {isVisible} = useStickyHeader()
 
@@ -40,7 +40,7 @@ export default function MobileNav() {
     <header
       className={classNames(
         'sticky z-10 mt-5 flex items-center justify-between bg-white px-5 py-4 transition-top duration-300 dark:bg-black sm:px-10 lg:hidden',
-        {'top-0': isVisible, '-top-20': !isVisible}
+        {'top-0': isVisible, '-top-20': !isVisible},
       )}
     >
       <Link to="/" onClick={() => setIsMenuOpen(false)}>
@@ -58,7 +58,7 @@ export default function MobileNav() {
             {
               'before:rotate-45 after:-rotate-45': isMenuOpen,
               'before:-translate-y-2 after:translate-y-2': !isMenuOpen,
-            }
+            },
           )}
         >
           <p className="hidden" aria-hidden>
@@ -72,7 +72,7 @@ export default function MobileNav() {
           {
             'top-0 opacity-100': isMenuOpen,
             '-top-full opacity-70': !isMenuOpen,
-          }
+          },
         )}
       >
         <NavLinks
