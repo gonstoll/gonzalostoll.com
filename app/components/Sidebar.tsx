@@ -1,7 +1,7 @@
 import {Link} from '@remix-run/react'
 import {NavLinks} from './NavLinks'
 
-export default function Sidebar() {
+export function Sidebar() {
   return (
     <header className="fixed bottom-10 left-10 top-10 hidden w-64 lg:block">
       <div className="flex h-full flex-col">
